@@ -2,6 +2,16 @@
 # - No feature expansion
 # - No imputation (assumes none needed, as you confirmed)
 # - Metrics: MAE (lower better), RMSE (lower), R² (higher ~ "accuracy" for regression), Poisson deviance (lower)
+
+'''
+Apply three feature-selection methods:
+
+1- Univariate mutual information (SelectKBest)
+
+2- L1 (Lasso) model-based selection
+
+3- Random-Forest importance (SelectFromModel)
+'''
 # -------------------------------------------------------------------------
 
 import os

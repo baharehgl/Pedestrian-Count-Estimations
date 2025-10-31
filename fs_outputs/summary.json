@@ -1,0 +1,23 @@
+{
+  "best_method": "RF_Importance_Select+RF",
+  "oof_metrics": {
+    "MAE": 57.8494813541134,
+    "RMSE": 90.4256166998651,
+    "R2": 0.6284067523511829,
+    "PoissonDeviance": 51.36536518119394
+  },
+  "cv_table_path": "./fs_outputs\\feature_selection_cv_results.csv",
+  "plots": {
+    "bar": "./fs_outputs\\fs_metrics_bar.png",
+    "pred_vs_actual": "./fs_outputs\\fs_best_pred_vs_actual.png"
+  },
+  "config": {
+    "processed_dir": "./processed",
+    "target_col": "pm_tot",
+    "n_samples": 101,
+    "n_features_before": 71,
+    "k_best": 15,
+    "cv_splits": 5,
+    "cv_repeats": 5
+  }
+}
