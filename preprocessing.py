@@ -15,8 +15,6 @@ Outputs:
   - y.csv          -> target column only
   - meta.json      -> simple manifest (no imputation performed)
 
-Usage:
-  python preprocessing.py --input ./df1_v1a_out.csv --output ./processed --target pm_tot
 """
 
 import argparse
