@@ -6,7 +6,7 @@
   "EPOCHS": 400,
   "BATCH_SIZE": 16,
   "LR": 0.001,
-  "N_SYNTH": 300,
+  "N_SYNTH": 100,
   "input_dim": 71,
-  "reconstruction_MSE_scaled": 0.07824507355690002
+  "reconstruction_MSE_scaled": 0.07775168865919113
 }
