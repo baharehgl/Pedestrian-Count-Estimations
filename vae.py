@@ -42,7 +42,7 @@ HIDDEN_DIM = 32                        # VAE hidden layer size
 EPOCHS = 400                           # train epochs for VAE
 BATCH_SIZE = 16
 LR = 1e-3                              # learning rate for VAE
-N_SYNTH = 300                          # number of synthetic samples to generate
+N_SYNTH = 100                          # number of synthetic samples to generate
 # ----------------------------------------------------
 
 # Helper to compute metrics and print

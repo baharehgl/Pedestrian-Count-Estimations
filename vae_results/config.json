@@ -1,0 +1,12 @@
+{
+  "TEST_SIZE": 0.2,
+  "RANDOM_STATE": 42,
+  "LATENT_DIM": 8,
+  "HIDDEN_DIM": 32,
+  "EPOCHS": 400,
+  "BATCH_SIZE": 16,
+  "LR": 0.001,
+  "N_SYNTH": 300,
+  "input_dim": 71,
+  "reconstruction_MSE_scaled": 0.07824507355690002
+}
