@@ -1,26 +1,17 @@
 """
 VAE-based data augmentation for pedestrian count prediction (pm_tot)
 
-Pipeline:
-  1) Load preprocessed numeric data: processed/X.csv, processed/y.csv
-  2) Train/test split on REAL data (e.g., 80/20)
-  3) Baseline model: RandomForest on real train -> evaluate on real test
-  4) Train a small VAE on scaled X_train
-  5) Sample synthetic feature vectors X_synth from VAE
-  6) Label X_synth using baseline RF (pseudo-labels)
-  7) Train a new RF on (X_train + X_synth, y_train + y_synth_pseudo)
-  8) Evaluate augmented RF on the same real test set
+All results are saved in a SINGLE folder: RESULTS_DIR.
 
-You can compare:
-  - Baseline RF vs RF + VAE-augmented data
-
-NOTE:
-  - VAE learns only p(X); we use RF as "teacher" to give labels.
-  - This is experimental (data is tiny ~100 rows), but illustrates how generative AI fits in.
-
+Outputs inside RESULTS_DIR:
+  - metrics.csv
+  - metrics.json
+  - baseline_vs_augmented_bar.png
+  - config.json
 """
 
 import os
+import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -39,6 +30,10 @@ PROCESSED_DIR = "./processed"          # folder from your previous preprocessing
 X_PATH = os.path.join(PROCESSED_DIR, "X.csv")
 Y_PATH = os.path.join(PROCESSED_DIR, "y.csv")
 TARGET_COL = "pm_tot"                  # name used in preprocessing
+
+RESULTS_DIR = "./vae_results"          # <<< ALL OUTPUTS GO HERE
+os.makedirs(RESULTS_DIR, exist_ok=True)
+
 TEST_SIZE = 0.2                        # 20% real test set
 RANDOM_STATE = 42
 
@@ -49,6 +44,14 @@ BATCH_SIZE = 16
 LR = 1e-3                              # learning rate for VAE
 N_SYNTH = 300                          # number of synthetic samples to generate
 # ----------------------------------------------------
+
+# Helper to compute metrics and print
+def compute_metrics(name, y_true, y_pred):
+    mae = mean_absolute_error(y_true, y_pred)
+    rmse = np.sqrt(mean_squared_error(y_true, y_pred))
+    r2 = r2_score(y_true, y_pred)
+    print(f"[{name}] MAE={mae:.3f}, RMSE={rmse:.3f}, R²={r2:.3f}")
+    return {"model": name, "MAE": mae, "RMSE": rmse, "R2": r2}
 
 
 # =============== 1) Load data ========================
@@ -81,14 +84,7 @@ rf_base = RandomForestRegressor(
 rf_base.fit(X_train, y_train)
 y_pred_base = rf_base.predict(X_test)
 
-def print_metrics(name, y_true, y_pred):
-    mae = mean_absolute_error(y_true, y_pred)
-    rmse = np.sqrt(mean_squared_error(y_true, y_pred))
-    r2 = r2_score(y_true, y_pred)
-    print(f"[{name}] MAE={mae:.3f}, RMSE={rmse:.3f}, R²={r2:.3f}")
-    return mae, rmse, r2
-
-print_metrics("Baseline RF (real only)", y_test, y_pred_base)
+baseline_metrics = compute_metrics("Baseline_RF_real_only", y_test, y_pred_base)
 
 
 # =============== 3) VAE definition ============================
@@ -133,24 +129,22 @@ class VAE(nn.Module):
 
 
 def vae_loss(recon_x, x, mu, logvar):
-    # Reconstruction (MSE) + KL divergence
+    # Reconstruction (MSE) + small KL penalty
     recon_loss = nn.functional.mse_loss(recon_x, x, reduction='mean')
-    # KL: D_KL(q(z|x) || p(z)) with p ~ N(0, I)
     kld = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
     kld /= x.shape[0]  # average per batch
-    return recon_loss + 1e-3 * kld  # small KL weight, can tune
+    return recon_loss + 1e-3 * kld
 
 
 # =============== 4) Train VAE on scaled X_train ====================
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)  # not used by VAE, but could be useful
+X_test_scaled = scaler.transform(X_test)  # not used by VAE directly, but available
 
 vae = VAE(input_dim=input_dim, hidden_dim=HIDDEN_DIM, latent_dim=LATENT_DIM).to(device)
 optimizer = optim.Adam(vae.parameters(), lr=LR)
 
 X_train_tensor = torch.tensor(X_train_scaled, dtype=torch.float32).to(device)
-
 n_batches = int(np.ceil(X_train_tensor.shape[0] / BATCH_SIZE))
 
 vae.train()
@@ -174,7 +168,6 @@ for epoch in range(1, EPOCHS + 1):
 
 vae.eval()
 
-# Optional: check reconstruction quality roughly
 with torch.no_grad():
     recon_all, _, _ = vae(X_train_tensor)
 recon_error = nn.functional.mse_loss(recon_all, X_train_tensor).item()
@@ -186,19 +179,16 @@ vae.eval()
 n_synth = N_SYNTH
 
 with torch.no_grad():
-    # sample z ~ N(0, I)
-    z = torch.randn(n_synth, LATENT_DIM).to(device)
+    z = torch.randn(n_synth, LATENT_DIM).to(device)  # z ~ N(0, I)
     X_synth_scaled = vae.decode(z)
     X_synth_scaled = X_synth_scaled.cpu().numpy()
 
 # inverse scale to original feature space
 X_synth = scaler.inverse_transform(X_synth_scaled)
-
 print(f"[INFO] Generated {X_synth.shape[0]} synthetic feature vectors from VAE.")
 
 
 # =============== 6) Pseudo-label synthetic samples ==================
-# Use baseline RF as "teacher"
 y_synth_pseudo = rf_base.predict(X_synth)
 print("[INFO] Pseudo-labels for synthetic data generated via baseline RF.")
 
@@ -216,19 +206,50 @@ rf_aug = RandomForestRegressor(
 rf_aug.fit(X_aug, y_aug)
 y_pred_aug = rf_aug.predict(X_test)
 
-print_metrics("Augmented RF (real + VAE synthetic)", y_test, y_pred_aug)
+aug_metrics = compute_metrics("RF_with_VAE_synthetic", y_test, y_pred_aug)
 
 
-# =============== 8) Simple comparison plot ==========================
+# =============== 8) Save results in ONE folder ======================
+
+# 1) Metrics table (CSV)
+metrics_df = pd.DataFrame([
+    baseline_metrics,
+    aug_metrics,
+])
+metrics_csv_path = os.path.join(RESULTS_DIR, "metrics.csv")
+metrics_df.to_csv(metrics_csv_path, index=False)
+
+# 2) Metrics JSON
+metrics_json_path = os.path.join(RESULTS_DIR, "metrics.json")
+with open(metrics_json_path, "w", encoding="utf-8") as f:
+    json.dump(
+        {"baseline": baseline_metrics, "augmented": aug_metrics},
+        f,
+        ensure_ascii=False,
+        indent=2
+    )
+
+# 3) Config JSON (for reproducibility)
+config = {
+    "TEST_SIZE": TEST_SIZE,
+    "RANDOM_STATE": RANDOM_STATE,
+    "LATENT_DIM": LATENT_DIM,
+    "HIDDEN_DIM": HIDDEN_DIM,
+    "EPOCHS": EPOCHS,
+    "BATCH_SIZE": BATCH_SIZE,
+    "LR": LR,
+    "N_SYNTH": N_SYNTH,
+    "input_dim": input_dim,
+    "reconstruction_MSE_scaled": recon_error,
+}
+config_path = os.path.join(RESULTS_DIR, "config.json")
+with open(config_path, "w", encoding="utf-8") as f:
+    json.dump(config, f, ensure_ascii=False, indent=2)
+
+# 4) Comparison bar plot (saved as PNG)
 labels = ["Baseline RF", "RF + VAE synthetic"]
-mae_vals = [
-    mean_absolute_error(y_test, y_pred_base),
-    mean_absolute_error(y_test, y_pred_aug),
-]
-rmse_vals = [
-    np.sqrt(mean_squared_error(y_test, y_pred_base)),
-    np.sqrt(mean_squared_error(y_test, y_pred_aug)),
-]
+mae_vals = [baseline_metrics["MAE"], aug_metrics["MAE"]]
+rmse_vals = [baseline_metrics["RMSE"], aug_metrics["RMSE"]]
 
 x = np.arange(len(labels))
 width = 0.35
@@ -241,4 +262,13 @@ plt.ylabel("Error")
 plt.title("Baseline vs VAE-Augmented RF\n(Errors on REAL test set)")
 plt.legend()
 plt.tight_layout()
+
+plot_path = os.path.join(RESULTS_DIR, "baseline_vs_augmented_bar.png")
+plt.savefig(plot_path, dpi=150)
 plt.show()
+
+print("\n[INFO] All results saved in:", os.path.abspath(RESULTS_DIR))
+print(" -", metrics_csv_path)
+print(" -", metrics_json_path)
+print(" -", config_path)
+print(" -", plot_path)
