@@ -15,3 +15,10 @@ plt.title("Distribution of pm_tot")
 plt.tight_layout()
 plt.savefig("slide3_pm_tot_hist.png", dpi=200)
 plt.show()
+
+import pandas as pd
+df = pd.read_csv("df1_v1a_out.csv")
+df_num = df.select_dtypes(include="number")
+
+print("All columns:", df.shape[1])
+print("Numeric columns:", df_num.shape[1])
