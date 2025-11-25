@@ -1,0 +1,384 @@
+feature_selection_method,feature_name
+All_features,num__Number of
+All_features,num__stv_mi
+All_features,num__stv_ann
+All_features,num__swlk_cov
+All_features,num__crossing_island
+All_features,num__bus_stops
+All_features,num__isect_dens
+All_features,num__hh
+All_features,num__zch
+All_features,num__pop_dens
+All_features,num__med_inc
+All_features,num__job_dens
+All_features,num__dist_CBD
+All_features,num__Commercial Area
+All_features,num__Retail Area
+All_features,num__Park Area
+All_features,num__swlk_len
+All_features,num__sig_int
+All_features,num__sig_dens
+All_features,num__tstop_dens
+All_features,num__walk_comm
+All_features,num__stv_mi_em
+All_features,num__swlk_len_em
+All_features,num__bus_stops_em
+All_features,num__sig_int_em
+All_features,num__sig_dens_em
+All_features,num__isect_dens_em
+All_features,num__hh_em
+All_features,num__zch_em
+All_features,num__med_inc_em
+All_features,num__pop_dens_em
+All_features,num__walk_comm_em
+All_features,num__job_dens_em
+All_features,num__Commercial Area_em
+All_features,num__Retail Area_em
+All_features,num__Park Area_em
+All_features,num__transit_stops_em
+All_features,num__stv_mi_qm
+All_features,num__swlk_len_qm
+All_features,num__bus_stops_qm
+All_features,num__sig_int_qm
+All_features,num__sig_dens_qm
+All_features,num__isect_dens_qm
+All_features,num__hh_qm
+All_features,num__zch_qm
+All_features,num__med_inc_qm
+All_features,num__pop_dens_qm
+All_features,num__walk_comm_qm
+All_features,num__job_dens_qm
+All_features,num__Commercial Area_qm
+All_features,num__Retail Area_qm
+All_features,num__Park Area_qm
+All_features,num__transit_stops_qm
+All_features,num__stv_mi_hm
+All_features,num__swlk_len_hm
+All_features,num__bus_stops_hm
+All_features,num__sig_int_hm
+All_features,num__sig_dens_hm
+All_features,num__isect_dens_hm
+All_features,num__hh_hm
+All_features,num__zch_hm
+All_features,num__med_inc_hm
+All_features,num__pop_dens_hm
+All_features,num__walk_comm_hm
+All_features,num__job_dens_hm
+All_features,num__Commercial Area_hm
+All_features,num__Retail Area_hm
+All_features,num__Park Area_hm
+All_features,num__transit_stops_hm
+All_features,cat__Street Nam_NE 122ND AVE - DRIVEWAYS
+All_features,cat__Street Nam_NE 26TH AVE - E BURNSIDE ST
+All_features,cat__Street Nam_NE 33RD AVE - I-84 EB EXTO NE 33RD AVE
+All_features,cat__Street Nam_NE 33RD AVE - I-84 WB ENFR NE 33RD AVE
+All_features,cat__Street Nam_NE 33RD AVE -NE BROADWAY
+All_features,cat__Street Nam_NE 41ST AVE - NE ALAMEDA ST
+All_features,cat__Street Nam_NE 57TH AVE - NE STANTON ST
+All_features,cat__Street Nam_NE 82ND AVE - E BURNSIDE ST ST
+All_features,cat__Street Nam_NE 82ND AVE - MCDANIEL HIGH D-W
+All_features,cat__Street Nam_NE 82ND AVE - NE BEECH ST
+All_features,cat__Street Nam_NE 82ND AVE - NE DAVIS ST
+All_features,cat__Street Nam_NE 82ND AVE - NE GLISAN ST ST
+All_features,cat__Street Nam_NE 82ND AVE - NE HOLLADAY ST
+All_features,cat__Street Nam_NE 82ND AVE - NE MULTNOMAH ST
+All_features,cat__Street Nam_NE 82ND AVE - NE OREGON ST ST
+All_features,cat__Street Nam_NE 82ND AVE - NE PACIFIC ST ST
+All_features,cat__Street Nam_NE 82ND AVE - NE RUSSELL ST ST
+All_features,cat__Street Nam_NE 82ND AVE - NE SISKIYOU ST
+All_features,cat__Street Nam_NE 82ND AVE - NE THOMPSON ST
+All_features,cat__Street Nam_NE 82ND AVE - NE WASCO ST
+All_features,cat__Street Nam_NE 9TH AVE - NE AINSWORTH ST
+All_features,cat__Street Nam_NE ALAMEDA ST - NE FREMONT ST
+All_features,cat__Street Nam_NE MARTIN LUTHER KING JR BLVD - NE BRYANT ST
+All_features,cat__Street Nam_NE MARTIN LUTHER KING JR BLVD - NE EMERSON ST
+All_features,cat__Street Nam_NE MARTIN LUTHER KING JR BLVD - NE FAILING ST
+All_features,cat__Street Nam_NE MARTIN LUTHER KING JR BLVD - NE HOLMAN ST
+All_features,cat__Street Nam_NW 23RD PL - NW VAUGHN ST
+All_features,cat__Street Nam_S MOODY AVE - S GAINES ST
+All_features,cat__Street Nam_SE 100TH AVE - SE STARK ST
+All_features,cat__Street Nam_SE 100TH AVE - SE WASHINGTON ST
+All_features,cat__Street Nam_SE 105TH AVE - SE STARK ST
+All_features,cat__Street Nam_SE 105TH AVE - SE WASHINGTON ST
+All_features,cat__Street Nam_SE 111TH AVE - SE FOSTER RD
+All_features,cat__Street Nam_SE 111TH AVE - SE STARK ST
+All_features,cat__Street Nam_SE 119TH AVE - SE STARK ST
+All_features,cat__Street Nam_SE 124TH AVE - SE ASH ST
+All_features,cat__Street Nam_SE 141ST AVE - SE STARK ST
+All_features,cat__Street Nam_SE 151ST AVE - SE STARK ST
+All_features,cat__Street Nam_SE 33RD AVE - SE POWELL BLVD
+All_features,cat__Street Nam_SE 33RD AVE - SE STARK ST
+All_features,cat__Street Nam_SE 45TH - SE HARNEY DR
+All_features,cat__Street Nam_SE 52ND AVE - SE FOSTER RD
+All_features,cat__Street Nam_SE 82ND AVE - SE ASH ST
+All_features,cat__Street Nam_SE 82ND AVE - SE CENTER ST
+All_features,cat__Street Nam_SE 82ND AVE - SE CLATSOP ST
+All_features,cat__Street Nam_SE 82ND AVE - SE COOPER ST
+All_features,cat__Street Nam_SE 82ND AVE - SE DIVISION ST
+All_features,cat__Street Nam_SE 82ND AVE - SE FLAVEL ST
+All_features,cat__Street Nam_SE 82ND AVE - SE FRANCIS ST
+All_features,cat__Street Nam_SE 82ND AVE - SE FRANKLIN ST
+All_features,cat__Street Nam_SE 82ND AVE - SE HAWTHORNE BLVD
+All_features,cat__Street Nam_SE 82ND AVE - SE HOLGATE BLVD
+All_features,cat__Street Nam_SE 82ND AVE - SE INSLEY ST
+All_features,cat__Street Nam_SE 82ND AVE - SE LAFAYETTE ST
+All_features,cat__Street Nam_SE 82ND AVE - SE POWELL BLVD
+All_features,cat__Street Nam_SE 82ND AVE - SE RAMONA ST
+All_features,cat__Street Nam_SE 82ND AVE - SE RAYMOND ST
+All_features,cat__Street Nam_SE 82ND AVE - SE RHINE ST
+All_features,cat__Street Nam_SE 82ND AVE - SE TOLMAN ST
+All_features,cat__Street Nam_SE 82ND AVE - SE WASHINTON ST
+All_features,cat__Street Nam_SE 96TH AVE - SE FOSTER RD
+All_features,cat__Street Nam_SE 96TH AVE - SE WOODSTOCK BLVD
+All_features,cat__Street Nam_SE GRAND AVE - SE ANKENY ST
+All_features,cat__Street Nam_SE MARTIN LUTHER KING JR BLVD - SE ANKENY ST
+All_features,cat__Street Nam_SE MILWAUKIE AVE - SE HOLGATE BLVD
+All_features,cat__Street Nam_SW 4TH AVE - SW ALDER ST
+All_features,cat__Street Nam_SW 4TH AVE - SW CLAY ST
+All_features,cat__Street Nam_SW 4TH AVE - SW COLLEGE ST
+All_features,cat__Street Nam_SW 4TH AVE - SW HALL ST
+All_features,cat__Street Nam_SW 4TH AVE - SW HARVEY MILK ST
+All_features,cat__Street Nam_SW 4TH AVE - SW LINCOLN ST
+All_features,cat__Street Nam_SW 4TH AVE - SW MADISON ST
+All_features,cat__Street Nam_SW 4TH AVE - SW MAIN ST
+All_features,cat__Street Nam_SW 4TH AVE - SW MARKET ST
+All_features,cat__Street Nam_SW 4TH AVE - SW TAYLOR ST
+All_features,cat__Street Nam_SW BERTHA CT - SW CAPITOL HWY
+All_features,cat__Street Nam_SW HOFFMAN AVE - SW BROADWAY DR
+All_features,cat__Street Nam_SW ST CLAIR AVE - W BURNSIDE ST
+All_features,cat__Street Nam_SW TERWILLIGER BLVD - SW CAPITOL HWY
+All_features,cat___Date_01-18-2022
+All_features,cat___Date_01-25-2022
+All_features,cat___Date_02-01-2022
+All_features,cat___Date_02-15-2022
+All_features,cat___Date_02-16-2022
+All_features,cat___Date_03-15-2022
+All_features,cat___Date_03-16-2022
+All_features,cat___Date_03-17-2022
+All_features,cat___Date_03-30-2022
+All_features,cat___Date_03-31-2022
+All_features,cat___Date_04-07-2022
+All_features,cat___Date_04-18-2022
+All_features,cat___Date_04-19-2022
+All_features,cat___Date_04-20-2022
+All_features,cat___Date_04-25-2022
+All_features,cat___Date_04-26-2022
+All_features,cat___Date_04-27-2022
+All_features,cat___Date_04-28-2022
+All_features,cat___Date_05-02-2022
+All_features,cat___Date_05-03-2022
+All_features,cat___Date_05-05-2022
+All_features,cat___Date_05-09-2022
+All_features,cat___Date_05-10-2022
+All_features,cat___Date_05-11-2022
+All_features,cat___Date_05-12-2022
+All_features,cat___Date_05-17-2022
+All_features,cat___Date_05-18-2022
+All_features,cat___Date_05-19-2022
+All_features,cat___Date_05-23-2022
+All_features,cat___Date_05-25-2022
+All_features,cat___Date_05-26-2022
+All_features,cat___Date_06-07-2022
+All_features,cat___Date_06-08-2022
+All_features,cat___Date_06-14-2022
+All_features,cat___Date_07-19-2022
+All_features,cat___Date_07-20-2022
+All_features,cat___Date_08-02-2022
+All_features,cat___Date_08-03-2022
+All_features,cat___Date_08-04-2022
+All_features,cat___Date_08-11-2022
+All_features,cat___Date_08-16-2022
+All_features,cat___Date_08-17-2022
+All_features,cat___Date_08-23-2022
+All_features,cat___Date_08-24-2022
+All_features,cat___Date_08-25-2022
+All_features,cat___Date_08-31-2022
+All_features,cat___Date_09-01-2022
+All_features,cat___Date_09-13-2022
+All_features,cat___Date_09-14-2022
+All_features,cat___Date_09-15-2022
+All_features,cat___Date_10-04-2022
+All_features,cat___Date_10-05-2022
+All_features,cat___Date_10-06-2022
+All_features,cat___Date_10-12-2022
+All_features,cat___Date_10-13-2022
+All_features,cat___Date_10-25-2022
+All_features,cat___Date_10-26-2022
+All_features,cat__season_spring
+All_features,cat__season_summer
+All_features,cat__season_winter
+All_features,cat__geometry_POINT (7638614.184495061 668056.7456152928)
+All_features,cat__geometry_POINT (7639139.9680387955 684550.6030384026)
+All_features,cat__geometry_POINT (7641222.60948616 668761.0244433047)
+All_features,cat__geometry_POINT (7641892.89622898 677657.0444327509)
+All_features,cat__geometry_POINT (7642798.588646114 678864.8912369794)
+All_features,cat__geometry_POINT (7642851.883339196 679190.0829409123)
+All_features,cat__geometry_POINT (7642994.62969493 679531.6982965257)
+All_features,cat__geometry_POINT (7643390.276484385 680489.5916300706)
+All_features,cat__geometry_POINT (7643484.11458818 680733.4584886327)
+All_features,cat__geometry_POINT (7643778.527530063 681457.9240134481)
+All_features,cat__geometry_POINT (7643880.271428931 681695.0468604475)
+All_features,cat__geometry_POINT (7644078.607708571 682175.7078662955)
+All_features,cat__geometry_POINT (7644375.956279026 682896.886393864)
+All_features,cat__geometry_POINT (7644573.924188295 683377.7287512955)
+All_features,cat__geometry_POINT (7645257.307914916 674573.149624535)
+All_features,cat__geometry_POINT (7645797.582582668 688071.549466746)
+All_features,cat__geometry_POINT (7648102.102010552 683901.5174277502)
+All_features,cat__geometry_POINT (7648373.018589453 683892.9939038742)
+All_features,cat__geometry_POINT (7648432.473568734 694316.991559201)
+All_features,cat__geometry_POINT (7648567.257457024 698257.5458533814)
+All_features,cat__geometry_POINT (7648640.954201903 700475.5039092912)
+All_features,cat__geometry_POINT (7648704.155224582 702499.9371694238)
+All_features,cat__geometry_POINT (7649982.134081863 699935.4842671915)
+All_features,cat__geometry_POINT (7650512.853788681 672204.5564195443)
+All_features,cat__geometry_POINT (7653870.617806076 683980.2296770186)
+All_features,cat__geometry_POINT (7655611.927259648 674427.3316265709)
+All_features,cat__geometry_POINT (7655975.350141741 682628.6674195991)
+All_features,cat__geometry_POINT (7656169.720026974 688143.0991836545)
+All_features,cat__geometry_POINT (7656182.419385714 687836.1980141946)
+All_features,cat__geometry_POINT (7656195.824264375 688404.8470776014)
+All_features,cat__geometry_POINT (7657784.207388474 693150.6742648354)
+All_features,cat__geometry_POINT (7658818.557411126 692076.5799118485)
+All_features,cat__geometry_POINT (7659295.353361602 661843.9581401887)
+All_features,cat__geometry_POINT (7661362.511918548 673883.135231078)
+All_features,cat__geometry_POINT (7662956.677240785 691343.658870015)
+All_features,cat__geometry_POINT (7668726.898874525 661219.8593757321)
+All_features,cat__geometry_POINT (7668794.917048318 663822.7304749566)
+All_features,cat__geometry_POINT (7668834.327011705 665595.1247213383)
+All_features,cat__geometry_POINT (7668879.551559852 667098.7389370082)
+All_features,cat__geometry_POINT (7668923.614324498 668187.7267878266)
+All_features,cat__geometry_POINT (7668961.868171618 669243.8786697104)
+All_features,cat__geometry_POINT (7669006.089618878 670353.3875842832)
+All_features,cat__geometry_POINT (7669057.361108489 671694.3351075406)
+All_features,cat__geometry_POINT (7669098.595922073 672852.0155333045)
+All_features,cat__geometry_POINT (7669105.997333084 673101.9236660923)
+All_features,cat__geometry_POINT (7669131.465894409 673851.4553784274)
+All_features,cat__geometry_POINT (7669140.227442207 674103.806090207)
+All_features,cat__geometry_POINT (7669149.278019073 674300.56121083)
+All_features,cat__geometry_POINT (7669160.878852423 674710.1380678854)
+All_features,cat__geometry_POINT (7669226.987167472 677004.598150784)
+All_features,cat__geometry_POINT (7669266.742832296 681949.0467380835)
+All_features,cat__geometry_POINT (7669283.0021341285 682938.9429567574)
+All_features,cat__geometry_POINT (7669290.613232894 679698.2187098371)
+All_features,cat__geometry_POINT (7669298.740400243 683550.8699607184)
+All_features,cat__geometry_POINT (7669317.753629022 684208.114928351)
+All_features,cat__geometry_POINT (7669335.427436596 684868.7811895453)
+All_features,cat__geometry_POINT (7669356.593034482 685588.4115179206)
+All_features,cat__geometry_POINT (7669367.881353362 685985.6192383884)
+All_features,cat__geometry_POINT (7669374.533672608 686246.9769729)
+All_features,cat__geometry_POINT (7669389.002127684 686763.4209106965)
+All_features,cat__geometry_POINT (7669397.962028759 687057.1707859075)
+All_features,cat__geometry_POINT (7669480.647010905 689358.2955390639)
+All_features,cat__geometry_POINT (7669511.101899105 690139.7205849313)
+All_features,cat__geometry_POINT (7669514.327442543 690761.9792394347)
+All_features,cat__geometry_POINT (7669562.6915953085 691469.766219068)
+All_features,cat__geometry_POINT (7669638.683571011 693312.9159145193)
+All_features,cat__geometry_POINT (7672547.392761134 667138.0355556713)
+All_features,cat__geometry_POINT (7672551.988890018 667410.9640035812)
+All_features,cat__geometry_POINT (7674061.735055709 681805.438962383)
+All_features,cat__geometry_POINT (7674070.400260484 682063.8819535148)
+All_features,cat__geometry_POINT (7675258.366398688 681772.0532715073)
+All_features,cat__geometry_POINT (7675271.304699868 682027.3226101433)
+All_features,cat__geometry_POINT (7676471.058690218 666319.9472820596)
+All_features,cat__geometry_POINT (7676878.340316444 681970.083520375)
+All_features,cat__geometry_POINT (7679176.274415383 681921.8270006366)
+All_features,cat__geometry_POINT (7679901.646664938 684029.212473106)
+All_features,cat__geometry_POINT (7680519.460497102 682701.304391221)
+All_features,cat__geometry_POINT (7684792.89693528 681817.1928111139)
+All_features,cat__geometry_POINT (7687439.836466391 681767.0491015881)
+All_features,cat__class_type_mot-sec
+All_features,cat__class_type_pri-pri
+All_features,cat__class_type_pri-res
+All_features,cat__class_type_pri-sec
+All_features,cat__class_type_pri-ter
+All_features,cat__class_type_res-res
+All_features,cat__class_type_res-sec
+All_features,cat__class_type_res-ter
+All_features,cat__class_type_sec-sec
+All_features,cat__class_type_sec-ter
+All_features,cat__class_type_tru-tru
+All_features,cat__speed_type_20 mph-25 mph
+All_features,cat__speed_type_20 mph-30 mph
+All_features,cat__speed_type_25 mph-30 mph
+All_features,cat__speed_type_25 mph-55 mph
+All_features,cat__speed_type_30 mph-30 mph
+All_features,cat__speed_type_30 mph-35 mph
+All_features,cat__speed_type_35 mph-35 mph
+All_features,cat__crossing_class_signalized
+All_features,cat__crossing_class_unmarked
+MutualInformation,num__dist_CBD
+MutualInformation,num__transit_stops_hm
+MutualInformation,num__stv_mi_hm
+MutualInformation,num__isect_dens_em
+MutualInformation,num__walk_comm_hm
+MutualInformation,num__job_dens_qm
+MutualInformation,num__sig_dens_qm
+MutualInformation,num__hh_hm
+MutualInformation,num__sig_int_qm
+MutualInformation,num__transit_stops_em
+MutualInformation,num__job_dens_em
+MutualInformation,num__job_dens_hm
+MutualInformation,num__sig_int_hm
+MutualInformation,num__sig_dens_hm
+MutualInformation,num__bus_stops_hm
+MutualInformation,num__job_dens
+MutualInformation,num__zch_qm
+MutualInformation,num__zch_em
+MutualInformation,num__isect_dens_hm
+MutualInformation,num__stv_ann
+L1_Lasso,num__Number of
+L1_Lasso,num__stv_mi
+L1_Lasso,num__Commercial Area_em
+L1_Lasso,num__Retail Area_em
+L1_Lasso,num__transit_stops_em
+L1_Lasso,num__sig_int_qm
+L1_Lasso,num__transit_stops_qm
+L1_Lasso,num__stv_mi_hm
+L1_Lasso,num__job_dens_hm
+L1_Lasso,num__Park Area_hm
+L1_Lasso,cat__Street Nam_NE ALAMEDA ST - NE FREMONT ST
+L1_Lasso,cat__Street Nam_S MOODY AVE - S GAINES ST
+L1_Lasso,cat__Street Nam_SE 82ND AVE - SE HOLGATE BLVD
+L1_Lasso,cat__Street Nam_SE 82ND AVE - SE POWELL BLVD
+L1_Lasso,cat__Street Nam_SW 4TH AVE - SW ALDER ST
+L1_Lasso,cat__Street Nam_SW 4TH AVE - SW COLLEGE ST
+L1_Lasso,cat__Street Nam_SW 4TH AVE - SW HARVEY MILK ST
+L1_Lasso,cat__Street Nam_SW 4TH AVE - SW MAIN ST
+L1_Lasso,cat__Street Nam_SW 4TH AVE - SW TAYLOR ST
+L1_Lasso,cat__Street Nam_SW HOFFMAN AVE - SW BROADWAY DR
+L1_Lasso,cat___Date_08-31-2022
+L1_Lasso,cat___Date_09-01-2022
+L1_Lasso,cat___Date_10-04-2022
+L1_Lasso,cat___Date_10-05-2022
+L1_Lasso,cat__geometry_POINT (7641892.89622898 677657.0444327509)
+L1_Lasso,cat__geometry_POINT (7642851.883339196 679190.0829409123)
+L1_Lasso,cat__geometry_POINT (7644078.607708571 682175.7078662955)
+L1_Lasso,cat__geometry_POINT (7644375.956279026 682896.886393864)
+L1_Lasso,cat__geometry_POINT (7644573.924188295 683377.7287512955)
+L1_Lasso,cat__geometry_POINT (7657784.207388474 693150.6742648354)
+L1_Lasso,cat__geometry_POINT (7669057.361108489 671694.3351075406)
+L1_Lasso,cat__geometry_POINT (7669149.278019073 674300.56121083)
+L1_Lasso,cat__class_type_mot-sec
+L1_Lasso,cat__class_type_pri-sec
+L1_Lasso,cat__speed_type_25 mph-55 mph
+L1_Lasso,cat__crossing_class_unmarked
+RandomForest,num__job_dens_em
+RandomForest,num__stv_mi_hm
+RandomForest,num__sig_int_qm
+RandomForest,num__sig_dens_hm
+RandomForest,num__sig_int_hm
+RandomForest,num__job_dens_qm
+RandomForest,num__job_dens_hm
+RandomForest,num__sig_dens_qm
+RandomForest,num__isect_dens_hm
+RandomForest,num__transit_stops_hm
+RandomForest,num__job_dens
+RandomForest,num__zch_qm
+RandomForest,num__walk_comm_hm
+RandomForest,num__stv_mi
+RandomForest,num__stv_ann
+RandomForest,num__sig_int_em
+RandomForest,num__sig_dens_em
+RandomForest,num__zch_hm
+RandomForest,num__dist_CBD
+RandomForest,num__Retail Area_em
