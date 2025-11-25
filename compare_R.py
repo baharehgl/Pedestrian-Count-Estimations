@@ -241,7 +241,7 @@ for stage_name, feature_cols, cat_cols in stage_definitions:
     rf_model.fit(X_train, y_train)
     y_pred_rf = rf_model.predict(X_test)
 
-    rf_r2   = mcfadden_pseudo_r2_poisson(y_test, y_pred_rf, y_train_mean)
+    rf_r2   = mcfadden_pseudo_r2_like_R(y_test, y_pred_rf, y_train_mean)
     rf_mape = mape(y_test, y_pred_rf)
     rf_rmse = rmse(y_test, y_pred_rf)
 
@@ -273,7 +273,7 @@ for stage_name, feature_cols, cat_cols in stage_definitions:
     hgb_model.fit(X_train, y_train)
     y_pred_hgb = hgb_model.predict(X_test)
 
-    hgb_r2   = mcfadden_pseudo_r2_poisson(y_test, y_pred_hgb, y_train_mean)
+    hgb_r2   = mcfadden_pseudo_r2_like_R(y_test, y_pred_rf, y_train_mean)
     hgb_mape = mape(y_test, y_pred_hgb)
     hgb_rmse = rmse(y_test, y_pred_hgb)
 
