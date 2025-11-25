@@ -294,3 +294,7 @@ print("\n" + "=" * 70)
 print("Summary table:")
 summary_df = pd.DataFrame(results)
 print(summary_df)
+
+# Save summary table 
+summary_df.to_csv("model_comparison_summary.csv", index=False)
+print("\nSaved summary to 'model_comparison_summary.csv'")
