@@ -81,9 +81,9 @@ def mcfadden_pseudo_r2_poisson(y_true, y_pred, y_null_mean):
 # -------------------------
 
 # If you want to use the raw file instead, replace with: 'df1_v1a_out.csv'
-#data_path = "processed.csv"
-PROCESSED_DIR = "./processed"
-data_path = os.path.join(PROCESSED_DIR, "processed.csv")
+data_path = "df1_v1a_out.csv"
+#PROCESSED_DIR = "./processed"
+#data_path = os.path.join(PROCESSED_DIR, "processed.csv")
 df = pd.read_csv(data_path)
 
 # we assume these columns exist: 'pm_tot', 'holdout', and all feature columns
