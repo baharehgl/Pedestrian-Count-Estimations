@@ -214,7 +214,7 @@ def make_preprocessor(X, categorical_cols):
 # -------------------------
 
 results = []
-
+'''
 for stage_name, feature_cols, cat_cols in stage_definitions:
     print("=" * 70)
     print(f"Stage: {stage_name}")
@@ -289,12 +289,100 @@ for stage_name, feature_cols, cat_cols in stage_definitions:
         "MAPE": hgb_mape,
         "RMSE": hgb_rmse
     })
+'''
+for stage_name, feature_cols, cat_cols in stage_definitions:
+    print("=" * 70)
+    print(f"Stage: {stage_name}")
+    print("Using features:", feature_cols)
+    print("Categorical:", cat_cols)
+
+    # subset X for this stage
+    X_train = train_df[feature_cols].copy()
+    X_test  = test_df[feature_cols].copy()
+
+    # build preprocessor
+    preprocessor = make_preprocessor(X_train, cat_cols)
+
+    # ---- Random Forest ----
+    rf_model = Pipeline(steps=[
+        ("preprocess", preprocessor),
+        ("model", RandomForestRegressor(
+            n_estimators=500,
+            random_state=42,
+            n_jobs=-1
+        ))
+    ])
+
+    rf_model.fit(X_train, y_train)
+
+    # predictions on TRAIN and TEST
+    y_train_pred_rf = rf_model.predict(X_train)
+    y_test_pred_rf  = rf_model.predict(X_test)
+
+    # R2 on TRAIN
+    rf_r2   = mcfadden_pseudo_r2_like_R(y_train, y_train_pred_rf, y_train_mean)
+    # MAPE/RMSE on TEST
+    rf_mape = mape(y_test, y_test_pred_rf)
+    rf_rmse = rmse(y_test, y_test_pred_rf)
+
+    print("\nRandom Forest:")
+    print(f"  McFadden pseudo-R2 (train): {rf_r2:.4f}")
+    print(f"  MAPE (test, %):            {rf_mape:.2f}")
+    print(f"  RMSE (test):               {rf_rmse:.4f}")
+
+    results.append({
+        "stage": stage_name,
+        "model": "RandomForest",
+        "pseudo_R2_train": rf_r2,
+        "MAPE_test": rf_mape,
+        "RMSE_test": rf_rmse
+    })
+
+    # ---- HistGradientBoosting (Poisson) ----
+    hgb_model = Pipeline(steps=[
+        ("preprocess", preprocessor),
+        ("model", HistGradientBoostingRegressor(
+            loss="poisson",
+            max_depth=None,
+            learning_rate=0.05,
+            max_iter=300,
+            random_state=42
+        ))
+    ])
+
+    hgb_model.fit(X_train, y_train)
+
+    # predictions on TRAIN and TEST
+    y_train_pred_hgb = hgb_model.predict(X_train)
+    y_test_pred_hgb  = hgb_model.predict(X_test)
+
+    # R2 on TRAIN
+    hgb_r2   = mcfadden_pseudo_r2_like_R(y_train, y_train_pred_hgb, y_train_mean)
+    # MAPE/RMSE on TEST
+    hgb_mape = mape(y_test, y_test_pred_hgb)
+    hgb_rmse = rmse(y_test, y_test_pred_hgb)
+
+    print("\nHistGradientBoosting (Poisson):")
+    print(f"  McFadden pseudo-R2 (train): {hgb_r2:.4f}")
+    print(f"  MAPE (test, %):            {hgb_mape:.2f}")
+    print(f"  RMSE (test):               {hgb_rmse:.4f}")
+
+    results.append({
+        "stage": stage_name,
+        "model": "HistGB_Poisson",
+        "pseudo_R2_train": hgb_r2,
+        "MAPE_test": hgb_mape,
+        "RMSE_test": hgb_rmse
+    })
+
+
+
 
 print("\n" + "=" * 70)
 print("Summary table:")
 summary_df = pd.DataFrame(results)
 print(summary_df)
 
-# Save summary table 
+# Save summary table
 summary_df.to_csv("model_comparison_summary.csv", index=False)
 print("\nSaved summary to 'model_comparison_summary.csv'")
