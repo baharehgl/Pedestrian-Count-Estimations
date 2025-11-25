@@ -41,39 +41,41 @@ def rmse(y_true, y_pred):
     return np.sqrt(mean_squared_error(y_true, y_pred))
 
 
-def mcfadden_pseudo_r2_poisson(y_true, y_pred, y_null_mean):
+def mcfadden_pseudo_r2_like_R(y_true, y_pred, y_null_mean):
     """
-    McFadden's pseudo-R2 for Poisson-type models:
-        R2 = 1 - (logLik_full / logLik_null)
+    Approximate the same pseudo-R2 as in R:
 
-    Here we approximate Poisson log-likelihood:
-        logLik = sum(y_i * log(lambda_i) - lambda_i)
-    The constant -log(y_i!) cancels in the ratio.
+        mf_r2 <- function(m) 1 - (m$deviance / m$null.deviance)
 
-    y_null_mean is the mean of y in the TRAIN set (scalar).
-    We can evaluate R2 on the TEST set using:
-        - y_true_test
-        - y_pred_test
-        - y_null_mean (from train)
+    but using Poisson deviance computed from predictions.
     """
     y_true = np.array(y_true, dtype=float)
     y_pred = np.array(y_pred, dtype=float)
 
     eps = 1e-9
-    lam_pred = np.clip(y_pred, eps, None)
-    lam_null = np.clip(float(y_null_mean), eps, None)
+    mu = np.clip(y_pred, eps, None)
+    mu0 = np.clip(float(y_null_mean), eps, None)
 
-    # full model log-likelihood
-    loglik_full = np.sum(y_true * np.log(lam_pred) - lam_pred)
+    def poisson_deviance(y, mu):
+        # Elementwise Poisson deviance
+        # D = 2 * sum( y * log(y/mu) - (y - mu) )
+        # Handle y == 0 safely.
+        y = np.array(y, dtype=float)
+        mu = np.array(mu, dtype=float)
+        term = np.where(
+            y == 0,
+            mu,  # limit of y*log(y/mu) as y -> 0 is 0, so D_i -> 2*mu
+            y * np.log(y / mu) - (y - mu)
+        )
+        return 2 * np.sum(term)
 
-    # null model log-likelihood (same mean lambda for all points)
-    loglik_null = np.sum(y_true * np.log(lam_null) - lam_null)
+    # deviance of your model (using predicted mu_i = y_pred)
+    dev_full = poisson_deviance(y_true, mu)
 
-    # to be safe if loglik_null is zero or positive
-    if loglik_null == 0:
-        return np.nan
+    # deviance of null model (all mu_i = y_null_mean)
+    dev_null = poisson_deviance(y_true, np.full_like(y_true, mu0))
 
-    return 1.0 - (loglik_full / loglik_null)
+    return 1.0 - (dev_full / dev_null)
 
 
 # -------------------------
