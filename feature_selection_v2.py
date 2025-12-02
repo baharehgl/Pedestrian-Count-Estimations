@@ -27,10 +27,11 @@ target_col = "pm_tot"
 split_col = "holdout"
 id_cols = ["site_id"]  # optional
 
-# All features = everything except pm_tot, holdout, and optional IDs
+# All features = everything except pm_tot, holdout, geometry, and optional IDs
 feature_cols = [
     c for c in df.columns
-    if c not in [target_col, split_col] + [c for c in id_cols if c in df.columns]
+    if c not in [target_col, split_col, "site_id", "geometry"]
+    #if c not in [target_col, split_col] + [c for c in id_cols if c in df.columns]
 ]
 
 X = df[feature_cols].copy()
