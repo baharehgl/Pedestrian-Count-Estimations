@@ -44,7 +44,8 @@ id_cols = ["site_id"]  # optional
 # All raw feature columns (before encoding)
 feature_cols = [
     c for c in df.columns
-    if c not in [target_col, split_col] + [c for c in id_cols if c in df.columns]
+    if c not in [target_col, split_col, "site_id", "geometry"]
+    # if c not in [target_col, split_col] + [c for c in id_cols if c in df.columns]
 ]
 
 X = df[feature_cols].copy()
