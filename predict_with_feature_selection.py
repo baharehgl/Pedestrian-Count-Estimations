@@ -41,12 +41,18 @@ target_col = "pm_tot"
 split_col = "holdout"
 id_cols = ["site_id"]  # optional
 
-# All raw feature columns (before encoding)
-feature_cols = [
-    c for c in df.columns
-    if c not in [target_col, split_col, "site_id", "geometry"]
-    # if c not in [target_col, split_col] + [c for c in id_cols if c in df.columns]
+# columns we explicitly do NOT want as features
+drop_cols = [
+    target_col,
+    split_col,
+    "site_id",     # ID
+    "geometry",    # WKT point string
+    "Street Nam",  # street name text column
+    "_Date"        # date as string (the one that became cat___Date_...)
 ]
+
+# All feature columns = everything except these
+feature_cols = [c for c in df.columns if c not in drop_cols]
 
 X = df[feature_cols].copy()
 y = df[target_col].values

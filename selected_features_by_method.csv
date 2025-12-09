@@ -68,142 +68,6 @@ All_features,num__Commercial Area_hm
 All_features,num__Retail Area_hm
 All_features,num__Park Area_hm
 All_features,num__transit_stops_hm
-All_features,cat__Street Nam_NE 122ND AVE - DRIVEWAYS
-All_features,cat__Street Nam_NE 26TH AVE - E BURNSIDE ST
-All_features,cat__Street Nam_NE 33RD AVE - I-84 EB EXTO NE 33RD AVE
-All_features,cat__Street Nam_NE 33RD AVE - I-84 WB ENFR NE 33RD AVE
-All_features,cat__Street Nam_NE 33RD AVE -NE BROADWAY
-All_features,cat__Street Nam_NE 41ST AVE - NE ALAMEDA ST
-All_features,cat__Street Nam_NE 57TH AVE - NE STANTON ST
-All_features,cat__Street Nam_NE 82ND AVE - E BURNSIDE ST ST
-All_features,cat__Street Nam_NE 82ND AVE - MCDANIEL HIGH D-W
-All_features,cat__Street Nam_NE 82ND AVE - NE BEECH ST
-All_features,cat__Street Nam_NE 82ND AVE - NE DAVIS ST
-All_features,cat__Street Nam_NE 82ND AVE - NE GLISAN ST ST
-All_features,cat__Street Nam_NE 82ND AVE - NE HOLLADAY ST
-All_features,cat__Street Nam_NE 82ND AVE - NE MULTNOMAH ST
-All_features,cat__Street Nam_NE 82ND AVE - NE OREGON ST ST
-All_features,cat__Street Nam_NE 82ND AVE - NE PACIFIC ST ST
-All_features,cat__Street Nam_NE 82ND AVE - NE RUSSELL ST ST
-All_features,cat__Street Nam_NE 82ND AVE - NE SISKIYOU ST
-All_features,cat__Street Nam_NE 82ND AVE - NE THOMPSON ST
-All_features,cat__Street Nam_NE 82ND AVE - NE WASCO ST
-All_features,cat__Street Nam_NE 9TH AVE - NE AINSWORTH ST
-All_features,cat__Street Nam_NE ALAMEDA ST - NE FREMONT ST
-All_features,cat__Street Nam_NE MARTIN LUTHER KING JR BLVD - NE BRYANT ST
-All_features,cat__Street Nam_NE MARTIN LUTHER KING JR BLVD - NE EMERSON ST
-All_features,cat__Street Nam_NE MARTIN LUTHER KING JR BLVD - NE FAILING ST
-All_features,cat__Street Nam_NE MARTIN LUTHER KING JR BLVD - NE HOLMAN ST
-All_features,cat__Street Nam_NW 23RD PL - NW VAUGHN ST
-All_features,cat__Street Nam_S MOODY AVE - S GAINES ST
-All_features,cat__Street Nam_SE 100TH AVE - SE STARK ST
-All_features,cat__Street Nam_SE 100TH AVE - SE WASHINGTON ST
-All_features,cat__Street Nam_SE 105TH AVE - SE STARK ST
-All_features,cat__Street Nam_SE 105TH AVE - SE WASHINGTON ST
-All_features,cat__Street Nam_SE 111TH AVE - SE FOSTER RD
-All_features,cat__Street Nam_SE 111TH AVE - SE STARK ST
-All_features,cat__Street Nam_SE 119TH AVE - SE STARK ST
-All_features,cat__Street Nam_SE 124TH AVE - SE ASH ST
-All_features,cat__Street Nam_SE 141ST AVE - SE STARK ST
-All_features,cat__Street Nam_SE 151ST AVE - SE STARK ST
-All_features,cat__Street Nam_SE 33RD AVE - SE POWELL BLVD
-All_features,cat__Street Nam_SE 33RD AVE - SE STARK ST
-All_features,cat__Street Nam_SE 45TH - SE HARNEY DR
-All_features,cat__Street Nam_SE 52ND AVE - SE FOSTER RD
-All_features,cat__Street Nam_SE 82ND AVE - SE ASH ST
-All_features,cat__Street Nam_SE 82ND AVE - SE CENTER ST
-All_features,cat__Street Nam_SE 82ND AVE - SE CLATSOP ST
-All_features,cat__Street Nam_SE 82ND AVE - SE COOPER ST
-All_features,cat__Street Nam_SE 82ND AVE - SE DIVISION ST
-All_features,cat__Street Nam_SE 82ND AVE - SE FLAVEL ST
-All_features,cat__Street Nam_SE 82ND AVE - SE FRANCIS ST
-All_features,cat__Street Nam_SE 82ND AVE - SE FRANKLIN ST
-All_features,cat__Street Nam_SE 82ND AVE - SE HAWTHORNE BLVD
-All_features,cat__Street Nam_SE 82ND AVE - SE HOLGATE BLVD
-All_features,cat__Street Nam_SE 82ND AVE - SE INSLEY ST
-All_features,cat__Street Nam_SE 82ND AVE - SE LAFAYETTE ST
-All_features,cat__Street Nam_SE 82ND AVE - SE POWELL BLVD
-All_features,cat__Street Nam_SE 82ND AVE - SE RAMONA ST
-All_features,cat__Street Nam_SE 82ND AVE - SE RAYMOND ST
-All_features,cat__Street Nam_SE 82ND AVE - SE RHINE ST
-All_features,cat__Street Nam_SE 82ND AVE - SE TOLMAN ST
-All_features,cat__Street Nam_SE 82ND AVE - SE WASHINTON ST
-All_features,cat__Street Nam_SE 96TH AVE - SE FOSTER RD
-All_features,cat__Street Nam_SE 96TH AVE - SE WOODSTOCK BLVD
-All_features,cat__Street Nam_SE GRAND AVE - SE ANKENY ST
-All_features,cat__Street Nam_SE MARTIN LUTHER KING JR BLVD - SE ANKENY ST
-All_features,cat__Street Nam_SE MILWAUKIE AVE - SE HOLGATE BLVD
-All_features,cat__Street Nam_SW 4TH AVE - SW ALDER ST
-All_features,cat__Street Nam_SW 4TH AVE - SW CLAY ST
-All_features,cat__Street Nam_SW 4TH AVE - SW COLLEGE ST
-All_features,cat__Street Nam_SW 4TH AVE - SW HALL ST
-All_features,cat__Street Nam_SW 4TH AVE - SW HARVEY MILK ST
-All_features,cat__Street Nam_SW 4TH AVE - SW LINCOLN ST
-All_features,cat__Street Nam_SW 4TH AVE - SW MADISON ST
-All_features,cat__Street Nam_SW 4TH AVE - SW MAIN ST
-All_features,cat__Street Nam_SW 4TH AVE - SW MARKET ST
-All_features,cat__Street Nam_SW 4TH AVE - SW TAYLOR ST
-All_features,cat__Street Nam_SW BERTHA CT - SW CAPITOL HWY
-All_features,cat__Street Nam_SW HOFFMAN AVE - SW BROADWAY DR
-All_features,cat__Street Nam_SW ST CLAIR AVE - W BURNSIDE ST
-All_features,cat__Street Nam_SW TERWILLIGER BLVD - SW CAPITOL HWY
-All_features,cat___Date_01-18-2022
-All_features,cat___Date_01-25-2022
-All_features,cat___Date_02-01-2022
-All_features,cat___Date_02-15-2022
-All_features,cat___Date_02-16-2022
-All_features,cat___Date_03-15-2022
-All_features,cat___Date_03-16-2022
-All_features,cat___Date_03-17-2022
-All_features,cat___Date_03-30-2022
-All_features,cat___Date_03-31-2022
-All_features,cat___Date_04-07-2022
-All_features,cat___Date_04-18-2022
-All_features,cat___Date_04-19-2022
-All_features,cat___Date_04-20-2022
-All_features,cat___Date_04-25-2022
-All_features,cat___Date_04-26-2022
-All_features,cat___Date_04-27-2022
-All_features,cat___Date_04-28-2022
-All_features,cat___Date_05-02-2022
-All_features,cat___Date_05-03-2022
-All_features,cat___Date_05-05-2022
-All_features,cat___Date_05-09-2022
-All_features,cat___Date_05-10-2022
-All_features,cat___Date_05-11-2022
-All_features,cat___Date_05-12-2022
-All_features,cat___Date_05-17-2022
-All_features,cat___Date_05-18-2022
-All_features,cat___Date_05-19-2022
-All_features,cat___Date_05-23-2022
-All_features,cat___Date_05-25-2022
-All_features,cat___Date_05-26-2022
-All_features,cat___Date_06-07-2022
-All_features,cat___Date_06-08-2022
-All_features,cat___Date_06-14-2022
-All_features,cat___Date_07-19-2022
-All_features,cat___Date_07-20-2022
-All_features,cat___Date_08-02-2022
-All_features,cat___Date_08-03-2022
-All_features,cat___Date_08-04-2022
-All_features,cat___Date_08-11-2022
-All_features,cat___Date_08-16-2022
-All_features,cat___Date_08-17-2022
-All_features,cat___Date_08-23-2022
-All_features,cat___Date_08-24-2022
-All_features,cat___Date_08-25-2022
-All_features,cat___Date_08-31-2022
-All_features,cat___Date_09-01-2022
-All_features,cat___Date_09-13-2022
-All_features,cat___Date_09-14-2022
-All_features,cat___Date_09-15-2022
-All_features,cat___Date_10-04-2022
-All_features,cat___Date_10-05-2022
-All_features,cat___Date_10-06-2022
-All_features,cat___Date_10-12-2022
-All_features,cat___Date_10-13-2022
-All_features,cat___Date_10-25-2022
-All_features,cat___Date_10-26-2022
 All_features,cat__season_spring
 All_features,cat__season_summer
 All_features,cat__season_winter
@@ -229,69 +93,59 @@ All_features,cat__crossing_class_signalized
 All_features,cat__crossing_class_unmarked
 MutualInformation,num__transit_stops_hm
 MutualInformation,num__dist_CBD
-MutualInformation,num__stv_mi_hm
-MutualInformation,num__isect_dens_em
 MutualInformation,num__sig_dens_qm
+MutualInformation,num__isect_dens_em
+MutualInformation,num__stv_mi_hm
 MutualInformation,num__walk_comm_hm
 MutualInformation,num__sig_int_qm
 MutualInformation,num__job_dens_qm
 MutualInformation,num__hh_hm
-MutualInformation,num__sig_int_hm
 MutualInformation,num__transit_stops_em
 MutualInformation,num__job_dens_hm
 MutualInformation,num__job_dens_em
-MutualInformation,num__bus_stops_hm
+MutualInformation,num__sig_int_hm
 MutualInformation,num__sig_dens_hm
-MutualInformation,num__job_dens
 MutualInformation,num__zch_qm
-MutualInformation,num__transit_stops_qm
+MutualInformation,num__job_dens
+MutualInformation,num__bus_stops_hm
+MutualInformation,num__isect_dens_hm
 MutualInformation,num__zch_em
-MutualInformation,num__stv_ann
+MutualInformation,num__stv_mi
 L1_Lasso,num__Number of
 L1_Lasso,num__stv_mi
+L1_Lasso,num__swlk_len
+L1_Lasso,num__tstop_dens
+L1_Lasso,num__sig_int_em
+L1_Lasso,num__pop_dens_em
 L1_Lasso,num__Commercial Area_em
 L1_Lasso,num__Retail Area_em
-L1_Lasso,num__transit_stops_em
-L1_Lasso,num__sig_int_qm
 L1_Lasso,num__transit_stops_qm
 L1_Lasso,num__stv_mi_hm
 L1_Lasso,num__job_dens_hm
-L1_Lasso,num__Park Area_hm
-L1_Lasso,cat__Street Nam_NE ALAMEDA ST - NE FREMONT ST
-L1_Lasso,cat__Street Nam_S MOODY AVE - S GAINES ST
-L1_Lasso,cat__Street Nam_SE 82ND AVE - SE HOLGATE BLVD
-L1_Lasso,cat__Street Nam_SE 82ND AVE - SE POWELL BLVD
-L1_Lasso,cat__Street Nam_SW 4TH AVE - SW ALDER ST
-L1_Lasso,cat__Street Nam_SW 4TH AVE - SW COLLEGE ST
-L1_Lasso,cat__Street Nam_SW 4TH AVE - SW HARVEY MILK ST
-L1_Lasso,cat__Street Nam_SW 4TH AVE - SW MAIN ST
-L1_Lasso,cat__Street Nam_SW 4TH AVE - SW TAYLOR ST
-L1_Lasso,cat__Street Nam_SW HOFFMAN AVE - SW BROADWAY DR
-L1_Lasso,cat___Date_08-31-2022
-L1_Lasso,cat___Date_09-01-2022
-L1_Lasso,cat___Date_10-04-2022
-L1_Lasso,cat___Date_10-05-2022
 L1_Lasso,cat__class_type_mot-sec
+L1_Lasso,cat__class_type_pri-pri
 L1_Lasso,cat__class_type_pri-sec
+L1_Lasso,cat__class_type_sec-sec
+L1_Lasso,cat__speed_type_20 mph-30 mph
 L1_Lasso,cat__speed_type_25 mph-55 mph
-L1_Lasso,cat__crossing_class_unmarked
+L1_Lasso,cat__speed_type_35 mph-35 mph
 RandomForest,num__job_dens_em
 RandomForest,num__stv_mi_hm
-RandomForest,num__sig_dens_qm
-RandomForest,num__sig_dens_hm
-RandomForest,num__job_dens_hm
-RandomForest,num__job_dens_qm
 RandomForest,num__sig_int_qm
+RandomForest,num__sig_dens_qm
+RandomForest,num__job_dens_qm
+RandomForest,num__job_dens_hm
 RandomForest,num__sig_int_hm
-RandomForest,num__job_dens
+RandomForest,num__sig_dens_hm
 RandomForest,num__isect_dens_hm
 RandomForest,num__sig_dens_em
-RandomForest,num__walk_comm_hm
-RandomForest,num__stv_mi
 RandomForest,num__zch_hm
-RandomForest,num__sig_int_em
-RandomForest,num__transit_stops_qm
 RandomForest,num__zch_qm
-RandomForest,num__stv_ann
+RandomForest,num__sig_int_em
 RandomForest,num__Retail Area_em
-RandomForest,num__swlk_len
+RandomForest,num__stv_ann
+RandomForest,num__job_dens
+RandomForest,num__walk_comm_hm
+RandomForest,num__sig_dens
+RandomForest,num__stv_mi
+RandomForest,num__transit_stops_hm
