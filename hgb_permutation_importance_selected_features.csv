@@ -1,0 +1,59 @@
+selection,model,feature,perm_importance_mean,perm_importance_std
+L1_Lasso,HistGB_Poisson,num__stv_mi,1.293543364653413,15.078949019148956
+L1_Lasso,HistGB_Poisson,num__job_dens_hm,0.5180025691405994,6.426646000709472
+L1_Lasso,HistGB_Poisson,num__Retail Area_em,0.408544389229094,18.905511785497158
+L1_Lasso,HistGB_Poisson,num__tstop_dens,0.21901587730225458,0.9882788276771383
+L1_Lasso,HistGB_Poisson,num__Number of,0.0,0.0
+L1_Lasso,HistGB_Poisson,cat__class_type_mot-sec,0.0,0.0
+L1_Lasso,HistGB_Poisson,cat__class_type_pri-pri,0.0,0.0
+L1_Lasso,HistGB_Poisson,cat__class_type_pri-sec,0.0,0.0
+L1_Lasso,HistGB_Poisson,cat__class_type_sec-sec,0.0,0.0
+L1_Lasso,HistGB_Poisson,cat__speed_type_25 mph-55 mph,0.0,0.0
+L1_Lasso,HistGB_Poisson,cat__speed_type_35 mph-35 mph,0.0,0.0
+L1_Lasso,HistGB_Poisson,num__pop_dens_em,-6.96373650427431,6.941181101849631
+L1_Lasso,HistGB_Poisson,num__swlk_len,-7.183238002800256,10.207356291719735
+L1_Lasso,HistGB_Poisson,cat__speed_type_20 mph-30 mph,-7.695799084092189,15.840813610330525
+L1_Lasso,HistGB_Poisson,num__stv_mi_hm,-9.146118388441895,14.338944770190865
+L1_Lasso,HistGB_Poisson,num__transit_stops_qm,-9.28532661689062,16.938155561068537
+L1_Lasso,HistGB_Poisson,num__Commercial Area_em,-9.730212263944539,13.890259313129416
+L1_Lasso,HistGB_Poisson,num__sig_int_em,-17.11329589456159,13.678945781190814
+MutualInformation,HistGB_Poisson,num__zch_em,30.844314011725693,8.765630234052148
+MutualInformation,HistGB_Poisson,num__transit_stops_em,25.289231983112053,12.522946442849431
+MutualInformation,HistGB_Poisson,num__stv_mi,19.197902199515067,10.27863609572124
+MutualInformation,HistGB_Poisson,num__stv_mi_hm,12.609561117184699,5.095034475696219
+MutualInformation,HistGB_Poisson,num__isect_dens_em,9.976695367007428,5.906993846465213
+MutualInformation,HistGB_Poisson,num__job_dens_qm,4.027313720776029,7.233065811761344
+MutualInformation,HistGB_Poisson,num__isect_dens_hm,3.4141525390519143,2.5355765775003394
+MutualInformation,HistGB_Poisson,num__zch_qm,2.6389699260477384,2.0091004088027655
+MutualInformation,HistGB_Poisson,num__walk_comm_hm,0.5782461185117214,4.661914982175293
+MutualInformation,HistGB_Poisson,num__sig_int_hm,0.17911982272089375,0.7107491500795204
+MutualInformation,HistGB_Poisson,num__job_dens,0.1723095299604182,0.283387627809912
+MutualInformation,HistGB_Poisson,num__dist_CBD,0.0870880477397236,0.11393425099389552
+MutualInformation,HistGB_Poisson,num__transit_stops_hm,0.0,0.0
+MutualInformation,HistGB_Poisson,num__sig_int_qm,0.0,0.0
+MutualInformation,HistGB_Poisson,num__sig_dens_hm,0.0,0.0
+MutualInformation,HistGB_Poisson,num__job_dens_em,-0.00521744393943635,1.2073001965505539
+MutualInformation,HistGB_Poisson,num__bus_stops_hm,-0.03085297552204338,0.37366594645475143
+MutualInformation,HistGB_Poisson,num__job_dens_hm,-0.26219438808086937,0.6358607171715337
+MutualInformation,HistGB_Poisson,num__sig_dens_qm,-0.7425272060453956,0.8343217506043357
+MutualInformation,HistGB_Poisson,num__hh_hm,-2.178002552681793,5.164825509653662
+RandomForest,HistGB_Poisson,num__stv_ann,35.01860638146643,19.624419405204964
+RandomForest,HistGB_Poisson,num__stv_mi_hm,22.552554649684037,7.611866892996218
+RandomForest,HistGB_Poisson,num__sig_dens_em,21.202743014923612,11.11812236268499
+RandomForest,HistGB_Poisson,num__transit_stops_hm,11.789311719908175,7.948784402455881
+RandomForest,HistGB_Poisson,num__zch_qm,10.027028056545742,4.409709131677651
+RandomForest,HistGB_Poisson,num__Retail Area_em,7.97904858130584,11.152613317727806
+RandomForest,HistGB_Poisson,num__job_dens_qm,7.351004587077185,7.772374276778842
+RandomForest,HistGB_Poisson,num__isect_dens_hm,6.933514777490629,5.870855141439746
+RandomForest,HistGB_Poisson,num__walk_comm_hm,6.311961557228218,7.35965341975991
+RandomForest,HistGB_Poisson,num__sig_dens,1.0813054638311663,3.37549772748561
+RandomForest,HistGB_Poisson,num__sig_int_hm,0.024374075233797754,0.8191034267647985
+RandomForest,HistGB_Poisson,num__sig_dens_qm,0.0,0.0
+RandomForest,HistGB_Poisson,num__sig_dens_hm,0.0,0.0
+RandomForest,HistGB_Poisson,num__sig_int_em,0.0,0.0
+RandomForest,HistGB_Poisson,num__stv_mi,0.0,0.0
+RandomForest,HistGB_Poisson,num__sig_int_qm,-0.029921477772417403,0.026721208350728144
+RandomForest,HistGB_Poisson,num__job_dens,-0.1589590893374165,1.7484560296515348
+RandomForest,HistGB_Poisson,num__job_dens_hm,-0.5824501968807005,3.3121207293873165
+RandomForest,HistGB_Poisson,num__job_dens_em,-0.8370395775911639,0.7364876491490097
+RandomForest,HistGB_Poisson,num__zch_hm,-2.7963211642373422,1.3145721277025462

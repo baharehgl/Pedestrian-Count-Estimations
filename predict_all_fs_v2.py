@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import os
 
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -246,24 +247,63 @@ for method in methods_to_compare:
 # =========================
 # 7) Save outputs
 # =========================
+OUTDIR = "importance_by_selection_method"
+os.makedirs(OUTDIR, exist_ok=True)
+
+# 1) Metrics table (single file)
 metrics_df = pd.DataFrame(metrics_rows).sort_values(["selection", "model"])
 metrics_df.to_csv("selection_x_models_metrics.csv", index=False)
+print("Saved: selection_x_models_metrics.csv")
 
+# 2) Save per-selection feature-selection scores (MI / L1 coef / RFsel importance)
 selection_scores_df = pd.DataFrame(selection_score_rows)
-selection_scores_df.to_csv("selection_method_scores_for_selected_features.csv", index=False)
 
-rf_imp_df = pd.DataFrame(rf_model_imp_rows).sort_values(["selection", "importance"], ascending=[True, False])
-rf_imp_df.to_csv("rf_model_feature_importance_selected_features.csv", index=False)
+for method in methods_to_compare:
+    df_m = selection_scores_df[selection_scores_df["selection_method"] == method].copy()
 
-hgb_perm_df = pd.DataFrame(hgb_perm_imp_rows).sort_values(["selection", "perm_importance_mean"], ascending=[True, False])
-hgb_perm_df.to_csv("hgb_permutation_importance_selected_features.csv", index=False)
+    # Sort by the score that corresponds to that method
+    if method == "MutualInformation":
+        df_m = df_m.sort_values("MI_score", ascending=False)
+    elif method == "L1_Lasso":
+        df_m = df_m.assign(abs_L1=np.abs(df_m["L1_coef"])).sort_values("abs_L1", ascending=False).drop(columns=["abs_L1"])
+    elif method == "RandomForest":
+        df_m = df_m.sort_values("RFsel_importance", ascending=False)
 
-glm_coef_df = pd.DataFrame(glm_coef_rows).sort_values(["selection", "coef"], ascending=[True, False])
-glm_coef_df.to_csv("glm_nb_coefficients_selected_features.csv", index=False)
+    outpath = os.path.join(OUTDIR, f"selected_feature_scores__{method}.csv")
+    df_m.to_csv(outpath, index=False)
+    print("Saved:", outpath)
 
-print("\nSaved:")
-print(" - selection_x_models_metrics.csv")
-print(" - selection_method_scores_for_selected_features.csv")
-print(" - rf_model_feature_importance_selected_features.csv")
-print(" - hgb_permutation_importance_selected_features.csv")
-print(" - glm_nb_coefficients_selected_features.csv")
+# 3) Save per-selection model importances (RF model)
+rf_imp_df = pd.DataFrame(rf_model_imp_rows)
+
+for method in methods_to_compare:
+    df_m = rf_imp_df[(rf_imp_df["selection"] == method) & (rf_imp_df["model"] == "RandomForest")].copy()
+    df_m = df_m.sort_values("importance", ascending=False)
+    outpath = os.path.join(OUTDIR, f"importances__{method}__RF_model.csv")
+    df_m.to_csv(outpath, index=False)
+    print("Saved:", outpath)
+
+# 4) Save per-selection model importances (HGB permutation)
+hgb_perm_df = pd.DataFrame(hgb_perm_imp_rows)
+
+for method in methods_to_compare:
+    df_m = hgb_perm_df[(hgb_perm_df["selection"] == method) & (hgb_perm_df["model"] == "HistGB_Poisson")].copy()
+    df_m = df_m.sort_values("perm_importance_mean", ascending=False)
+    outpath = os.path.join(OUTDIR, f"importances__{method}__HGB_permutation.csv")
+    df_m.to_csv(outpath, index=False)
+    print("Saved:", outpath)
+
+# 5) Save per-selection GLM coefficients
+glm_coef_df = pd.DataFrame(glm_coef_rows)
+
+for method in methods_to_compare:
+    df_m = glm_coef_df[(glm_coef_df["selection"] == method) & (glm_coef_df["model"] == "GLM_NegativeBinomial")].copy()
+
+    # Sort by absolute coefficient (most influential)
+    df_m = df_m.assign(abs_coef=np.abs(df_m["coef"])).sort_values("abs_coef", ascending=False).drop(columns=["abs_coef"])
+
+    outpath = os.path.join(OUTDIR, f"importances__{method}__GLM_coefficients.csv")
+    df_m.to_csv(outpath, index=False)
+    print("Saved:", outpath)
+
+print("\nAll per-method importance files saved under:", OUTDIR)
