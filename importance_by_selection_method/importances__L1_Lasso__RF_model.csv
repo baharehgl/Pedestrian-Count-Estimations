@@ -1,0 +1,19 @@
+selection,model,feature,importance
+L1_Lasso,RandomForest,num__job_dens_hm,0.35512423206273275
+L1_Lasso,RandomForest,num__stv_mi_hm,0.14916763045618708
+L1_Lasso,RandomForest,num__sig_int_em,0.1426456382866146
+L1_Lasso,RandomForest,num__stv_mi,0.0911588281401622
+L1_Lasso,RandomForest,num__transit_stops_qm,0.09080693264117368
+L1_Lasso,RandomForest,num__Retail Area_em,0.04392708195575279
+L1_Lasso,RandomForest,num__swlk_len,0.0381992853185813
+L1_Lasso,RandomForest,cat__class_type_pri-pri,0.027835105036710574
+L1_Lasso,RandomForest,num__Commercial Area_em,0.02092289835608888
+L1_Lasso,RandomForest,num__pop_dens_em,0.02053394242182148
+L1_Lasso,RandomForest,num__tstop_dens,0.007586163993269906
+L1_Lasso,RandomForest,cat__speed_type_20 mph-30 mph,0.004270081399668197
+L1_Lasso,RandomForest,cat__class_type_pri-sec,0.004093344930525537
+L1_Lasso,RandomForest,num__Number of,0.001902327709128236
+L1_Lasso,RandomForest,cat__class_type_sec-sec,0.001646352947968058
+L1_Lasso,RandomForest,cat__speed_type_25 mph-55 mph,0.0001052338707826085
+L1_Lasso,RandomForest,cat__class_type_mot-sec,7.336159547886934e-05
+L1_Lasso,RandomForest,cat__speed_type_35 mph-35 mph,1.5588773530877803e-06
