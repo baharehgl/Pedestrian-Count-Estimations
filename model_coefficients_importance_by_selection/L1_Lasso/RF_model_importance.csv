@@ -1,0 +1,19 @@
+feature,importance
+num__job_dens_hm,0.35512423206273275
+num__stv_mi_hm,0.14916763045618708
+num__sig_int_em,0.1426456382866146
+num__stv_mi,0.0911588281401622
+num__transit_stops_qm,0.09080693264117368
+num__Retail Area_em,0.04392708195575279
+num__swlk_len,0.0381992853185813
+cat__class_type_pri-pri,0.027835105036710574
+num__Commercial Area_em,0.02092289835608888
+num__pop_dens_em,0.02053394242182148
+num__tstop_dens,0.007586163993269906
+cat__speed_type_20 mph-30 mph,0.004270081399668197
+cat__class_type_pri-sec,0.004093344930525537
+num__Number of,0.001902327709128236
+cat__class_type_sec-sec,0.001646352947968058
+cat__speed_type_25 mph-55 mph,0.0001052338707826085
+cat__class_type_mot-sec,7.336159547886934e-05
+cat__speed_type_35 mph-35 mph,1.5588773530877803e-06

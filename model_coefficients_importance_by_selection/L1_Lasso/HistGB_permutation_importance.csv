@@ -1,0 +1,19 @@
+feature,perm_importance_mean,perm_importance_std
+num__stv_mi,1.293543364653413,15.078949019148956
+num__job_dens_hm,0.5180025691405994,6.426646000709472
+num__Retail Area_em,0.408544389229094,18.905511785497158
+num__tstop_dens,0.21901587730225458,0.9882788276771383
+num__Number of,0.0,0.0
+cat__speed_type_25 mph-55 mph,0.0,0.0
+cat__class_type_sec-sec,0.0,0.0
+cat__class_type_pri-sec,0.0,0.0
+cat__class_type_pri-pri,0.0,0.0
+cat__class_type_mot-sec,0.0,0.0
+cat__speed_type_35 mph-35 mph,0.0,0.0
+num__pop_dens_em,-6.96373650427431,6.941181101849631
+num__swlk_len,-7.183238002800256,10.207356291719735
+cat__speed_type_20 mph-30 mph,-7.695799084092189,15.840813610330525
+num__stv_mi_hm,-9.146118388441895,14.338944770190865
+num__transit_stops_qm,-9.28532661689062,16.938155561068537
+num__Commercial Area_em,-9.730212263944539,13.890259313129416
+num__sig_int_em,-17.11329589456159,13.678945781190814
