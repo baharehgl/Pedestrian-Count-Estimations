@@ -24,12 +24,21 @@ import statsmodels.api as sm
 # -------------------------
 # 1) Metrics
 # -------------------------
-def mape(y_true, y_pred):
+# def mape(y_true, y_pred):
+#     y_true = np.asarray(y_true, dtype=float)
+#     y_pred = np.asarray(y_pred, dtype=float)
+#     eps = 1e-9
+#     denom = np.where(y_true == 0, eps, y_true)
+#     return np.mean(np.abs((y_pred - y_true) / denom) * 100.0)
+
+
+def smape(y_true, y_pred):
     y_true = np.asarray(y_true, dtype=float)
     y_pred = np.asarray(y_pred, dtype=float)
-    eps = 1e-9
-    denom = np.where(y_true == 0, eps, y_true)
-    return np.mean(np.abs((y_pred - y_true) / denom) * 100.0)
+    denom = (np.abs(y_true) + np.abs(y_pred)) / 2.0
+    denom = np.where(denom == 0, 1e-9, denom)  # safe if both 0
+    return np.mean(np.abs(y_pred - y_true) / denom) * 100.0
+
 
 def rmse(y_true, y_pred):
     return np.sqrt(mean_squared_error(y_true, y_pred))
