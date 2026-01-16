@@ -31,8 +31,8 @@ import statsmodels.api as sm
 #     denom = np.where(y_true == 0, eps, y_true)
 #     return np.mean(np.abs((y_pred - y_true) / denom) * 100.0)
 
-
-def smape(y_true, y_pred):
+#smape
+def mape(y_true, y_pred):
     y_true = np.asarray(y_true, dtype=float)
     y_pred = np.asarray(y_pred, dtype=float)
     denom = (np.abs(y_true) + np.abs(y_pred)) / 2.0
