@@ -5,7 +5,7 @@
 #   - Pseudo-R2 (TRAIN fold)
 #   - SMAPE (VAL fold)  [R-style symmetric MAPE]
 #   - RMSE (VAL fold)
-# Data: df1_v1a_out.csv
+
 # ============================================
 
 import numpy as np
