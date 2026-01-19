@@ -111,18 +111,23 @@ def build_preprocessor(numeric_cols, categorical_cols):
         ("imputer", SimpleImputer(strategy="median"))
     ])
 
+    # sklearn >= 1.2 uses sparse_output
     categorical_transformer = Pipeline(steps=[
         ("imputer", SimpleImputer(strategy="most_frequent")),
-        ("onehot", OneHotEncoder(drop="first", handle_unknown="ignore"))
+        ("onehot", OneHotEncoder(
+            drop="first",
+            handle_unknown="ignore",
+            sparse_output=False  # <-- makes dense
+        ))
     ])
 
     return ColumnTransformer(
         transformers=[
             ("num", numeric_transformer, numeric_cols),
             ("cat", categorical_transformer, categorical_cols),
-        ]
+        ],
+        sparse_threshold=0  # <-- force dense output from ColumnTransformer
     )
-
 
 # ============================================================
 # 4) 5-fold CV
