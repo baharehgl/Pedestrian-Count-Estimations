@@ -1,0 +1,1323 @@
+split,feature_selection_method,feature_name
+Split01,MutualInformation,num__walk_comm_hm
+Split01,MutualInformation,num__sig_int_qm
+Split01,MutualInformation,num__sig_dens_qm
+Split01,MutualInformation,num__sig_int_hm
+Split01,MutualInformation,num__sig_dens_hm
+Split01,MutualInformation,num__hh_hm
+Split01,MutualInformation,num__job_dens_qm
+Split01,MutualInformation,num__transit_stops_hm
+Split01,MutualInformation,num__transit_stops_em
+Split01,MutualInformation,num__dist_CBD
+Split01,MutualInformation,num__job_dens_em
+Split01,MutualInformation,num__job_dens_hm
+Split01,MutualInformation,num__bus_stops_hm
+Split01,MutualInformation,num__isect_dens_em
+Split01,MutualInformation,num__Park Area_hm
+Split01,MutualInformation,num__stv_mi_hm
+Split01,MutualInformation,num__job_dens
+Split01,MutualInformation,num__transit_stops_qm
+Split01,MutualInformation,num__zch_em
+Split01,MutualInformation,num__bus_stops_qm
+Split01,L1_Lasso,num__sig_int_em
+Split01,L1_Lasso,num__stv_mi_hm
+Split01,L1_Lasso,num__job_dens_hm
+Split01,L1_Lasso,num__Park Area_hm
+Split01,L1_Lasso,num__transit_stops_hm
+Split01,L1_Lasso,cat__class_type_sec-sec
+Split01,RandomForest,num__job_dens_em
+Split01,RandomForest,num__zch_qm
+Split01,RandomForest,num__sig_int_qm
+Split01,RandomForest,num__zch_hm
+Split01,RandomForest,num__sig_dens_qm
+Split01,RandomForest,num__sig_dens_hm
+Split01,RandomForest,num__job_dens_hm
+Split01,RandomForest,num__transit_stops_hm
+Split01,RandomForest,num__sig_int_hm
+Split01,RandomForest,num__job_dens_qm
+Split01,RandomForest,num__isect_dens_hm
+Split01,RandomForest,num__job_dens
+Split01,RandomForest,num__transit_stops_qm
+Split01,RandomForest,num__swlk_len
+Split01,RandomForest,num__sig_int_em
+Split01,RandomForest,num__bus_stops_hm
+Split01,RandomForest,num__sig_dens_em
+Split01,RandomForest,num__dist_CBD
+Split01,RandomForest,num__walk_comm_hm
+Split01,RandomForest,num__stv_mi_qm
+Split02,MutualInformation,num__sig_dens_hm
+Split02,MutualInformation,num__sig_int_hm
+Split02,MutualInformation,num__walk_comm_hm
+Split02,MutualInformation,num__stv_mi_hm
+Split02,MutualInformation,num__isect_dens_em
+Split02,MutualInformation,num__transit_stops_em
+Split02,MutualInformation,num__stv_mi
+Split02,MutualInformation,num__stv_ann
+Split02,MutualInformation,num__dist_CBD
+Split02,MutualInformation,num__stv_mi_em
+Split02,MutualInformation,num__sig_int_qm
+Split02,MutualInformation,num__Park Area_hm
+Split02,MutualInformation,num__sig_dens_qm
+Split02,MutualInformation,num__stv_mi_qm
+Split02,MutualInformation,num__zch_em
+Split02,MutualInformation,num__job_dens
+Split02,MutualInformation,num__job_dens_hm
+Split02,MutualInformation,num__bus_stops_hm
+Split02,MutualInformation,num__job_dens_em
+Split02,MutualInformation,num__med_inc_em
+Split02,L1_Lasso,num__sig_int
+Split02,L1_Lasso,num__stv_mi_em
+Split02,L1_Lasso,num__bus_stops_hm
+Split02,L1_Lasso,num__job_dens_hm
+Split02,L1_Lasso,num__Park Area_hm
+Split02,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split02,L1_Lasso,cat__crossing_class_unmarked
+Split02,RandomForest,num__isect_dens_hm
+Split02,RandomForest,num__transit_stops_hm
+Split02,RandomForest,num__stv_mi_hm
+Split02,RandomForest,num__stv_mi_qm
+Split02,RandomForest,num__job_dens_em
+Split02,RandomForest,num__stv_mi_em
+Split02,RandomForest,num__job_dens_qm
+Split02,RandomForest,num__sig_dens_hm
+Split02,RandomForest,num__job_dens
+Split02,RandomForest,num__job_dens_hm
+Split02,RandomForest,num__sig_int_qm
+Split02,RandomForest,num__sig_dens_qm
+Split02,RandomForest,num__zch_hm
+Split02,RandomForest,num__sig_int_hm
+Split02,RandomForest,num__dist_CBD
+Split02,RandomForest,num__sig_int
+Split02,RandomForest,num__med_inc_qm
+Split02,RandomForest,num__sig_dens
+Split02,RandomForest,num__walk_comm_hm
+Split02,RandomForest,num__zch_qm
+Split03,MutualInformation,num__sig_int_hm
+Split03,MutualInformation,num__sig_dens_hm
+Split03,MutualInformation,num__isect_dens_em
+Split03,MutualInformation,num__job_dens_qm
+Split03,MutualInformation,num__job_dens
+Split03,MutualInformation,num__transit_stops_em
+Split03,MutualInformation,num__job_dens_hm
+Split03,MutualInformation,num__job_dens_em
+Split03,MutualInformation,num__sig_int_qm
+Split03,MutualInformation,num__sig_dens_qm
+Split03,MutualInformation,num__dist_CBD
+Split03,MutualInformation,num__transit_stops_hm
+Split03,MutualInformation,num__swlk_len_hm
+Split03,MutualInformation,num__isect_dens_hm
+Split03,MutualInformation,num__hh_hm
+Split03,MutualInformation,num__walk_comm_hm
+Split03,MutualInformation,num__stv_mi_hm
+Split03,MutualInformation,num__bus_stops_hm
+Split03,MutualInformation,num__isect_dens_qm
+Split03,MutualInformation,num__zch_qm
+Split03,L1_Lasso,num__sig_int_qm
+Split03,L1_Lasso,num__transit_stops_qm
+Split03,L1_Lasso,num__stv_mi_hm
+Split03,L1_Lasso,num__job_dens_hm
+Split03,L1_Lasso,cat__class_type_sec-sec
+Split03,RandomForest,num__job_dens_em
+Split03,RandomForest,num__stv_mi_hm
+Split03,RandomForest,num__sig_int_hm
+Split03,RandomForest,num__job_dens_hm
+Split03,RandomForest,num__zch_hm
+Split03,RandomForest,num__job_dens
+Split03,RandomForest,num__job_dens_qm
+Split03,RandomForest,num__sig_int_qm
+Split03,RandomForest,num__zch_qm
+Split03,RandomForest,num__sig_dens_qm
+Split03,RandomForest,num__sig_dens_hm
+Split03,RandomForest,num__stv_mi
+Split03,RandomForest,num__stv_ann
+Split03,RandomForest,num__isect_dens_em
+Split03,RandomForest,num__walk_comm_hm
+Split03,RandomForest,num__isect_dens_hm
+Split03,RandomForest,num__sig_int_em
+Split03,RandomForest,num__sig_dens
+Split03,RandomForest,num__transit_stops_hm
+Split03,RandomForest,num__Retail Area_em
+Split04,MutualInformation,num__hh_hm
+Split04,MutualInformation,num__isect_dens_em
+Split04,MutualInformation,num__transit_stops_qm
+Split04,MutualInformation,num__sig_dens_hm
+Split04,MutualInformation,num__transit_stops_em
+Split04,MutualInformation,num__dist_CBD
+Split04,MutualInformation,num__walk_comm_hm
+Split04,MutualInformation,num__transit_stops_hm
+Split04,MutualInformation,num__sig_int_hm
+Split04,MutualInformation,num__sig_dens_qm
+Split04,MutualInformation,num__sig_int_qm
+Split04,MutualInformation,num__zch_qm
+Split04,MutualInformation,num__bus_stops_qm
+Split04,MutualInformation,num__job_dens_hm
+Split04,MutualInformation,num__stv_mi_hm
+Split04,MutualInformation,num__walk_comm_qm
+Split04,MutualInformation,num__job_dens_em
+Split04,MutualInformation,num__bus_stops_em
+Split04,MutualInformation,cat__speed_type_20 mph-30 mph
+Split04,MutualInformation,cat__crossing_class_unmarked
+Split04,L1_Lasso,num__Number of
+Split04,L1_Lasso,num__stv_mi
+Split04,L1_Lasso,num__sig_int
+Split04,L1_Lasso,num__bus_stops_em
+Split04,L1_Lasso,num__sig_int_em
+Split04,L1_Lasso,num__Commercial Area_em
+Split04,L1_Lasso,num__Retail Area_em
+Split04,L1_Lasso,num__transit_stops_em
+Split04,L1_Lasso,num__job_dens_hm
+Split04,L1_Lasso,num__transit_stops_hm
+Split04,L1_Lasso,cat__class_type_mot-sec
+Split04,L1_Lasso,cat__class_type_pri-pri
+Split04,L1_Lasso,cat__class_type_pri-ter
+Split04,L1_Lasso,cat__class_type_sec-sec
+Split04,L1_Lasso,cat__class_type_sec-ter
+Split04,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split04,L1_Lasso,cat__speed_type_25 mph-55 mph
+Split04,L1_Lasso,cat__speed_type_35 mph-35 mph
+Split04,RandomForest,num__stv_mi_hm
+Split04,RandomForest,num__zch_hm
+Split04,RandomForest,num__job_dens_hm
+Split04,RandomForest,num__job_dens_em
+Split04,RandomForest,num__sig_int_hm
+Split04,RandomForest,num__sig_dens_hm
+Split04,RandomForest,num__job_dens_qm
+Split04,RandomForest,num__sig_dens_qm
+Split04,RandomForest,num__sig_int_qm
+Split04,RandomForest,num__stv_mi_qm
+Split04,RandomForest,num__sig_dens_em
+Split04,RandomForest,num__stv_mi
+Split04,RandomForest,num__job_dens
+Split04,RandomForest,num__sig_int
+Split04,RandomForest,num__stv_ann
+Split04,RandomForest,num__transit_stops_hm
+Split04,RandomForest,num__zch_qm
+Split04,RandomForest,num__sig_dens
+Split04,RandomForest,num__sig_int_em
+Split04,RandomForest,num__walk_comm_hm
+Split05,MutualInformation,num__job_dens_hm
+Split05,MutualInformation,num__sig_dens_hm
+Split05,MutualInformation,num__sig_int_hm
+Split05,MutualInformation,num__dist_CBD
+Split05,MutualInformation,num__sig_dens_qm
+Split05,MutualInformation,num__walk_comm_hm
+Split05,MutualInformation,num__job_dens_em
+Split05,MutualInformation,num__sig_int_qm
+Split05,MutualInformation,num__stv_mi_hm
+Split05,MutualInformation,num__job_dens_qm
+Split05,MutualInformation,num__isect_dens_em
+Split05,MutualInformation,num__job_dens
+Split05,MutualInformation,num__swlk_len
+Split05,MutualInformation,num__stv_mi_qm
+Split05,MutualInformation,num__stv_mi_em
+Split05,MutualInformation,num__bus_stops_hm
+Split05,MutualInformation,num__swlk_len_hm
+Split05,MutualInformation,num__isect_dens_qm
+Split05,MutualInformation,num__isect_dens_hm
+Split05,MutualInformation,num__zch_qm
+Split05,L1_Lasso,num__Number of
+Split05,L1_Lasso,num__stv_mi
+Split05,L1_Lasso,num__sig_int_em
+Split05,L1_Lasso,num__sig_int_qm
+Split05,L1_Lasso,num__stv_mi_hm
+Split05,L1_Lasso,num__job_dens_hm
+Split05,L1_Lasso,num__Park Area_hm
+Split05,L1_Lasso,num__transit_stops_hm
+Split05,L1_Lasso,cat__class_type_sec-sec
+Split05,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split05,RandomForest,num__isect_dens_hm
+Split05,RandomForest,num__job_dens_em
+Split05,RandomForest,num__stv_mi_hm
+Split05,RandomForest,num__job_dens_hm
+Split05,RandomForest,num__walk_comm_hm
+Split05,RandomForest,num__swlk_len
+Split05,RandomForest,num__sig_int_hm
+Split05,RandomForest,num__sig_dens_em
+Split05,RandomForest,num__zch_hm
+Split05,RandomForest,num__sig_int_qm
+Split05,RandomForest,num__job_dens_qm
+Split05,RandomForest,num__sig_dens_qm
+Split05,RandomForest,num__sig_dens_hm
+Split05,RandomForest,num__Park Area_hm
+Split05,RandomForest,num__stv_ann
+Split05,RandomForest,num__stv_mi
+Split05,RandomForest,num__sig_int_em
+Split05,RandomForest,num__stv_mi_qm
+Split05,RandomForest,num__dist_CBD
+Split05,RandomForest,num__job_dens
+Split06,MutualInformation,num__stv_mi
+Split06,MutualInformation,num__stv_ann
+Split06,MutualInformation,num__isect_dens_em
+Split06,MutualInformation,num__isect_dens_qm
+Split06,MutualInformation,num__swlk_len
+Split06,MutualInformation,num__job_dens_hm
+Split06,MutualInformation,num__transit_stops_hm
+Split06,MutualInformation,num__sig_dens_qm
+Split06,MutualInformation,num__swlk_len_hm
+Split06,MutualInformation,num__stv_mi_hm
+Split06,MutualInformation,num__sig_int_hm
+Split06,MutualInformation,num__sig_dens_hm
+Split06,MutualInformation,num__dist_CBD
+Split06,MutualInformation,num__sig_int_qm
+Split06,MutualInformation,num__job_dens_qm
+Split06,MutualInformation,num__job_dens
+Split06,MutualInformation,num__job_dens_em
+Split06,MutualInformation,num__zch_qm
+Split06,MutualInformation,num__transit_stops_em
+Split06,MutualInformation,num__swlk_cov
+Split06,L1_Lasso,num__stv_mi
+Split06,L1_Lasso,num__job_dens
+Split06,L1_Lasso,num__swlk_len
+Split06,L1_Lasso,num__sig_int
+Split06,L1_Lasso,num__Retail Area_em
+Split06,L1_Lasso,num__transit_stops_em
+Split06,L1_Lasso,num__Commercial Area_qm
+Split06,L1_Lasso,num__transit_stops_qm
+Split06,L1_Lasso,num__stv_mi_hm
+Split06,L1_Lasso,num__job_dens_hm
+Split06,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split06,L1_Lasso,cat__crossing_class_unmarked
+Split06,RandomForest,num__job_dens_em
+Split06,RandomForest,num__stv_mi_hm
+Split06,RandomForest,num__isect_dens_hm
+Split06,RandomForest,num__stv_mi_qm
+Split06,RandomForest,num__stv_mi_em
+Split06,RandomForest,num__swlk_len
+Split06,RandomForest,num__sig_int
+Split06,RandomForest,num__job_dens
+Split06,RandomForest,num__dist_CBD
+Split06,RandomForest,num__med_inc_qm
+Split06,RandomForest,num__job_dens_hm
+Split06,RandomForest,num__isect_dens_em
+Split06,RandomForest,num__Retail Area
+Split06,RandomForest,num__sig_dens_qm
+Split06,RandomForest,num__bus_stops_hm
+Split06,RandomForest,num__sig_dens
+Split06,RandomForest,num__transit_stops_hm
+Split06,RandomForest,num__zch_qm
+Split06,RandomForest,num__Park Area_hm
+Split06,RandomForest,num__Retail Area_em
+Split07,MutualInformation,num__walk_comm_hm
+Split07,MutualInformation,num__sig_int_hm
+Split07,MutualInformation,num__isect_dens_em
+Split07,MutualInformation,num__sig_dens_hm
+Split07,MutualInformation,num__sig_dens_qm
+Split07,MutualInformation,num__job_dens_hm
+Split07,MutualInformation,num__job_dens_em
+Split07,MutualInformation,num__job_dens_qm
+Split07,MutualInformation,num__dist_CBD
+Split07,MutualInformation,num__transit_stops_hm
+Split07,MutualInformation,num__job_dens
+Split07,MutualInformation,num__sig_int_qm
+Split07,MutualInformation,num__hh_hm
+Split07,MutualInformation,num__transit_stops_qm
+Split07,MutualInformation,num__bus_stops_hm
+Split07,MutualInformation,num__bus_stops_qm
+Split07,MutualInformation,num__isect_dens_hm
+Split07,MutualInformation,num__transit_stops_em
+Split07,MutualInformation,num__zch_qm
+Split07,MutualInformation,num__sig_dens_em
+Split07,L1_Lasso,num__Number of
+Split07,L1_Lasso,num__stv_mi
+Split07,L1_Lasso,num__pop_dens
+Split07,L1_Lasso,num__Retail Area
+Split07,L1_Lasso,num__bus_stops_em
+Split07,L1_Lasso,num__sig_int_em
+Split07,L1_Lasso,num__med_inc_em
+Split07,L1_Lasso,num__Commercial Area_em
+Split07,L1_Lasso,num__isect_dens_hm
+Split07,L1_Lasso,num__job_dens_hm
+Split07,L1_Lasso,num__Park Area_hm
+Split07,L1_Lasso,num__transit_stops_hm
+Split07,L1_Lasso,cat__class_type_mot-sec
+Split07,L1_Lasso,cat__class_type_pri-res
+Split07,L1_Lasso,cat__class_type_pri-sec
+Split07,L1_Lasso,cat__class_type_res-ter
+Split07,L1_Lasso,cat__class_type_sec-sec
+Split07,L1_Lasso,cat__speed_type_25 mph-30 mph
+Split07,L1_Lasso,cat__speed_type_25 mph-55 mph
+Split07,L1_Lasso,cat__speed_type_35 mph-35 mph
+Split07,RandomForest,num__stv_mi_hm
+Split07,RandomForest,num__job_dens_em
+Split07,RandomForest,num__sig_dens_qm
+Split07,RandomForest,num__job_dens_hm
+Split07,RandomForest,num__sig_int_qm
+Split07,RandomForest,num__job_dens_qm
+Split07,RandomForest,num__sig_dens_hm
+Split07,RandomForest,num__sig_int_hm
+Split07,RandomForest,num__sig_dens_em
+Split07,RandomForest,num__sig_int_em
+Split07,RandomForest,num__zch_qm
+Split07,RandomForest,num__job_dens
+Split07,RandomForest,num__Park Area_hm
+Split07,RandomForest,num__zch_hm
+Split07,RandomForest,num__swlk_len
+Split07,RandomForest,num__walk_comm_hm
+Split07,RandomForest,num__dist_CBD
+Split07,RandomForest,num__stv_ann
+Split07,RandomForest,num__stv_mi
+Split07,RandomForest,num__isect_dens_em
+Split08,MutualInformation,num__walk_comm_hm
+Split08,MutualInformation,num__sig_int_hm
+Split08,MutualInformation,num__job_dens_qm
+Split08,MutualInformation,num__sig_dens_hm
+Split08,MutualInformation,num__job_dens_hm
+Split08,MutualInformation,num__job_dens_em
+Split08,MutualInformation,num__sig_int_qm
+Split08,MutualInformation,num__sig_dens_qm
+Split08,MutualInformation,num__stv_mi
+Split08,MutualInformation,num__stv_ann
+Split08,MutualInformation,num__job_dens
+Split08,MutualInformation,num__isect_dens_em
+Split08,MutualInformation,num__sig_dens_em
+Split08,MutualInformation,num__dist_CBD
+Split08,MutualInformation,num__sig_int_em
+Split08,MutualInformation,num__stv_mi_hm
+Split08,MutualInformation,num__hh_hm
+Split08,MutualInformation,num__walk_comm_qm
+Split08,MutualInformation,num__transit_stops_em
+Split08,MutualInformation,num__stv_mi_em
+Split08,L1_Lasso,num__stv_mi
+Split08,L1_Lasso,num__dist_CBD
+Split08,L1_Lasso,num__sig_int_em
+Split08,L1_Lasso,num__job_dens_hm
+Split08,L1_Lasso,num__Park Area_hm
+Split08,L1_Lasso,cat__class_type_sec-sec
+Split08,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split08,L1_Lasso,cat__crossing_class_unmarked
+Split08,RandomForest,num__job_dens_em
+Split08,RandomForest,num__job_dens_qm
+Split08,RandomForest,num__job_dens_hm
+Split08,RandomForest,num__sig_int_hm
+Split08,RandomForest,num__sig_dens_hm
+Split08,RandomForest,num__zch_hm
+Split08,RandomForest,num__isect_dens_hm
+Split08,RandomForest,num__sig_int_qm
+Split08,RandomForest,num__sig_dens_qm
+Split08,RandomForest,num__walk_comm_hm
+Split08,RandomForest,num__job_dens
+Split08,RandomForest,num__stv_mi
+Split08,RandomForest,num__stv_ann
+Split08,RandomForest,num__sig_int_em
+Split08,RandomForest,num__zch_qm
+Split08,RandomForest,num__transit_stops_hm
+Split08,RandomForest,num__Park Area_qm
+Split08,RandomForest,num__sig_dens_em
+Split08,RandomForest,num__dist_CBD
+Split08,RandomForest,num__Park Area_hm
+Split09,MutualInformation,num__isect_dens_em
+Split09,MutualInformation,num__transit_stops_hm
+Split09,MutualInformation,num__bus_stops_hm
+Split09,MutualInformation,num__sig_dens_hm
+Split09,MutualInformation,num__walk_comm_hm
+Split09,MutualInformation,num__sig_int_hm
+Split09,MutualInformation,num__sig_dens_qm
+Split09,MutualInformation,num__zch_qm
+Split09,MutualInformation,num__hh_hm
+Split09,MutualInformation,num__stv_mi_hm
+Split09,MutualInformation,num__sig_int_qm
+Split09,MutualInformation,num__dist_CBD
+Split09,MutualInformation,num__job_dens_hm
+Split09,MutualInformation,num__isect_dens_qm
+Split09,MutualInformation,num__stv_ann
+Split09,MutualInformation,num__stv_mi
+Split09,MutualInformation,num__job_dens_qm
+Split09,MutualInformation,num__transit_stops_qm
+Split09,MutualInformation,num__bus_stops_qm
+Split09,MutualInformation,num__isect_dens_hm
+Split09,L1_Lasso,num__Number of
+Split09,L1_Lasso,num__stv_mi
+Split09,L1_Lasso,num__sig_int_em
+Split09,L1_Lasso,num__stv_mi_hm
+Split09,L1_Lasso,num__job_dens_hm
+Split09,L1_Lasso,num__transit_stops_hm
+Split09,L1_Lasso,cat__class_type_sec-sec
+Split09,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split09,RandomForest,num__stv_mi_hm
+Split09,RandomForest,num__zch_hm
+Split09,RandomForest,num__walk_comm_hm
+Split09,RandomForest,num__job_dens_em
+Split09,RandomForest,num__job_dens_hm
+Split09,RandomForest,num__zch_qm
+Split09,RandomForest,num__sig_int_em
+Split09,RandomForest,num__isect_dens_hm
+Split09,RandomForest,num__sig_int_hm
+Split09,RandomForest,num__sig_int_qm
+Split09,RandomForest,num__transit_stops_hm
+Split09,RandomForest,num__sig_dens_hm
+Split09,RandomForest,num__dist_CBD
+Split09,RandomForest,num__sig_dens_em
+Split09,RandomForest,num__stv_mi_qm
+Split09,RandomForest,num__sig_dens_qm
+Split09,RandomForest,num__job_dens_qm
+Split09,RandomForest,num__stv_mi
+Split09,RandomForest,num__transit_stops_qm
+Split09,RandomForest,num__stv_ann
+Split10,MutualInformation,num__walk_comm_hm
+Split10,MutualInformation,num__transit_stops_em
+Split10,MutualInformation,num__sig_int_hm
+Split10,MutualInformation,num__sig_dens_hm
+Split10,MutualInformation,num__dist_CBD
+Split10,MutualInformation,num__job_dens_hm
+Split10,MutualInformation,num__stv_mi_hm
+Split10,MutualInformation,num__sig_int_qm
+Split10,MutualInformation,num__isect_dens_hm
+Split10,MutualInformation,num__job_dens_em
+Split10,MutualInformation,num__bus_stops_em
+Split10,MutualInformation,num__sig_dens_qm
+Split10,MutualInformation,num__job_dens_qm
+Split10,MutualInformation,num__isect_dens_qm
+Split10,MutualInformation,cat__class_type_pri-res
+Split10,MutualInformation,num__zch_qm
+Split10,MutualInformation,num__job_dens
+Split10,MutualInformation,cat__speed_type_20 mph-30 mph
+Split10,MutualInformation,num__hh_hm
+Split10,MutualInformation,num__isect_dens_em
+Split10,L1_Lasso,num__Number of
+Split10,L1_Lasso,num__stv_mi
+Split10,L1_Lasso,num__stv_mi_em
+Split10,L1_Lasso,num__bus_stops_em
+Split10,L1_Lasso,num__sig_int_em
+Split10,L1_Lasso,num__Commercial Area_em
+Split10,L1_Lasso,num__Retail Area_em
+Split10,L1_Lasso,num__transit_stops_qm
+Split10,L1_Lasso,num__bus_stops_hm
+Split10,L1_Lasso,num__job_dens_hm
+Split10,L1_Lasso,cat__class_type_mot-sec
+Split10,L1_Lasso,cat__class_type_pri-pri
+Split10,L1_Lasso,cat__class_type_pri-ter
+Split10,L1_Lasso,cat__class_type_sec-sec
+Split10,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split10,L1_Lasso,cat__speed_type_25 mph-55 mph
+Split10,L1_Lasso,cat__crossing_class_unmarked
+Split10,RandomForest,num__zch_hm
+Split10,RandomForest,num__job_dens_em
+Split10,RandomForest,num__job_dens
+Split10,RandomForest,num__job_dens_hm
+Split10,RandomForest,num__isect_dens_hm
+Split10,RandomForest,num__sig_int_qm
+Split10,RandomForest,num__transit_stops_hm
+Split10,RandomForest,num__stv_mi_hm
+Split10,RandomForest,num__sig_int_hm
+Split10,RandomForest,num__job_dens_qm
+Split10,RandomForest,num__sig_dens_qm
+Split10,RandomForest,num__sig_dens_hm
+Split10,RandomForest,num__stv_ann
+Split10,RandomForest,num__stv_mi_qm
+Split10,RandomForest,num__walk_comm_hm
+Split10,RandomForest,num__sig_int_em
+Split10,RandomForest,num__stv_mi
+Split10,RandomForest,num__dist_CBD
+Split10,RandomForest,num__zch_qm
+Split10,RandomForest,num__sig_dens_em
+Split11,MutualInformation,num__walk_comm_hm
+Split11,MutualInformation,num__dist_CBD
+Split11,MutualInformation,num__sig_int_hm
+Split11,MutualInformation,num__sig_dens_hm
+Split11,MutualInformation,num__stv_mi
+Split11,MutualInformation,num__stv_ann
+Split11,MutualInformation,num__transit_stops_em
+Split11,MutualInformation,num__job_dens_qm
+Split11,MutualInformation,num__Park Area_hm
+Split11,MutualInformation,num__isect_dens_em
+Split11,MutualInformation,num__stv_mi_hm
+Split11,MutualInformation,num__job_dens_em
+Split11,MutualInformation,num__sig_int_qm
+Split11,MutualInformation,num__hh_hm
+Split11,MutualInformation,num__job_dens
+Split11,MutualInformation,num__sig_dens_qm
+Split11,MutualInformation,num__zch_em
+Split11,MutualInformation,num__med_inc_em
+Split11,MutualInformation,num__walk_comm_qm
+Split11,MutualInformation,num__swlk_len
+Split11,L1_Lasso,num__Number of
+Split11,L1_Lasso,num__stv_mi
+Split11,L1_Lasso,num__dist_CBD
+Split11,L1_Lasso,num__sig_int
+Split11,L1_Lasso,num__sig_int_em
+Split11,L1_Lasso,num__transit_stops_em
+Split11,L1_Lasso,num__stv_mi_hm
+Split11,L1_Lasso,num__Park Area_hm
+Split11,L1_Lasso,num__transit_stops_hm
+Split11,L1_Lasso,cat__class_type_mot-sec
+Split11,L1_Lasso,cat__class_type_pri-pri
+Split11,L1_Lasso,cat__class_type_pri-sec
+Split11,L1_Lasso,cat__class_type_sec-sec
+Split11,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split11,L1_Lasso,cat__speed_type_35 mph-35 mph
+Split11,RandomForest,num__job_dens_em
+Split11,RandomForest,num__zch_qm
+Split11,RandomForest,num__job_dens_hm
+Split11,RandomForest,num__swlk_len
+Split11,RandomForest,num__zch_hm
+Split11,RandomForest,num__sig_int_hm
+Split11,RandomForest,num__Park Area_hm
+Split11,RandomForest,num__job_dens
+Split11,RandomForest,num__sig_dens_hm
+Split11,RandomForest,num__sig_int_qm
+Split11,RandomForest,num__job_dens_qm
+Split11,RandomForest,num__walk_comm_hm
+Split11,RandomForest,num__pop_dens_qm
+Split11,RandomForest,num__sig_dens_qm
+Split11,RandomForest,num__Park Area_qm
+Split11,RandomForest,num__stv_mi
+Split11,RandomForest,num__sig_int
+Split11,RandomForest,num__stv_mi_em
+Split11,RandomForest,num__sig_dens
+Split11,RandomForest,num__dist_CBD
+Split12,MutualInformation,num__transit_stops_em
+Split12,MutualInformation,num__bus_stops_em
+Split12,MutualInformation,num__sig_int_hm
+Split12,MutualInformation,num__isect_dens_em
+Split12,MutualInformation,num__sig_dens_hm
+Split12,MutualInformation,num__walk_comm_hm
+Split12,MutualInformation,num__job_dens_hm
+Split12,MutualInformation,num__sig_dens_qm
+Split12,MutualInformation,num__sig_int_qm
+Split12,MutualInformation,num__bus_stops_hm
+Split12,MutualInformation,num__transit_stops_hm
+Split12,MutualInformation,num__job_dens_qm
+Split12,MutualInformation,num__Park Area_qm
+Split12,MutualInformation,num__stv_mi_hm
+Split12,MutualInformation,num__swlk_len_hm
+Split12,MutualInformation,cat__class_type_pri-res
+Split12,MutualInformation,cat__speed_type_20 mph-30 mph
+Split12,MutualInformation,num__stv_mi_em
+Split12,MutualInformation,num__hh_hm
+Split12,MutualInformation,num__zch_em
+Split12,L1_Lasso,num__Number of
+Split12,L1_Lasso,num__stv_mi
+Split12,L1_Lasso,num__sig_int
+Split12,L1_Lasso,num__Commercial Area_em
+Split12,L1_Lasso,num__sig_int_qm
+Split12,L1_Lasso,num__transit_stops_qm
+Split12,L1_Lasso,num__job_dens_hm
+Split12,L1_Lasso,num__Park Area_hm
+Split12,L1_Lasso,num__transit_stops_hm
+Split12,L1_Lasso,cat__season_spring
+Split12,L1_Lasso,cat__class_type_mot-sec
+Split12,L1_Lasso,cat__class_type_pri-res
+Split12,L1_Lasso,cat__class_type_pri-ter
+Split12,L1_Lasso,cat__class_type_sec-sec
+Split12,L1_Lasso,cat__speed_type_25 mph-55 mph
+Split12,RandomForest,num__stv_mi_hm
+Split12,RandomForest,num__zch_hm
+Split12,RandomForest,num__sig_dens_hm
+Split12,RandomForest,num__sig_int_hm
+Split12,RandomForest,num__job_dens_hm
+Split12,RandomForest,num__job_dens_em
+Split12,RandomForest,num__walk_comm_hm
+Split12,RandomForest,num__sig_dens_qm
+Split12,RandomForest,num__sig_dens_em
+Split12,RandomForest,num__sig_int_qm
+Split12,RandomForest,num__sig_int_em
+Split12,RandomForest,num__job_dens_qm
+Split12,RandomForest,num__isect_dens_em
+Split12,RandomForest,num__dist_CBD
+Split12,RandomForest,num__stv_mi
+Split12,RandomForest,num__sig_dens
+Split12,RandomForest,num__stv_ann
+Split12,RandomForest,num__swlk_len
+Split12,RandomForest,num__sig_int
+Split12,RandomForest,num__bus_stops_hm
+Split13,MutualInformation,num__walk_comm_hm
+Split13,MutualInformation,num__dist_CBD
+Split13,MutualInformation,num__job_dens_hm
+Split13,MutualInformation,num__stv_mi_hm
+Split13,MutualInformation,num__sig_dens_qm
+Split13,MutualInformation,num__isect_dens_em
+Split13,MutualInformation,num__sig_dens_hm
+Split13,MutualInformation,num__sig_int_qm
+Split13,MutualInformation,num__sig_dens_em
+Split13,MutualInformation,num__stv_ann
+Split13,MutualInformation,num__stv_mi
+Split13,MutualInformation,num__sig_int_hm
+Split13,MutualInformation,num__transit_stops_em
+Split13,MutualInformation,num__job_dens_qm
+Split13,MutualInformation,num__stv_mi_em
+Split13,MutualInformation,num__sig_int_em
+Split13,MutualInformation,num__transit_stops_hm
+Split13,MutualInformation,num__hh_hm
+Split13,MutualInformation,num__zch_qm
+Split13,MutualInformation,num__job_dens
+Split13,L1_Lasso,num__stv_mi
+Split13,L1_Lasso,num__sig_int
+Split13,L1_Lasso,num__stv_mi_em
+Split13,L1_Lasso,num__bus_stops_em
+Split13,L1_Lasso,num__Commercial Area_em
+Split13,L1_Lasso,num__Retail Area_em
+Split13,L1_Lasso,num__isect_dens_qm
+Split13,L1_Lasso,num__transit_stops_qm
+Split13,L1_Lasso,num__job_dens_hm
+Split13,L1_Lasso,cat__class_type_pri-res
+Split13,L1_Lasso,cat__class_type_sec-sec
+Split13,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split13,L1_Lasso,cat__crossing_class_unmarked
+Split13,RandomForest,num__job_dens_em
+Split13,RandomForest,num__job_dens
+Split13,RandomForest,num__stv_mi_hm
+Split13,RandomForest,num__sig_int_qm
+Split13,RandomForest,num__sig_dens_hm
+Split13,RandomForest,num__zch_hm
+Split13,RandomForest,num__sig_int_hm
+Split13,RandomForest,num__sig_dens_qm
+Split13,RandomForest,num__job_dens_hm
+Split13,RandomForest,num__job_dens_qm
+Split13,RandomForest,num__walk_comm_hm
+Split13,RandomForest,num__zch_qm
+Split13,RandomForest,num__transit_stops_hm
+Split13,RandomForest,num__isect_dens_hm
+Split13,RandomForest,num__sig_dens_em
+Split13,RandomForest,num__sig_int_em
+Split13,RandomForest,num__stv_ann
+Split13,RandomForest,num__stv_mi
+Split13,RandomForest,num__Retail Area_em
+Split13,RandomForest,num__isect_dens_em
+Split14,MutualInformation,num__job_dens_em
+Split14,MutualInformation,num__job_dens
+Split14,MutualInformation,num__job_dens_qm
+Split14,MutualInformation,num__isect_dens_em
+Split14,MutualInformation,num__sig_dens_hm
+Split14,MutualInformation,num__transit_stops_hm
+Split14,MutualInformation,num__sig_int_hm
+Split14,MutualInformation,num__job_dens_hm
+Split14,MutualInformation,num__walk_comm_hm
+Split14,MutualInformation,num__sig_dens_qm
+Split14,MutualInformation,num__bus_stops_hm
+Split14,MutualInformation,num__sig_int_qm
+Split14,MutualInformation,num__stv_mi_hm
+Split14,MutualInformation,num__hh_hm
+Split14,MutualInformation,num__isect_dens_hm
+Split14,MutualInformation,num__zch_qm
+Split14,MutualInformation,num__isect_dens_qm
+Split14,MutualInformation,num__bus_stops_qm
+Split14,MutualInformation,num__zch_em
+Split14,MutualInformation,num__transit_stops_qm
+Split14,L1_Lasso,num__stv_mi
+Split14,L1_Lasso,num__Park Area
+Split14,L1_Lasso,num__swlk_len
+Split14,L1_Lasso,num__Commercial Area_em
+Split14,L1_Lasso,num__Park Area_em
+Split14,L1_Lasso,num__bus_stops_hm
+Split14,L1_Lasso,num__job_dens_hm
+Split14,L1_Lasso,cat__season_spring
+Split14,L1_Lasso,cat__class_type_mot-sec
+Split14,L1_Lasso,cat__class_type_pri-ter
+Split14,L1_Lasso,cat__class_type_sec-sec
+Split14,L1_Lasso,cat__speed_type_25 mph-55 mph
+Split14,L1_Lasso,cat__crossing_class_unmarked
+Split14,RandomForest,num__isect_dens_hm
+Split14,RandomForest,num__job_dens_em
+Split14,RandomForest,num__stv_mi_hm
+Split14,RandomForest,num__zch_qm
+Split14,RandomForest,num__job_dens
+Split14,RandomForest,num__transit_stops_hm
+Split14,RandomForest,num__zch_hm
+Split14,RandomForest,num__job_dens_hm
+Split14,RandomForest,num__sig_dens_hm
+Split14,RandomForest,num__bus_stops_hm
+Split14,RandomForest,num__sig_int_hm
+Split14,RandomForest,num__sig_int_qm
+Split14,RandomForest,num__dist_CBD
+Split14,RandomForest,num__stv_mi_qm
+Split14,RandomForest,num__walk_comm_hm
+Split14,RandomForest,num__sig_dens_qm
+Split14,RandomForest,num__Retail Area_hm
+Split14,RandomForest,num__transit_stops_qm
+Split14,RandomForest,num__stv_ann
+Split14,RandomForest,num__job_dens_qm
+Split15,MutualInformation,num__walk_comm_hm
+Split15,MutualInformation,num__stv_mi_hm
+Split15,MutualInformation,num__isect_dens_qm
+Split15,MutualInformation,num__sig_int_hm
+Split15,MutualInformation,num__sig_dens_hm
+Split15,MutualInformation,num__stv_mi
+Split15,MutualInformation,num__stv_ann
+Split15,MutualInformation,num__swlk_len_hm
+Split15,MutualInformation,num__isect_dens_em
+Split15,MutualInformation,num__job_dens_qm
+Split15,MutualInformation,num__job_dens_em
+Split15,MutualInformation,num__stv_mi_em
+Split15,MutualInformation,num__dist_CBD
+Split15,MutualInformation,num__job_dens
+Split15,MutualInformation,num__job_dens_hm
+Split15,MutualInformation,num__sig_int_em
+Split15,MutualInformation,num__sig_dens_em
+Split15,MutualInformation,num__transit_stops_hm
+Split15,MutualInformation,num__sig_dens_qm
+Split15,MutualInformation,num__zch_qm
+Split15,L1_Lasso,num__Number of
+Split15,L1_Lasso,num__stv_mi
+Split15,L1_Lasso,num__sig_int_em
+Split15,L1_Lasso,num__Commercial Area_em
+Split15,L1_Lasso,num__transit_stops_qm
+Split15,L1_Lasso,num__stv_mi_hm
+Split15,L1_Lasso,num__job_dens_hm
+Split15,L1_Lasso,num__Park Area_hm
+Split15,L1_Lasso,cat__class_type_sec-sec
+Split15,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split15,L1_Lasso,cat__crossing_class_unmarked
+Split15,RandomForest,num__isect_dens_hm
+Split15,RandomForest,num__job_dens_em
+Split15,RandomForest,num__job_dens_hm
+Split15,RandomForest,num__sig_dens_qm
+Split15,RandomForest,num__sig_int_qm
+Split15,RandomForest,num__sig_dens_hm
+Split15,RandomForest,num__sig_int_hm
+Split15,RandomForest,num__job_dens_qm
+Split15,RandomForest,num__stv_mi_hm
+Split15,RandomForest,num__zch_qm
+Split15,RandomForest,num__stv_mi_qm
+Split15,RandomForest,num__swlk_len
+Split15,RandomForest,num__stv_ann
+Split15,RandomForest,num__stv_mi
+Split15,RandomForest,num__transit_stops_hm
+Split15,RandomForest,num__job_dens
+Split15,RandomForest,num__transit_stops_qm
+Split15,RandomForest,num__sig_dens_em
+Split15,RandomForest,num__sig_int_em
+Split15,RandomForest,num__Park Area_hm
+Split16,MutualInformation,num__stv_mi_hm
+Split16,MutualInformation,num__walk_comm_hm
+Split16,MutualInformation,num__job_dens_hm
+Split16,MutualInformation,num__transit_stops_qm
+Split16,MutualInformation,num__sig_int_hm
+Split16,MutualInformation,num__sig_dens_qm
+Split16,MutualInformation,num__job_dens_qm
+Split16,MutualInformation,num__sig_dens_hm
+Split16,MutualInformation,num__dist_CBD
+Split16,MutualInformation,num__sig_int_qm
+Split16,MutualInformation,num__stv_mi_em
+Split16,MutualInformation,num__bus_stops_qm
+Split16,MutualInformation,num__stv_ann
+Split16,MutualInformation,num__stv_mi
+Split16,MutualInformation,num__zch_qm
+Split16,MutualInformation,num__transit_stops_em
+Split16,MutualInformation,num__bus_stops_hm
+Split16,MutualInformation,num__isect_dens_em
+Split16,MutualInformation,num__med_inc_em
+Split16,MutualInformation,cat__speed_type_20 mph-30 mph
+Split16,L1_Lasso,num__stv_mi
+Split16,L1_Lasso,num__swlk_len
+Split16,L1_Lasso,num__sig_int
+Split16,L1_Lasso,num__stv_mi_em
+Split16,L1_Lasso,num__Commercial Area_em
+Split16,L1_Lasso,num__Retail Area_em
+Split16,L1_Lasso,num__job_dens_hm
+Split16,L1_Lasso,num__Park Area_hm
+Split16,L1_Lasso,cat__class_type_mot-sec
+Split16,L1_Lasso,cat__class_type_pri-pri
+Split16,L1_Lasso,cat__class_type_pri-ter
+Split16,L1_Lasso,cat__class_type_sec-sec
+Split16,L1_Lasso,cat__speed_type_20 mph-25 mph
+Split16,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split16,L1_Lasso,cat__crossing_class_unmarked
+Split16,RandomForest,num__stv_mi_hm
+Split16,RandomForest,num__sig_int_hm
+Split16,RandomForest,num__job_dens_em
+Split16,RandomForest,num__job_dens_hm
+Split16,RandomForest,num__job_dens
+Split16,RandomForest,num__sig_dens_hm
+Split16,RandomForest,num__sig_int_qm
+Split16,RandomForest,num__stv_mi_qm
+Split16,RandomForest,num__transit_stops_hm
+Split16,RandomForest,num__dist_CBD
+Split16,RandomForest,num__stv_mi
+Split16,RandomForest,num__stv_mi_em
+Split16,RandomForest,num__sig_dens_qm
+Split16,RandomForest,num__isect_dens_hm
+Split16,RandomForest,num__swlk_len
+Split16,RandomForest,num__stv_ann
+Split16,RandomForest,num__job_dens_qm
+Split16,RandomForest,num__sig_dens
+Split16,RandomForest,num__Retail Area_hm
+Split16,RandomForest,num__zch_hm
+Split17,MutualInformation,num__sig_int_hm
+Split17,MutualInformation,num__job_dens_hm
+Split17,MutualInformation,num__walk_comm_hm
+Split17,MutualInformation,num__sig_dens_hm
+Split17,MutualInformation,num__stv_mi_hm
+Split17,MutualInformation,num__sig_dens_qm
+Split17,MutualInformation,num__job_dens_qm
+Split17,MutualInformation,num__sig_int_qm
+Split17,MutualInformation,num__job_dens_em
+Split17,MutualInformation,num__transit_stops_hm
+Split17,MutualInformation,num__isect_dens_em
+Split17,MutualInformation,num__job_dens
+Split17,MutualInformation,num__transit_stops_em
+Split17,MutualInformation,num__hh_hm
+Split17,MutualInformation,num__dist_CBD
+Split17,MutualInformation,num__stv_mi_em
+Split17,MutualInformation,num__stv_mi
+Split17,MutualInformation,num__stv_ann
+Split17,MutualInformation,num__bus_stops_hm
+Split17,MutualInformation,num__isect_dens_hm
+Split17,L1_Lasso,num__Number of
+Split17,L1_Lasso,num__stv_mi
+Split17,L1_Lasso,num__sig_int_em
+Split17,L1_Lasso,num__Commercial Area_em
+Split17,L1_Lasso,num__job_dens_hm
+Split17,L1_Lasso,num__Park Area_hm
+Split17,L1_Lasso,num__transit_stops_hm
+Split17,L1_Lasso,cat__class_type_sec-sec
+Split17,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split17,RandomForest,num__zch_hm
+Split17,RandomForest,num__isect_dens_hm
+Split17,RandomForest,num__job_dens_em
+Split17,RandomForest,num__zch_qm
+Split17,RandomForest,num__walk_comm_hm
+Split17,RandomForest,num__sig_int_qm
+Split17,RandomForest,num__job_dens_hm
+Split17,RandomForest,num__sig_int_hm
+Split17,RandomForest,num__sig_dens_hm
+Split17,RandomForest,num__transit_stops_hm
+Split17,RandomForest,num__sig_dens_qm
+Split17,RandomForest,num__hh_hm
+Split17,RandomForest,num__transit_stops_qm
+Split17,RandomForest,num__sig_int_em
+Split17,RandomForest,num__stv_mi_qm
+Split17,RandomForest,num__stv_mi_hm
+Split17,RandomForest,num__bus_stops_hm
+Split17,RandomForest,num__Park Area_hm
+Split17,RandomForest,num__swlk_len
+Split17,RandomForest,num__job_dens_qm
+Split18,MutualInformation,num__isect_dens_em
+Split18,MutualInformation,num__walk_comm_hm
+Split18,MutualInformation,num__transit_stops_hm
+Split18,MutualInformation,num__bus_stops_hm
+Split18,MutualInformation,num__transit_stops_em
+Split18,MutualInformation,num__dist_CBD
+Split18,MutualInformation,num__sig_dens_qm
+Split18,MutualInformation,num__sig_int_qm
+Split18,MutualInformation,num__sig_dens_hm
+Split18,MutualInformation,num__isect_dens_hm
+Split18,MutualInformation,num__job_dens_hm
+Split18,MutualInformation,num__sig_int_hm
+Split18,MutualInformation,num__swlk_len_hm
+Split18,MutualInformation,num__job_dens
+Split18,MutualInformation,num__stv_mi_hm
+Split18,MutualInformation,num__stv_mi
+Split18,MutualInformation,num__stv_ann
+Split18,MutualInformation,num__hh_hm
+Split18,MutualInformation,num__sig_int_em
+Split18,MutualInformation,num__zch_qm
+Split18,L1_Lasso,num__Number of
+Split18,L1_Lasso,num__stv_mi
+Split18,L1_Lasso,num__walk_comm
+Split18,L1_Lasso,num__sig_int_em
+Split18,L1_Lasso,num__Commercial Area_em
+Split18,L1_Lasso,num__transit_stops_qm
+Split18,L1_Lasso,num__stv_mi_hm
+Split18,L1_Lasso,num__job_dens_hm
+Split18,L1_Lasso,num__Park Area_hm
+Split18,L1_Lasso,cat__class_type_mot-sec
+Split18,L1_Lasso,cat__class_type_sec-sec
+Split18,L1_Lasso,cat__speed_type_25 mph-55 mph
+Split18,RandomForest,num__job_dens_em
+Split18,RandomForest,num__stv_mi_hm
+Split18,RandomForest,num__sig_int_qm
+Split18,RandomForest,num__job_dens_hm
+Split18,RandomForest,num__sig_int_hm
+Split18,RandomForest,num__sig_dens_qm
+Split18,RandomForest,num__job_dens_qm
+Split18,RandomForest,num__sig_dens_hm
+Split18,RandomForest,num__isect_dens_hm
+Split18,RandomForest,num__job_dens
+Split18,RandomForest,num__sig_int_em
+Split18,RandomForest,num__sig_dens_em
+Split18,RandomForest,num__isect_dens_em
+Split18,RandomForest,num__zch_qm
+Split18,RandomForest,num__walk_comm_hm
+Split18,RandomForest,num__transit_stops_hm
+Split18,RandomForest,num__zch_hm
+Split18,RandomForest,num__stv_mi
+Split18,RandomForest,num__stv_ann
+Split18,RandomForest,num__bus_stops_hm
+Split19,MutualInformation,num__dist_CBD
+Split19,MutualInformation,num__hh_hm
+Split19,MutualInformation,num__transit_stops_hm
+Split19,MutualInformation,num__sig_int_hm
+Split19,MutualInformation,num__sig_dens_hm
+Split19,MutualInformation,num__transit_stops_em
+Split19,MutualInformation,num__stv_mi_hm
+Split19,MutualInformation,num__stv_mi_em
+Split19,MutualInformation,num__walk_comm_hm
+Split19,MutualInformation,num__job_dens_em
+Split19,MutualInformation,num__sig_dens_qm
+Split19,MutualInformation,num__zch_em
+Split19,MutualInformation,num__isect_dens_em
+Split19,MutualInformation,num__job_dens
+Split19,MutualInformation,num__bus_stops_hm
+Split19,MutualInformation,num__sig_int_qm
+Split19,MutualInformation,num__isect_dens_qm
+Split19,MutualInformation,num__job_dens_hm
+Split19,MutualInformation,num__zch_qm
+Split19,MutualInformation,num__swlk_len_em
+Split19,L1_Lasso,num__Number of
+Split19,L1_Lasso,num__bus_stops_em
+Split19,L1_Lasso,num__sig_int_em
+Split19,L1_Lasso,num__stv_mi_hm
+Split19,L1_Lasso,num__job_dens_hm
+Split19,L1_Lasso,num__transit_stops_hm
+Split19,L1_Lasso,cat__class_type_pri-res
+Split19,L1_Lasso,cat__class_type_sec-sec
+Split19,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split19,RandomForest,num__job_dens_em
+Split19,RandomForest,num__job_dens_hm
+Split19,RandomForest,num__stv_mi_hm
+Split19,RandomForest,num__zch_hm
+Split19,RandomForest,num__sig_int_hm
+Split19,RandomForest,num__sig_int_qm
+Split19,RandomForest,num__sig_dens_hm
+Split19,RandomForest,num__job_dens_qm
+Split19,RandomForest,num__zch_qm
+Split19,RandomForest,num__sig_dens_qm
+Split19,RandomForest,num__job_dens
+Split19,RandomForest,num__stv_mi
+Split19,RandomForest,num__stv_ann
+Split19,RandomForest,num__Park Area_qm
+Split19,RandomForest,num__isect_dens_hm
+Split19,RandomForest,num__sig_int_em
+Split19,RandomForest,num__walk_comm_hm
+Split19,RandomForest,num__swlk_len
+Split19,RandomForest,num__sig_dens_em
+Split19,RandomForest,num__stv_mi_qm
+Split20,MutualInformation,num__sig_dens_hm
+Split20,MutualInformation,num__sig_int_hm
+Split20,MutualInformation,num__walk_comm_hm
+Split20,MutualInformation,num__job_dens_hm
+Split20,MutualInformation,num__dist_CBD
+Split20,MutualInformation,num__sig_dens_qm
+Split20,MutualInformation,num__isect_dens_em
+Split20,MutualInformation,num__swlk_len
+Split20,MutualInformation,num__sig_int_qm
+Split20,MutualInformation,num__job_dens_qm
+Split20,MutualInformation,num__isect_dens_qm
+Split20,MutualInformation,num__job_dens_em
+Split20,MutualInformation,num__bus_stops_qm
+Split20,MutualInformation,num__transit_stops_qm
+Split20,MutualInformation,num__swlk_len_em
+Split20,MutualInformation,num__stv_mi_hm
+Split20,MutualInformation,num__isect_dens_hm
+Split20,MutualInformation,num__Park Area_hm
+Split20,MutualInformation,num__transit_stops_em
+Split20,MutualInformation,num__job_dens
+Split20,L1_Lasso,num__Number of
+Split20,L1_Lasso,num__stv_mi
+Split20,L1_Lasso,num__Park Area
+Split20,L1_Lasso,num__sig_int
+Split20,L1_Lasso,num__sig_int_em
+Split20,L1_Lasso,num__Commercial Area_em
+Split20,L1_Lasso,num__Retail Area_em
+Split20,L1_Lasso,num__Park Area_em
+Split20,L1_Lasso,num__transit_stops_em
+Split20,L1_Lasso,num__stv_mi_hm
+Split20,L1_Lasso,num__sig_int_hm
+Split20,L1_Lasso,num__job_dens_hm
+Split20,L1_Lasso,num__Park Area_hm
+Split20,L1_Lasso,num__transit_stops_hm
+Split20,L1_Lasso,cat__class_type_pri-ter
+Split20,L1_Lasso,cat__class_type_sec-sec
+Split20,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split20,L1_Lasso,cat__crossing_class_unmarked
+Split20,RandomForest,num__stv_mi_hm
+Split20,RandomForest,num__isect_dens_hm
+Split20,RandomForest,num__sig_int_hm
+Split20,RandomForest,num__zch_hm
+Split20,RandomForest,num__sig_dens_qm
+Split20,RandomForest,num__job_dens_hm
+Split20,RandomForest,num__job_dens_em
+Split20,RandomForest,num__sig_int_em
+Split20,RandomForest,num__sig_dens_em
+Split20,RandomForest,num__sig_dens_hm
+Split20,RandomForest,num__Park Area_hm
+Split20,RandomForest,num__sig_int_qm
+Split20,RandomForest,num__job_dens_qm
+Split20,RandomForest,num__dist_CBD
+Split20,RandomForest,num__walk_comm_hm
+Split20,RandomForest,num__stv_mi
+Split20,RandomForest,num__stv_ann
+Split20,RandomForest,num__job_dens
+Split20,RandomForest,num__swlk_len
+Split20,RandomForest,num__Commercial Area_em
+Split21,MutualInformation,num__transit_stops_em
+Split21,MutualInformation,num__isect_dens_em
+Split21,MutualInformation,num__stv_mi_em
+Split21,MutualInformation,num__job_dens_hm
+Split21,MutualInformation,num__bus_stops_em
+Split21,MutualInformation,num__job_dens_qm
+Split21,MutualInformation,num__sig_int_hm
+Split21,MutualInformation,num__sig_dens_hm
+Split21,MutualInformation,num__sig_int_qm
+Split21,MutualInformation,num__stv_mi_hm
+Split21,MutualInformation,cat__class_type_pri-res
+Split21,MutualInformation,num__walk_comm_hm
+Split21,MutualInformation,num__isect_dens_qm
+Split21,MutualInformation,num__swlk_len_hm
+Split21,MutualInformation,num__job_dens
+Split21,MutualInformation,num__job_dens_em
+Split21,MutualInformation,num__sig_dens_qm
+Split21,MutualInformation,cat__speed_type_20 mph-30 mph
+Split21,MutualInformation,num__stv_mi
+Split21,MutualInformation,num__stv_ann
+Split21,L1_Lasso,num__Number of
+Split21,L1_Lasso,num__stv_mi
+Split21,L1_Lasso,num__sig_int_em
+Split21,L1_Lasso,num__transit_stops_qm
+Split21,L1_Lasso,num__job_dens_hm
+Split21,L1_Lasso,num__transit_stops_hm
+Split21,L1_Lasso,cat__class_type_pri-ter
+Split21,L1_Lasso,cat__class_type_sec-sec
+Split21,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split21,L1_Lasso,cat__crossing_class_unmarked
+Split21,RandomForest,num__job_dens_em
+Split21,RandomForest,num__sig_int_qm
+Split21,RandomForest,num__job_dens_hm
+Split21,RandomForest,num__sig_int_hm
+Split21,RandomForest,num__job_dens_qm
+Split21,RandomForest,num__sig_int_em
+Split21,RandomForest,num__sig_dens_em
+Split21,RandomForest,num__sig_dens_hm
+Split21,RandomForest,num__stv_mi_hm
+Split21,RandomForest,num__sig_dens_qm
+Split21,RandomForest,num__job_dens
+Split21,RandomForest,num__stv_ann
+Split21,RandomForest,num__swlk_len
+Split21,RandomForest,num__dist_CBD
+Split21,RandomForest,num__stv_mi
+Split21,RandomForest,num__zch_hm
+Split21,RandomForest,num__transit_stops_hm
+Split21,RandomForest,num__Retail Area_em
+Split21,RandomForest,num__zch_qm
+Split21,RandomForest,num__sig_dens
+Split22,MutualInformation,num__sig_int_hm
+Split22,MutualInformation,num__sig_dens_hm
+Split22,MutualInformation,num__transit_stops_hm
+Split22,MutualInformation,num__dist_CBD
+Split22,MutualInformation,num__walk_comm_hm
+Split22,MutualInformation,num__isect_dens_hm
+Split22,MutualInformation,num__bus_stops_hm
+Split22,MutualInformation,num__stv_mi
+Split22,MutualInformation,num__stv_ann
+Split22,MutualInformation,num__job_dens_hm
+Split22,MutualInformation,num__sig_int_qm
+Split22,MutualInformation,num__job_dens_qm
+Split22,MutualInformation,num__hh_hm
+Split22,MutualInformation,num__job_dens_em
+Split22,MutualInformation,num__stv_mi_hm
+Split22,MutualInformation,num__transit_stops_em
+Split22,MutualInformation,num__zch_qm
+Split22,MutualInformation,num__isect_dens_em
+Split22,MutualInformation,num__isect_dens_qm
+Split22,MutualInformation,num__job_dens
+Split22,L1_Lasso,num__Number of
+Split22,L1_Lasso,num__stv_mi
+Split22,L1_Lasso,num__dist_CBD
+Split22,L1_Lasso,num__Park Area
+Split22,L1_Lasso,num__sig_int
+Split22,L1_Lasso,num__Commercial Area_em
+Split22,L1_Lasso,num__Retail Area_em
+Split22,L1_Lasso,num__bus_stops_qm
+Split22,L1_Lasso,num__hh_qm
+Split22,L1_Lasso,num__job_dens_hm
+Split22,L1_Lasso,num__Park Area_hm
+Split22,L1_Lasso,cat__class_type_mot-sec
+Split22,L1_Lasso,cat__class_type_pri-pri
+Split22,L1_Lasso,cat__class_type_pri-sec
+Split22,L1_Lasso,cat__class_type_pri-ter
+Split22,L1_Lasso,cat__class_type_sec-sec
+Split22,L1_Lasso,cat__speed_type_20 mph-25 mph
+Split22,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split22,L1_Lasso,cat__speed_type_25 mph-55 mph
+Split22,L1_Lasso,cat__speed_type_35 mph-35 mph
+Split22,L1_Lasso,cat__crossing_class_unmarked
+Split22,RandomForest,num__isect_dens_hm
+Split22,RandomForest,num__zch_hm
+Split22,RandomForest,num__stv_mi_hm
+Split22,RandomForest,num__sig_int_qm
+Split22,RandomForest,num__sig_dens_qm
+Split22,RandomForest,num__sig_dens_hm
+Split22,RandomForest,num__job_dens
+Split22,RandomForest,num__sig_int_hm
+Split22,RandomForest,num__job_dens_em
+Split22,RandomForest,num__job_dens_qm
+Split22,RandomForest,num__job_dens_hm
+Split22,RandomForest,num__stv_mi_qm
+Split22,RandomForest,num__zch_qm
+Split22,RandomForest,num__sig_dens_em
+Split22,RandomForest,num__walk_comm_hm
+Split22,RandomForest,num__stv_mi
+Split22,RandomForest,num__transit_stops_hm
+Split22,RandomForest,num__stv_ann
+Split22,RandomForest,num__sig_int_em
+Split22,RandomForest,num__Retail Area_em
+Split23,MutualInformation,num__walk_comm_hm
+Split23,MutualInformation,num__isect_dens_em
+Split23,MutualInformation,num__sig_int_hm
+Split23,MutualInformation,num__sig_dens_hm
+Split23,MutualInformation,num__dist_CBD
+Split23,MutualInformation,num__stv_mi_hm
+Split23,MutualInformation,num__sig_int_qm
+Split23,MutualInformation,num__job_dens_hm
+Split23,MutualInformation,num__sig_dens_qm
+Split23,MutualInformation,num__hh_hm
+Split23,MutualInformation,num__isect_dens_hm
+Split23,MutualInformation,num__swlk_len_em
+Split23,MutualInformation,num__job_dens
+Split23,MutualInformation,num__transit_stops_qm
+Split23,MutualInformation,num__job_dens_qm
+Split23,MutualInformation,num__bus_stops_qm
+Split23,MutualInformation,num__sig_int_em
+Split23,MutualInformation,num__job_dens_em
+Split23,MutualInformation,num__sig_dens_em
+Split23,MutualInformation,num__isect_dens_qm
+Split23,L1_Lasso,num__stv_mi
+Split23,L1_Lasso,num__tstop_dens
+Split23,L1_Lasso,num__bus_stops_em
+Split23,L1_Lasso,num__sig_int_em
+Split23,L1_Lasso,num__pop_dens_em
+Split23,L1_Lasso,num__Commercial Area_em
+Split23,L1_Lasso,num__Retail Area_em
+Split23,L1_Lasso,num__Park Area_em
+Split23,L1_Lasso,num__isect_dens_qm
+Split23,L1_Lasso,num__med_inc_qm
+Split23,L1_Lasso,num__stv_mi_hm
+Split23,L1_Lasso,num__isect_dens_hm
+Split23,L1_Lasso,num__job_dens_hm
+Split23,L1_Lasso,cat__season_summer
+Split23,L1_Lasso,cat__class_type_mot-sec
+Split23,L1_Lasso,cat__class_type_pri-pri
+Split23,L1_Lasso,cat__class_type_pri-sec
+Split23,L1_Lasso,cat__class_type_sec-sec
+Split23,L1_Lasso,cat__speed_type_35 mph-35 mph
+Split23,RandomForest,num__stv_mi_hm
+Split23,RandomForest,num__job_dens_em
+Split23,RandomForest,num__isect_dens_hm
+Split23,RandomForest,num__dist_CBD
+Split23,RandomForest,num__sig_int_hm
+Split23,RandomForest,num__zch_qm
+Split23,RandomForest,num__job_dens_hm
+Split23,RandomForest,num__zch_hm
+Split23,RandomForest,num__job_dens_qm
+Split23,RandomForest,num__sig_int_qm
+Split23,RandomForest,num__sig_dens_hm
+Split23,RandomForest,num__stv_ann
+Split23,RandomForest,num__walk_comm_hm
+Split23,RandomForest,num__sig_dens_qm
+Split23,RandomForest,num__sig_dens_em
+Split23,RandomForest,num__stv_mi
+Split23,RandomForest,num__job_dens
+Split23,RandomForest,num__sig_int
+Split23,RandomForest,num__sig_dens
+Split23,RandomForest,num__Park Area_qm
+Split24,MutualInformation,num__walk_comm_hm
+Split24,MutualInformation,num__sig_dens_hm
+Split24,MutualInformation,num__transit_stops_hm
+Split24,MutualInformation,num__isect_dens_em
+Split24,MutualInformation,num__sig_int_qm
+Split24,MutualInformation,num__sig_int_hm
+Split24,MutualInformation,num__transit_stops_em
+Split24,MutualInformation,num__dist_CBD
+Split24,MutualInformation,num__job_dens_hm
+Split24,MutualInformation,num__stv_mi_hm
+Split24,MutualInformation,num__sig_dens_qm
+Split24,MutualInformation,num__job_dens_qm
+Split24,MutualInformation,num__Park Area_hm
+Split24,MutualInformation,num__bus_stops_hm
+Split24,MutualInformation,num__zch_qm
+Split24,MutualInformation,num__hh_hm
+Split24,MutualInformation,num__job_dens_em
+Split24,MutualInformation,num__job_dens
+Split24,MutualInformation,num__zch_em
+Split24,MutualInformation,num__stv_ann
+Split24,L1_Lasso,num__Number of
+Split24,L1_Lasso,num__stv_mi
+Split24,L1_Lasso,num__Park Area
+Split24,L1_Lasso,num__swlk_len
+Split24,L1_Lasso,num__sig_int
+Split24,L1_Lasso,num__sig_int_em
+Split24,L1_Lasso,num__pop_dens_em
+Split24,L1_Lasso,num__Commercial Area_em
+Split24,L1_Lasso,num__Retail Area_em
+Split24,L1_Lasso,num__Park Area_qm
+Split24,L1_Lasso,num__sig_int_hm
+Split24,L1_Lasso,num__job_dens_hm
+Split24,L1_Lasso,num__Park Area_hm
+Split24,L1_Lasso,num__transit_stops_hm
+Split24,L1_Lasso,cat__season_spring
+Split24,L1_Lasso,cat__class_type_mot-sec
+Split24,L1_Lasso,cat__class_type_pri-pri
+Split24,L1_Lasso,cat__class_type_pri-res
+Split24,L1_Lasso,cat__class_type_pri-sec
+Split24,L1_Lasso,cat__class_type_pri-ter
+Split24,L1_Lasso,cat__class_type_sec-sec
+Split24,L1_Lasso,cat__speed_type_20 mph-30 mph
+Split24,L1_Lasso,cat__speed_type_25 mph-55 mph
+Split24,L1_Lasso,cat__speed_type_35 mph-35 mph
+Split24,RandomForest,num__stv_mi_hm
+Split24,RandomForest,num__job_dens_em
+Split24,RandomForest,num__sig_int_qm
+Split24,RandomForest,num__job_dens_hm
+Split24,RandomForest,num__sig_dens_qm
+Split24,RandomForest,num__sig_int_hm
+Split24,RandomForest,num__isect_dens_hm
+Split24,RandomForest,num__zch_hm
+Split24,RandomForest,num__zch_qm
+Split24,RandomForest,num__job_dens_qm
+Split24,RandomForest,num__sig_dens_hm
+Split24,RandomForest,num__Park Area_hm
+Split24,RandomForest,num__job_dens
+Split24,RandomForest,num__stv_mi
+Split24,RandomForest,num__stv_ann
+Split24,RandomForest,num__stv_mi_qm
+Split24,RandomForest,num__sig_int_em
+Split24,RandomForest,num__bus_stops_hm
+Split24,RandomForest,num__sig_dens
+Split24,RandomForest,num__sig_dens_em
+Split25,MutualInformation,num__sig_dens_hm
+Split25,MutualInformation,num__sig_int_hm
+Split25,MutualInformation,num__sig_dens_qm
+Split25,MutualInformation,num__sig_int_qm
+Split25,MutualInformation,num__job_dens_em
+Split25,MutualInformation,num__transit_stops_em
+Split25,MutualInformation,num__walk_comm_hm
+Split25,MutualInformation,num__dist_CBD
+Split25,MutualInformation,num__job_dens
+Split25,MutualInformation,num__job_dens_qm
+Split25,MutualInformation,num__bus_stops_hm
+Split25,MutualInformation,num__isect_dens_em
+Split25,MutualInformation,num__job_dens_hm
+Split25,MutualInformation,num__transit_stops_hm
+Split25,MutualInformation,num__bus_stops_em
+Split25,MutualInformation,num__hh_hm
+Split25,MutualInformation,num__zch_hm
+Split25,MutualInformation,num__stv_mi_hm
+Split25,MutualInformation,num__transit_stops_qm
+Split25,MutualInformation,num__swlk_len
+Split25,L1_Lasso,num__stv_mi
+Split25,L1_Lasso,num__transit_stops_em
+Split25,L1_Lasso,num__stv_mi_hm
+Split25,L1_Lasso,num__bus_stops_hm
+Split25,L1_Lasso,num__job_dens_hm
+Split25,L1_Lasso,num__Park Area_hm
+Split25,L1_Lasso,cat__crossing_class_unmarked
+Split25,RandomForest,num__isect_dens_hm
+Split25,RandomForest,num__job_dens_em
+Split25,RandomForest,num__transit_stops_hm
+Split25,RandomForest,num__zch_hm
+Split25,RandomForest,num__zch_qm
+Split25,RandomForest,num__sig_dens_hm
+Split25,RandomForest,num__job_dens_hm
+Split25,RandomForest,num__Park Area_hm
+Split25,RandomForest,num__job_dens
+Split25,RandomForest,num__sig_int_hm
+Split25,RandomForest,num__sig_dens_qm
+Split25,RandomForest,num__sig_int_qm
+Split25,RandomForest,num__dist_CBD
+Split25,RandomForest,num__bus_stops_hm
+Split25,RandomForest,num__walk_comm_hm
+Split25,RandomForest,num__job_dens_qm
+Split25,RandomForest,num__swlk_len
+Split25,RandomForest,num__stv_mi_hm
+Split25,RandomForest,num__stv_ann
+Split25,RandomForest,num__stv_mi_qm

@@ -1,0 +1,129 @@
+feature_selection_method,feature_name,selected_count,selected_rate
+L1_Lasso,num__job_dens_hm,24,0.96
+L1_Lasso,cat__class_type_sec-sec,22,0.88
+L1_Lasso,num__stv_mi,21,0.84
+L1_Lasso,cat__speed_type_20 mph-30 mph,17,0.68
+L1_Lasso,num__sig_int_em,16,0.64
+L1_Lasso,num__Number of,15,0.6
+L1_Lasso,num__Park Area_hm,15,0.6
+L1_Lasso,num__Commercial Area_em,14,0.56
+L1_Lasso,cat__crossing_class_unmarked,12,0.48
+L1_Lasso,num__stv_mi_hm,12,0.48
+L1_Lasso,num__transit_stops_hm,12,0.48
+L1_Lasso,cat__class_type_mot-sec,11,0.44
+L1_Lasso,num__sig_int,10,0.4
+L1_Lasso,cat__class_type_pri-ter,9,0.36
+L1_Lasso,num__Retail Area_em,9,0.36
+L1_Lasso,cat__speed_type_25 mph-55 mph,8,0.32
+L1_Lasso,num__transit_stops_qm,8,0.32
+L1_Lasso,cat__class_type_pri-pri,7,0.28
+L1_Lasso,cat__speed_type_35 mph-35 mph,6,0.24
+L1_Lasso,num__bus_stops_em,6,0.24
+L1_Lasso,cat__class_type_pri-res,5,0.2
+L1_Lasso,cat__class_type_pri-sec,5,0.2
+L1_Lasso,num__transit_stops_em,5,0.2
+L1_Lasso,num__Park Area,4,0.16
+L1_Lasso,num__bus_stops_hm,4,0.16
+L1_Lasso,num__stv_mi_em,4,0.16
+L1_Lasso,num__swlk_len,4,0.16
+L1_Lasso,cat__season_spring,3,0.12
+L1_Lasso,num__Park Area_em,3,0.12
+L1_Lasso,num__dist_CBD,3,0.12
+L1_Lasso,num__sig_int_qm,3,0.12
+L1_Lasso,cat__speed_type_20 mph-25 mph,2,0.08
+L1_Lasso,num__isect_dens_hm,2,0.08
+L1_Lasso,num__isect_dens_qm,2,0.08
+L1_Lasso,num__pop_dens_em,2,0.08
+L1_Lasso,num__sig_int_hm,2,0.08
+L1_Lasso,cat__class_type_res-ter,1,0.04
+L1_Lasso,cat__class_type_sec-ter,1,0.04
+L1_Lasso,cat__season_summer,1,0.04
+L1_Lasso,cat__speed_type_25 mph-30 mph,1,0.04
+L1_Lasso,num__Commercial Area_qm,1,0.04
+L1_Lasso,num__Park Area_qm,1,0.04
+L1_Lasso,num__Retail Area,1,0.04
+L1_Lasso,num__bus_stops_qm,1,0.04
+L1_Lasso,num__hh_qm,1,0.04
+L1_Lasso,num__job_dens,1,0.04
+L1_Lasso,num__med_inc_em,1,0.04
+L1_Lasso,num__med_inc_qm,1,0.04
+L1_Lasso,num__pop_dens,1,0.04
+L1_Lasso,num__tstop_dens,1,0.04
+L1_Lasso,num__walk_comm,1,0.04
+MutualInformation,num__isect_dens_em,25,1.0
+MutualInformation,num__sig_dens_hm,25,1.0
+MutualInformation,num__sig_int_hm,25,1.0
+MutualInformation,num__job_dens_hm,24,0.96
+MutualInformation,num__sig_dens_qm,24,0.96
+MutualInformation,num__sig_int_qm,24,0.96
+MutualInformation,num__stv_mi_hm,24,0.96
+MutualInformation,num__walk_comm_hm,24,0.96
+MutualInformation,num__dist_CBD,22,0.88
+MutualInformation,num__job_dens,21,0.84
+MutualInformation,num__job_dens_qm,21,0.84
+MutualInformation,num__job_dens_em,20,0.8
+MutualInformation,num__transit_stops_em,20,0.8
+MutualInformation,num__hh_hm,18,0.72
+MutualInformation,num__transit_stops_hm,16,0.64
+MutualInformation,num__bus_stops_hm,15,0.6
+MutualInformation,num__zch_qm,15,0.6
+MutualInformation,num__stv_ann,13,0.52
+MutualInformation,num__isect_dens_qm,12,0.48
+MutualInformation,num__stv_mi,12,0.48
+MutualInformation,num__isect_dens_hm,11,0.44
+MutualInformation,num__stv_mi_em,10,0.4
+MutualInformation,num__transit_stops_qm,9,0.36
+MutualInformation,num__bus_stops_qm,8,0.32
+MutualInformation,num__swlk_len_hm,7,0.28
+MutualInformation,num__zch_em,7,0.28
+MutualInformation,cat__speed_type_20 mph-30 mph,5,0.2
+MutualInformation,num__Park Area_hm,5,0.2
+MutualInformation,num__bus_stops_em,5,0.2
+MutualInformation,num__sig_dens_em,5,0.2
+MutualInformation,num__sig_int_em,5,0.2
+MutualInformation,num__swlk_len,5,0.2
+MutualInformation,cat__class_type_pri-res,3,0.12
+MutualInformation,num__med_inc_em,3,0.12
+MutualInformation,num__swlk_len_em,3,0.12
+MutualInformation,num__walk_comm_qm,3,0.12
+MutualInformation,num__stv_mi_qm,2,0.08
+MutualInformation,cat__crossing_class_unmarked,1,0.04
+MutualInformation,num__Park Area_qm,1,0.04
+MutualInformation,num__swlk_cov,1,0.04
+MutualInformation,num__zch_hm,1,0.04
+RandomForest,num__job_dens_em,25,1.0
+RandomForest,num__job_dens_hm,25,1.0
+RandomForest,num__sig_dens_qm,25,1.0
+RandomForest,num__job_dens_qm,24,0.96
+RandomForest,num__sig_dens_hm,24,0.96
+RandomForest,num__sig_int_hm,24,0.96
+RandomForest,num__sig_int_qm,24,0.96
+RandomForest,num__zch_hm,23,0.92
+RandomForest,num__job_dens,22,0.88
+RandomForest,num__stv_mi_hm,22,0.88
+RandomForest,num__zch_qm,21,0.84
+RandomForest,num__isect_dens_hm,20,0.8
+RandomForest,num__stv_ann,20,0.8
+RandomForest,num__walk_comm_hm,20,0.8
+RandomForest,num__stv_mi,19,0.76
+RandomForest,num__sig_int_em,18,0.72
+RandomForest,num__sig_dens_em,17,0.68
+RandomForest,num__transit_stops_hm,17,0.68
+RandomForest,num__dist_CBD,16,0.64
+RandomForest,num__stv_mi_qm,15,0.6
+RandomForest,num__swlk_len,13,0.52
+RandomForest,num__Park Area_hm,10,0.4
+RandomForest,num__sig_dens,10,0.4
+RandomForest,num__bus_stops_hm,8,0.32
+RandomForest,num__isect_dens_em,6,0.24
+RandomForest,num__sig_int,6,0.24
+RandomForest,num__Retail Area_em,5,0.2
+RandomForest,num__transit_stops_qm,5,0.2
+RandomForest,num__Park Area_qm,4,0.16
+RandomForest,num__stv_mi_em,4,0.16
+RandomForest,num__Retail Area_hm,2,0.08
+RandomForest,num__med_inc_qm,2,0.08
+RandomForest,num__Commercial Area_em,1,0.04
+RandomForest,num__Retail Area,1,0.04
+RandomForest,num__hh_hm,1,0.04
+RandomForest,num__pop_dens_qm,1,0.04
