@@ -1,0 +1,98 @@
+feature_selection_method,feature_name,selected_in_folds
+L1_Lasso,cat__class_type_sec-sec,5
+L1_Lasso,num__Retail Area_em,5
+L1_Lasso,num__job_dens_hm,5
+L1_Lasso,cat__class_type_mot-sec,4
+L1_Lasso,cat__speed_type_20 mph-30 mph,4
+L1_Lasso,cat__speed_type_25 mph-55 mph,4
+L1_Lasso,num__Commercial Area_em,4
+L1_Lasso,num__Number of,4
+L1_Lasso,num__sig_int_em,4
+L1_Lasso,num__stv_mi,4
+L1_Lasso,cat__crossing_class_unmarked,3
+L1_Lasso,num__Park Area_hm,3
+L1_Lasso,num__sig_int,3
+L1_Lasso,num__swlk_len,3
+L1_Lasso,cat__class_type_pri-pri,2
+L1_Lasso,cat__class_type_pri-res,2
+L1_Lasso,cat__class_type_pri-ter,2
+L1_Lasso,num__stv_mi_hm,2
+L1_Lasso,num__transit_stops_hm,2
+L1_Lasso,cat__class_type_pri-sec,1
+L1_Lasso,cat__season_spring,1
+L1_Lasso,cat__speed_type_20 mph-25 mph,1
+L1_Lasso,cat__speed_type_35 mph-35 mph,1
+L1_Lasso,num__Park Area,1
+L1_Lasso,num__Retail Area,1
+L1_Lasso,num__bus_stops_hm,1
+L1_Lasso,num__bus_stops_qm,1
+L1_Lasso,num__hh_qm,1
+L1_Lasso,num__isect_dens_hm,1
+L1_Lasso,num__job_dens,1
+L1_Lasso,num__transit_stops_em,1
+L1_Lasso,num__transit_stops_qm,1
+L1_Lasso,num__walk_comm_em,1
+MutualInformation,num__dist_CBD,5
+MutualInformation,num__isect_dens_em,5
+MutualInformation,num__job_dens_em,5
+MutualInformation,num__job_dens_hm,5
+MutualInformation,num__sig_dens_hm,5
+MutualInformation,num__sig_dens_qm,5
+MutualInformation,num__sig_int_hm,5
+MutualInformation,num__sig_int_qm,5
+MutualInformation,num__stv_mi_hm,5
+MutualInformation,num__walk_comm_hm,5
+MutualInformation,num__bus_stops_hm,4
+MutualInformation,num__job_dens,4
+MutualInformation,num__transit_stops_em,4
+MutualInformation,num__hh_hm,3
+MutualInformation,num__job_dens_qm,3
+MutualInformation,num__transit_stops_hm,3
+MutualInformation,num__zch_qm,3
+MutualInformation,num__Park Area_hm,2
+MutualInformation,num__bus_stops_qm,2
+MutualInformation,num__isect_dens_hm,2
+MutualInformation,num__isect_dens_qm,2
+MutualInformation,num__stv_mi_em,2
+MutualInformation,num__stv_mi_qm,2
+MutualInformation,num__swlk_len_hm,2
+MutualInformation,num__transit_stops_qm,2
+MutualInformation,num__zch_em,2
+MutualInformation,cat__crossing_class_unmarked,1
+MutualInformation,cat__speed_type_20 mph-30 mph,1
+MutualInformation,num__bus_stops_em,1
+MutualInformation,num__med_inc_em,1
+MutualInformation,num__stv_ann,1
+MutualInformation,num__stv_mi,1
+MutualInformation,num__swlk_len,1
+MutualInformation,num__walk_comm_qm,1
+RandomForest,num__job_dens,5
+RandomForest,num__job_dens_em,5
+RandomForest,num__job_dens_hm,5
+RandomForest,num__job_dens_qm,5
+RandomForest,num__sig_dens_hm,5
+RandomForest,num__sig_dens_qm,5
+RandomForest,num__sig_int_hm,5
+RandomForest,num__sig_int_qm,5
+RandomForest,num__walk_comm_hm,5
+RandomForest,num__zch_hm,5
+RandomForest,num__isect_dens_hm,4
+RandomForest,num__sig_int_em,4
+RandomForest,num__stv_mi_hm,4
+RandomForest,num__stv_mi_qm,4
+RandomForest,num__transit_stops_hm,4
+RandomForest,num__zch_qm,4
+RandomForest,num__dist_CBD,3
+RandomForest,num__sig_dens,3
+RandomForest,num__sig_dens_em,3
+RandomForest,num__stv_ann,3
+RandomForest,num__stv_mi,3
+RandomForest,num__sig_int,2
+RandomForest,num__swlk_len,2
+RandomForest,num__Park Area_hm,1
+RandomForest,num__Retail Area_em,1
+RandomForest,num__bus_stops_hm,1
+RandomForest,num__isect_dens_em,1
+RandomForest,num__med_inc_qm,1
+RandomForest,num__stv_mi_em,1
+RandomForest,num__transit_stops_qm,1
