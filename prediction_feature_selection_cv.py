@@ -77,50 +77,14 @@ print("Raw feature count:", X_all.shape[1])
 # ============================================================
 # 2) Load selected features frequency file
 # ============================================================
-#
-# freq_df = pd.read_csv("selected_features_frequency_cv.csv")
-#
-# TOPK = 20  # change if you want (e.g. 10, 15, 25)
-#
-# selected_by_method = {}
-# for method in ["MutualInformation", "L1_Lasso", "RandomForest"]:
-#     top_feats = (
-#         freq_df[freq_df["feature_selection_method"] == method]
-#         .sort_values(["selected_count", "feature_name"], ascending=[False, True])
-#         .head(TOPK)["feature_name"]
-#         .tolist()
-#     )
-#     selected_by_method[method] = top_feats
-#
-# print("\nSelected encoded features used for prediction (top frequency):")
-# for m, feats in selected_by_method.items():
-#     print(f"- {m}: {len(feats)}")
 
 freq_df = pd.read_csv("selected_features_frequency_cv.csv")
 
 print("Columns in selected_features_frequency_cv.csv:", list(freq_df.columns))
 
-# required columns
 required_method_col = "feature_selection_method"
 required_feat_col = "feature_name"
-
-if required_method_col not in freq_df.columns or required_feat_col not in freq_df.columns:
-    raise ValueError(
-        f"Your file must contain columns: '{required_method_col}' and '{required_feat_col}'. "
-        f"Found: {list(freq_df.columns)}"
-    )
-
-# Find the frequency/count column automatically
-candidate_count_cols = [
-    "selected_count", "count", "frequency", "freq", "n_selected", "times_selected"
-]
-count_col = next((c for c in candidate_count_cols if c in freq_df.columns), None)
-
-if count_col is None:
-    raise ValueError(
-        "I couldn't find a frequency column. Expected one of: "
-        f"{candidate_count_cols}. Found: {list(freq_df.columns)}"
-    )
+count_col = "selected_in_folds"   # this is your frequency column
 
 TOPK = 20  # change if you want
 
@@ -136,7 +100,7 @@ for method in ["MutualInformation", "L1_Lasso", "RandomForest"]:
 
 print("\nSelected encoded features used for prediction (top frequency):")
 for m, feats in selected_by_method.items():
-    print(f"- {m}: {len(feats)} (using column '{count_col}')")
+    print(f"- {m}: {len(feats)} (sorted by {count_col})")
 
 
 # ============================================================
