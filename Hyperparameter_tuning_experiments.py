@@ -1,23 +1,28 @@
 """
-Pedestrian Count Estimation - Hyperparameter Tuning & Advanced CV Experiments
-==============================================================================
-This script systematically tests improvements to reduce RMSE and MAPE:
-  1. 10-fold cross-validation (instead of 5)
-  2. Repeated cross-validation (e.g., 5x10-fold)
-  3. Different feature counts (10, 15, 20, 25, 30)
-  4. Hyperparameter grid search for each model
-  5. Additional models: ExtraTrees, GradientBoosting, Ridge-based Poisson
+Pedestrian Count Estimation - Complete Experiments with Corrected Metrics
+==========================================================================
+Combined script that includes:
+  - Corrected metrics: SMAPE (matching R code's cvstats), standard MAPE,
+    McFadden R2 (deviance-based), and Correlation R2
+  - Experiment 1: CV strategy comparison (5-fold, 10-fold, Repeated)
+  - Experiment 2: Feature count sweep (10, 15, 20, 25, 30)
+  - Experiment 3: Hyperparameter tuning (RandomizedSearchCV)
+  - Experiment 4: Log-transform target
+  - Experiment 5: Stacking ensembles
 
+Usage:
+  python pedestrian_full_experiments.py
+
+Make sure df1_v1a_out.csv is in the same directory or update DATA_PATH below.
 """
 
 import os
 import warnings
 import numpy as np
 import pandas as pd
-from itertools import product as iter_product
 
 from sklearn.model_selection import (
-    KFold, RepeatedKFold, cross_validate, GridSearchCV, RandomizedSearchCV
+    KFold, RepeatedKFold, GridSearchCV, RandomizedSearchCV
 )
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
@@ -29,14 +34,12 @@ from sklearn.ensemble import (
     GradientBoostingRegressor,
     ExtraTreesRegressor,
     BaggingRegressor,
+    StackingRegressor,
 )
-from sklearn.linear_model import PoissonRegressor, Ridge
-from sklearn.feature_selection import (
-    SelectKBest, mutual_info_regression, f_regression
-)
-from sklearn.metrics import (
-    mean_squared_error, mean_absolute_percentage_error, make_scorer
-)
+from sklearn.linear_model import PoissonRegressor, LassoCV, RidgeCV
+from sklearn.feature_selection import mutual_info_regression, f_regression
+from sklearn.metrics import mean_squared_error, make_scorer
+from sklearn.base import clone
 
 warnings.filterwarnings("ignore")
 
@@ -55,36 +58,121 @@ CATEGORICAL_COLS = [
 RANDOM_STATE = 42
 OUTPUT_DIR = "tuning_results"
 
+
 # ============================================================================
-# METRICS
+# CORRECTED METRICS (matching R code behavior)
 # ============================================================================
 
 def rmse_score(y_true, y_pred):
-    """Lower is better."""
+    """Root Mean Squared Error. Same in both R and Python."""
     return np.sqrt(mean_squared_error(y_true, y_pred))
 
-def mape_score(y_true, y_pred):
-    """Lower is better. Multiply by 100 for percentage."""
+
+def standard_mape(y_true, y_pred):
+    """
+    Standard MAPE: mean(|pred - obs| / obs) * 100
+    Used in R code for HOLDOUT evaluation (nb1a, nb2a, nb3a).
+    """
     mask = y_true != 0
     if mask.sum() == 0:
         return np.nan
-    return np.mean(np.abs((y_true[mask] - y_pred[mask]) / y_true[mask])) * 100
+    return np.mean(np.abs((y_pred[mask] - y_true[mask]) / y_true[mask])) * 100
 
-def mcfadden_r2(y_true, y_pred):
-    """McFadden's pseudo-R² (deviance-based)."""
-    y_pred_clipped = np.maximum(y_pred, 1e-8)
-    y_mean = np.mean(y_true)
-    y_mean = max(y_mean, 1e-8)
-    # Poisson deviance
-    ll_model = np.sum(y_true * np.log(y_pred_clipped) - y_pred_clipped)
-    ll_null = np.sum(y_true * np.log(y_mean) - y_mean)
-    if ll_null == 0:
+
+def smape_score(y_true, y_pred):
+    """
+    Symmetric MAPE: mean(|pred - obs| / ((obs + pred) / 2)) * 100
+
+    This is what the R code uses in cvstats() for cross-validation:
+      mape = mean(abs((pred - obs) / (obs/2 + pred/2) * 100))
+
+    SMAPE is typically LOWER than standard MAPE because the denominator
+    is larger. This is why our Python MAPE looked worse than R's CV MAPE.
+    """
+    denominator = (np.abs(y_true) + np.abs(y_pred)) / 2.0
+    mask = denominator != 0
+    if mask.sum() == 0:
+        return np.nan
+    return np.mean(
+        np.abs(y_pred[mask] - y_true[mask]) / denominator[mask]
+    ) * 100
+
+
+def mcfadden_r2_deviance(y_true, y_pred):
+    """
+    McFadden's pseudo-R2 (deviance-based, matching R code).
+
+    R code: mf_r2 = 1 - (model$deviance / model$null.deviance)
+
+    For Poisson-family models:
+      deviance = 2 * sum(y*log(y/mu) - (y - mu))
+      null model predicts y_bar for everything.
+    """
+    y_pred_safe = np.maximum(y_pred, 1e-10)
+    y_bar = np.mean(y_true)
+    y_bar_safe = max(y_bar, 1e-10)
+
+    # Poisson deviance for fitted model
+    dev_model = 2.0 * np.sum(
+        np.where(
+            y_true > 0,
+            y_true * np.log(y_true / y_pred_safe) - (y_true - y_pred_safe),
+            y_pred_safe
+        )
+    )
+
+    # Poisson deviance for null model (intercept only = mean)
+    dev_null = 2.0 * np.sum(
+        np.where(
+            y_true > 0,
+            y_true * np.log(y_true / y_bar_safe) - (y_true - y_bar_safe),
+            y_bar_safe
+        )
+    )
+
+    if dev_null == 0:
         return 0.0
-    return 1.0 - (ll_model / ll_null)
+    return 1.0 - (dev_model / dev_null)
 
-# Sklearn scorers (neg because sklearn maximizes)
+
+def correlation_r2(y_true, y_pred):
+    """
+    Correlation-based R2: cor(pred, obs)^2
+    Also reported in R code's cvstats.
+    """
+    if len(y_true) < 2:
+        return np.nan
+    corr = np.corrcoef(y_true, y_pred)[0, 1]
+    return corr ** 2
+
+
+# Sklearn scorer for hyperparameter search (neg because sklearn maximizes)
 neg_rmse_scorer = make_scorer(rmse_score, greater_is_better=False)
-neg_mape_scorer = make_scorer(mape_score, greater_is_better=False)
+
+
+# ============================================================================
+# DEMO: Show SMAPE vs MAPE difference
+# ============================================================================
+
+def demonstrate_metric_difference():
+    """Show how SMAPE and MAPE differ on example pedestrian count data."""
+    print("\n" + "=" * 60)
+    print("DEMO: SMAPE vs MAPE on example predictions")
+    print("=" * 60)
+
+    y_true = np.array([5, 10, 50, 100, 200, 500])
+    y_pred = np.array([8, 15, 40, 120, 180, 450])
+
+    mape_val = standard_mape(y_true, y_pred)
+    smape_val = smape_score(y_true, y_pred)
+
+    print(f"\n  obs:  {y_true}")
+    print(f"  pred: {y_pred}")
+    print(f"\n  Standard MAPE: {mape_val:.2f}%")
+    print(f"  SMAPE (R CV):  {smape_val:.2f}%")
+    print(f"  Difference:    {mape_val - smape_val:.2f}% (MAPE is always higher)")
+    print(f"\n  -> When comparing to R code CV results, use SMAPE column.")
+
 
 # ============================================================================
 # DATA LOADING & PREPROCESSING
@@ -101,13 +189,11 @@ def load_and_preprocess(data_path):
     drop_existing = [c for c in DROP_COLS if c in df.columns]
     X = df.drop(columns=drop_existing)
 
-    # Identify categorical vs numeric columns
     cat_cols = [c for c in CATEGORICAL_COLS if c in X.columns]
     num_cols = [c for c in X.columns if c not in cat_cols]
 
     print(f"Numeric features: {len(num_cols)}, Categorical features: {len(cat_cols)}")
 
-    # Build preprocessing pipeline
     numeric_transformer = Pipeline([
         ("imputer", SimpleImputer(strategy="median")),
         ("scaler", StandardScaler()),
@@ -134,9 +220,7 @@ def load_and_preprocess(data_path):
 # ============================================================================
 
 def select_features_l1(X_transformed, y, feature_names, n_features=20):
-    """L1 (Lasso) based feature selection using Poisson regression."""
-    from sklearn.linear_model import LassoCV
-    # Use LassoCV on log(y+1) for feature ranking
+    """L1 (Lasso) based feature selection."""
     y_log = np.log1p(y)
     lasso = LassoCV(cv=5, random_state=RANDOM_STATE, max_iter=10000)
     lasso.fit(X_transformed, y_log)
@@ -169,7 +253,7 @@ def select_features_rf(X_transformed, y, feature_names, n_features=20):
 
 
 def select_features_f_regression(X_transformed, y, feature_names, n_features=20):
-    """F-statistic based feature selection (new method)."""
+    """F-statistic based feature selection."""
     f_scores, _ = f_regression(X_transformed, y)
     f_scores = np.nan_to_num(f_scores)
     top_idx = np.argsort(f_scores)[::-1][:n_features]
@@ -182,24 +266,13 @@ def select_features_f_regression(X_transformed, y, feature_names, n_features=20)
 # ============================================================================
 
 def get_model_configs():
-    """
-    Returns model configs with hyperparameter grids.
-    Each entry: (name, base_model, param_grid)
-    """
+    """Returns model configs with hyperparameter grids for tuning."""
     configs = {}
 
     # --- Random Forest ---
     configs["RandomForest"] = {
         "model": RandomForestRegressor(random_state=RANDOM_STATE, n_jobs=-1),
         "param_grid": {
-            "n_estimators": [200, 500, 800],
-            "max_depth": [None, 15, 25, 35],
-            "min_samples_split": [2, 5, 10],
-            "min_samples_leaf": [1, 2, 4],
-            "max_features": ["sqrt", "log2", 0.5, 0.8],
-        },
-        # Focused grid for faster search
-        "param_grid_fast": {
             "n_estimators": [300, 500],
             "max_depth": [None, 20, 30],
             "min_samples_split": [2, 5],
@@ -214,14 +287,6 @@ def get_model_configs():
             loss="poisson", random_state=RANDOM_STATE
         ),
         "param_grid": {
-            "learning_rate": [0.01, 0.05, 0.1, 0.15],
-            "max_iter": [200, 500, 800, 1000],
-            "max_depth": [3, 5, 7, 10, None],
-            "min_samples_leaf": [5, 10, 20, 30],
-            "max_leaf_nodes": [15, 31, 63, None],
-            "l2_regularization": [0.0, 0.1, 1.0, 10.0],
-        },
-        "param_grid_fast": {
             "learning_rate": [0.01, 0.05, 0.1],
             "max_iter": [300, 500, 800],
             "max_depth": [5, 7, 10],
@@ -230,12 +295,12 @@ def get_model_configs():
         },
     }
 
-    # --- HistGradientBoosting (Squared Error) - NEW ---
+    # --- HistGradientBoosting (Squared Error) ---
     configs["HistGB_SquaredError"] = {
         "model": HistGradientBoostingRegressor(
             loss="squared_error", random_state=RANDOM_STATE
         ),
-        "param_grid_fast": {
+        "param_grid": {
             "learning_rate": [0.01, 0.05, 0.1],
             "max_iter": [300, 500, 800],
             "max_depth": [5, 7, 10],
@@ -244,10 +309,10 @@ def get_model_configs():
         },
     }
 
-    # --- ExtraTrees (often outperforms RF on small datasets) - NEW ---
+    # --- ExtraTrees ---
     configs["ExtraTrees"] = {
         "model": ExtraTreesRegressor(random_state=RANDOM_STATE, n_jobs=-1),
-        "param_grid_fast": {
+        "param_grid": {
             "n_estimators": [300, 500, 800],
             "max_depth": [None, 15, 25],
             "min_samples_split": [2, 5],
@@ -256,12 +321,12 @@ def get_model_configs():
         },
     }
 
-    # --- GradientBoosting (sklearn's original, with Huber loss for robustness) - NEW ---
+    # --- GradientBoosting (Huber loss for robustness) ---
     configs["GradientBoosting_Huber"] = {
         "model": GradientBoostingRegressor(
             loss="huber", random_state=RANDOM_STATE
         ),
-        "param_grid_fast": {
+        "param_grid": {
             "learning_rate": [0.01, 0.05, 0.1],
             "n_estimators": [200, 500],
             "max_depth": [3, 5, 7],
@@ -272,15 +337,15 @@ def get_model_configs():
         },
     }
 
-    # --- Poisson Regression (regularized GLM) - NEW ---
+    # --- Poisson Regression (regularized GLM) ---
     configs["PoissonRegressor"] = {
         "model": PoissonRegressor(max_iter=5000),
-        "param_grid_fast": {
+        "param_grid": {
             "alpha": [0.0001, 0.001, 0.01, 0.1, 1.0, 10.0],
         },
     }
 
-    # --- Bagging + HistGB (reduce variance) - NEW ---
+    # --- Bagging + HistGB ---
     configs["Bagging_HistGB"] = {
         "model": BaggingRegressor(
             estimator=HistGradientBoostingRegressor(
@@ -289,7 +354,7 @@ def get_model_configs():
             ),
             random_state=RANDOM_STATE, n_jobs=-1
         ),
-        "param_grid_fast": {
+        "param_grid": {
             "n_estimators": [5, 10, 15],
             "max_samples": [0.7, 0.8, 1.0],
             "max_features": [0.7, 0.8, 1.0],
@@ -300,91 +365,54 @@ def get_model_configs():
 
 
 # ============================================================================
-# EXPERIMENT RUNNER
+# CV EXPERIMENT RUNNER (reports ALL metrics)
 # ============================================================================
 
-def run_cv_experiment(
-    X_selected, y, model, cv_strategy, model_name="", return_predictions=False
-):
+def run_cv_experiment(X_selected, y, model, cv_strategy, model_name=""):
     """
-    Run cross-validation and return metrics.
+    Run cross-validation and report ALL metrics:
+      RMSE, standard MAPE, SMAPE, McFadden R2, Correlation R2
     """
-    rmse_scores = []
-    mape_scores = []
-    r2_scores = []
+    rmse_list = []
+    mape_list = []
+    smape_list = []
+    mf_r2_list = []
+    corr_r2_list = []
 
     for train_idx, val_idx in cv_strategy.split(X_selected):
         X_train, X_val = X_selected[train_idx], X_selected[val_idx]
         y_train, y_val = y[train_idx], y[val_idx]
 
-        model_clone = _clone_model(model)
-        model_clone.fit(X_train, y_train)
+        m = clone(model)
+        m.fit(X_train, y_train)
 
-        y_pred_train = model_clone.predict(X_train)
-        y_pred_val = model_clone.predict(X_val)
+        y_pred_train = np.maximum(m.predict(X_train), 0)
+        y_pred_val = np.maximum(m.predict(X_val), 0)
 
-        # Clip predictions to be non-negative
-        y_pred_val = np.maximum(y_pred_val, 0)
-        y_pred_train = np.maximum(y_pred_train, 0)
+        rmse_list.append(rmse_score(y_val, y_pred_val))
+        mape_list.append(standard_mape(y_val, y_pred_val))
+        smape_list.append(smape_score(y_val, y_pred_val))
+        mf_r2_list.append(mcfadden_r2_deviance(y_train, y_pred_train))
+        corr_r2_list.append(correlation_r2(y_val, y_pred_val))
 
-        rmse_scores.append(rmse_score(y_val, y_pred_val))
-        mape_scores.append(mape_score(y_val, y_pred_val))
-        r2_scores.append(mcfadden_r2(y_train, y_pred_train))
-
-    results = {
+    return {
         "model": model_name,
-        "R2_train_mean": np.mean(r2_scores),
-        "R2_train_std": np.std(r2_scores),
-        "MAPE_val_mean": np.mean(mape_scores),
-        "MAPE_val_std": np.std(mape_scores),
-        "RMSE_val_mean": np.mean(rmse_scores),
-        "RMSE_val_std": np.std(rmse_scores),
+        "R2_train_mean": np.mean(mf_r2_list),
+        "R2_train_std": np.std(mf_r2_list),
+        "Corr_R2_val_mean": np.mean(corr_r2_list),
+        "Corr_R2_val_std": np.std(corr_r2_list),
+        "MAPE_val_mean": np.mean(mape_list),
+        "MAPE_val_std": np.std(mape_list),
+        "SMAPE_val_mean": np.mean(smape_list),
+        "SMAPE_val_std": np.std(smape_list),
+        "RMSE_val_mean": np.mean(rmse_list),
+        "RMSE_val_std": np.std(rmse_list),
     }
-    return results
 
 
-def _clone_model(model):
-    """Clone a sklearn model."""
-    from sklearn.base import clone
-    return clone(model)
-
-
-def run_hyperparameter_search(
-    X_selected, y, model, param_grid, cv_strategy, model_name="",
-    search_method="random", n_iter=50
-):
-    """
-    Run hyperparameter search and return best model + results.
-    """
-    if search_method == "grid":
-        search = GridSearchCV(
-            model, param_grid, cv=cv_strategy,
-            scoring=neg_rmse_scorer, n_jobs=-1,
-            refit=True, verbose=0
-        )
-    else:
-        search = RandomizedSearchCV(
-            model, param_grid, cv=cv_strategy,
-            scoring=neg_rmse_scorer, n_jobs=-1,
-            n_iter=min(n_iter, _count_grid_combos(param_grid)),
-            refit=True, random_state=RANDOM_STATE, verbose=0
-        )
-
-    search.fit(X_selected, y)
-
-    best_model = search.best_estimator_
-    best_params = search.best_params_
-    best_rmse = -search.best_score_  # neg_rmse -> positive
-
-    # Also compute MAPE with the best model via manual CV
-    cv_results = run_cv_experiment(
-        X_selected, y, best_model, cv_strategy, model_name
-    )
-    cv_results["best_params"] = str(best_params)
-    cv_results["search_best_rmse"] = best_rmse
-
-    return cv_results, best_model, best_params
-
+# ============================================================================
+# HYPERPARAMETER SEARCH
+# ============================================================================
 
 def _count_grid_combos(param_grid):
     """Count total combinations in a parameter grid."""
@@ -394,14 +422,53 @@ def _count_grid_combos(param_grid):
     return total
 
 
+def run_hyperparameter_search(
+    X_selected, y, model, param_grid, cv_strategy, model_name="",
+    search_method="random", n_iter=50
+):
+    """Run hyperparameter search and return best model + results."""
+    n_combos = _count_grid_combos(param_grid)
+
+    if search_method == "grid" or n_combos <= n_iter:
+        search = GridSearchCV(
+            model, param_grid, cv=cv_strategy,
+            scoring=neg_rmse_scorer, n_jobs=-1,
+            refit=True, verbose=0
+        )
+    else:
+        search = RandomizedSearchCV(
+            model, param_grid, cv=cv_strategy,
+            scoring=neg_rmse_scorer, n_jobs=-1,
+            n_iter=n_iter, refit=True,
+            random_state=RANDOM_STATE, verbose=0
+        )
+
+    search.fit(X_selected, y)
+
+    best_model = search.best_estimator_
+    best_params = search.best_params_
+
+    # Compute all metrics with best model via manual CV
+    cv_results = run_cv_experiment(
+        X_selected, y, best_model, cv_strategy, model_name
+    )
+    cv_results["best_params"] = str(best_params)
+
+    return cv_results, best_model, best_params
+
+
 # ============================================================================
 # MAIN EXPERIMENT PIPELINE
 # ============================================================================
 
 def main():
     print("=" * 80)
-    print("PEDESTRIAN COUNT ESTIMATION - HYPERPARAMETER TUNING EXPERIMENTS")
+    print("PEDESTRIAN COUNT ESTIMATION")
+    print("Full Experiments with Corrected Metrics (SMAPE + Deviance R2)")
     print("=" * 80)
+
+    # Show SMAPE vs MAPE demo
+    demonstrate_metric_difference()
 
     # Create output directory
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -449,12 +516,12 @@ def main():
         ),
     }
 
-    # Use L1 selected features (20) as baseline for this comparison
+    # Use L1 selected features (20) as baseline
     print("\nSelecting top 20 features with L1 (Lasso)...")
-    l1_idx, l1_names = select_features_l1(
+    l1_idx_20, l1_names_20 = select_features_l1(
         X_transformed, y, feature_names, n_features=20
     )
-    X_l1_20 = X_transformed[:, l1_idx]
+    X_l1_20 = X_transformed[:, l1_idx_20]
 
     baseline_models = {
         "RandomForest": RandomForestRegressor(
@@ -468,19 +535,22 @@ def main():
     cv_comparison_results = []
     for cv_name, cv_strat in cv_strategies.items():
         for model_name, model in baseline_models.items():
-            print(f"  Testing {model_name} with {cv_name}...", end=" ")
+            print(f"  {model_name} with {cv_name}...", end=" ")
             res = run_cv_experiment(
-                X_l1_20, y, model, cv_strat, model_name=f"{model_name}"
+                X_l1_20, y, model, cv_strat, model_name=model_name
             )
             res["cv_strategy"] = cv_name
             cv_comparison_results.append(res)
-            print(f"RMSE={res['RMSE_val_mean']:.2f}±{res['RMSE_val_std']:.2f}, "
-                  f"MAPE={res['MAPE_val_mean']:.2f}±{res['MAPE_val_std']:.2f}")
+            print(
+                f"RMSE={res['RMSE_val_mean']:.2f}  "
+                f"MAPE={res['MAPE_val_mean']:.2f}  "
+                f"SMAPE={res['SMAPE_val_mean']:.2f}"
+            )
 
     df_cv_comp = pd.DataFrame(cv_comparison_results)
     cv_comp_path = os.path.join(OUTPUT_DIR, "experiment1_cv_strategy_comparison.csv")
     df_cv_comp.to_csv(cv_comp_path, index=False)
-    print(f"\nResults saved to {cv_comp_path}")
+    print(f"\nSaved: {cv_comp_path}")
 
     # ========================================================================
     # EXPERIMENT 2: Feature Count Sweep (10, 15, 20, 25, 30)
@@ -497,88 +567,89 @@ def main():
         "F_Regression": select_features_f_regression,
     }
 
-    # Use 10-fold CV for this experiment
     cv_10fold = KFold(n_splits=10, shuffle=True, random_state=RANDOM_STATE)
 
     feature_sweep_results = []
     for n_feat in feature_counts:
         for fs_name, fs_func in feature_methods.items():
-            print(f"\n  Feature selection: {fs_name}, n_features={n_feat}")
+            print(f"\n  {fs_name}, n_features={n_feat}")
             try:
                 feat_idx, feat_names = fs_func(
                     X_transformed, y, feature_names, n_features=n_feat
                 )
                 X_selected = X_transformed[:, feat_idx]
             except Exception as e:
-                print(f"    ERROR in feature selection: {e}")
+                print(f"    ERROR: {e}")
                 continue
 
             for model_name, model in baseline_models.items():
                 print(f"    {model_name}...", end=" ")
                 res = run_cv_experiment(
-                    X_selected, y, model, cv_10fold,
-                    model_name=model_name
+                    X_selected, y, model, cv_10fold, model_name=model_name
                 )
                 res["feature_selection"] = fs_name
                 res["n_features"] = n_feat
+                res["cv_strategy"] = "10-Fold"
                 feature_sweep_results.append(res)
-                print(f"RMSE={res['RMSE_val_mean']:.2f}, "
-                      f"MAPE={res['MAPE_val_mean']:.2f}")
+                print(
+                    f"RMSE={res['RMSE_val_mean']:.2f}  "
+                    f"MAPE={res['MAPE_val_mean']:.2f}  "
+                    f"SMAPE={res['SMAPE_val_mean']:.2f}"
+                )
 
     df_feat_sweep = pd.DataFrame(feature_sweep_results)
     feat_sweep_path = os.path.join(OUTPUT_DIR, "experiment2_feature_count_sweep.csv")
     df_feat_sweep.to_csv(feat_sweep_path, index=False)
-    print(f"\nResults saved to {feat_sweep_path}")
+    print(f"\nSaved: {feat_sweep_path}")
 
-    # Find best feature config
+    # Print best from sweep
     if len(feature_sweep_results) > 0:
         best_rmse_row = df_feat_sweep.loc[df_feat_sweep["RMSE_val_mean"].idxmin()]
-        best_mape_row = df_feat_sweep.loc[df_feat_sweep["MAPE_val_mean"].idxmin()]
+        best_smape_row = df_feat_sweep.loc[df_feat_sweep["SMAPE_val_mean"].idxmin()]
         print(f"\n  Best RMSE: {best_rmse_row['RMSE_val_mean']:.2f} "
               f"({best_rmse_row['model']}, {best_rmse_row['feature_selection']}, "
               f"n={best_rmse_row['n_features']})")
-        print(f"  Best MAPE: {best_mape_row['MAPE_val_mean']:.2f} "
-              f"({best_mape_row['model']}, {best_mape_row['feature_selection']}, "
-              f"n={best_mape_row['n_features']})")
+        print(f"  Best SMAPE: {best_smape_row['SMAPE_val_mean']:.2f} "
+              f"({best_smape_row['model']}, {best_smape_row['feature_selection']}, "
+              f"n={best_smape_row['n_features']})")
 
     # ========================================================================
-    # EXPERIMENT 3: Hyperparameter Tuning (Main Experiment)
+    # EXPERIMENT 3: Hyperparameter Tuning
     # ========================================================================
     print("\n" + "=" * 80)
     print("EXPERIMENT 3: Hyperparameter Tuning with RandomizedSearchCV")
     print("=" * 80)
 
-    # Use 10-fold repeated CV for tuning
     cv_tuning = RepeatedKFold(
         n_splits=10, n_repeats=3, random_state=RANDOM_STATE
     )
 
-    # Select best feature configs to tune on
-    # We'll test L1 with 20 features (your current best) + the best from Exp 2
-    tune_configs = [
-        ("L1_Lasso", select_features_l1, 20),
+    # Feature configs to tune on
+    tune_feature_configs = [
         ("L1_Lasso", select_features_l1, 15),
+        ("L1_Lasso", select_features_l1, 20),
         ("L1_Lasso", select_features_l1, 25),
     ]
 
-    # Add the best from feature sweep if different
+    # Add best from feature sweep if different
     if len(feature_sweep_results) > 0:
         best_fs = best_rmse_row["feature_selection"]
         best_n = int(best_rmse_row["n_features"])
-        if (best_fs, best_n) not in [(t[0], t[2]) for t in tune_configs]:
-            fs_map = {
-                "L1_Lasso": select_features_l1,
-                "Mutual_Information": select_features_mi,
-                "Random_Forest": select_features_rf,
-                "F_Regression": select_features_f_regression,
-            }
-            if best_fs in fs_map:
-                tune_configs.append((best_fs, fs_map[best_fs], best_n))
+        fs_map = {
+            "L1_Lasso": select_features_l1,
+            "Mutual_Information": select_features_mi,
+            "Random_Forest": select_features_rf,
+            "F_Regression": select_features_f_regression,
+        }
+        if best_fs in fs_map and (best_fs, best_n) not in [
+            (t[0], t[2]) for t in tune_feature_configs
+        ]:
+            tune_feature_configs.append((best_fs, fs_map[best_fs], best_n))
 
     model_configs = get_model_configs()
     tuning_results = []
 
-    for fs_name, fs_func, n_feat in tune_configs:
+    for fs_name, fs_func, n_feat in tune_feature_configs:
         print(f"\n--- Feature Selection: {fs_name}, n_features={n_feat} ---")
         feat_idx, feat_names = fs_func(
             X_transformed, y, feature_names, n_features=n_feat
@@ -586,12 +657,12 @@ def main():
         X_selected = X_transformed[:, feat_idx]
 
         for model_name, config in model_configs.items():
-            grid = config.get("param_grid_fast", config.get("param_grid", {}))
+            grid = config.get("param_grid", {})
             if not grid:
                 continue
 
             n_combos = _count_grid_combos(grid)
-            n_iter = min(40, n_combos)  # Cap iterations for speed
+            n_iter = min(40, n_combos)
 
             print(f"  Tuning {model_name} ({n_combos} combos, "
                   f"testing {n_iter})...", end=" ", flush=True)
@@ -604,9 +675,13 @@ def main():
                 )
                 res["feature_selection"] = fs_name
                 res["n_features"] = n_feat
+                res["cv_strategy"] = "Repeated_3x10"
                 tuning_results.append(res)
-                print(f"RMSE={res['RMSE_val_mean']:.2f}, "
-                      f"MAPE={res['MAPE_val_mean']:.2f}")
+                print(
+                    f"RMSE={res['RMSE_val_mean']:.2f}  "
+                    f"MAPE={res['MAPE_val_mean']:.2f}  "
+                    f"SMAPE={res['SMAPE_val_mean']:.2f}"
+                )
                 print(f"    Best params: {best_params}")
             except Exception as e:
                 print(f"ERROR: {e}")
@@ -615,21 +690,20 @@ def main():
     df_tuning = pd.DataFrame(tuning_results)
     tuning_path = os.path.join(OUTPUT_DIR, "experiment3_hyperparameter_tuning.csv")
     df_tuning.to_csv(tuning_path, index=False)
-    print(f"\nResults saved to {tuning_path}")
+    print(f"\nSaved: {tuning_path}")
 
     # ========================================================================
-    # EXPERIMENT 4: Log-transform target (common for count data)
+    # EXPERIMENT 4: Log-Transform Target Variable
     # ========================================================================
     print("\n" + "=" * 80)
     print("EXPERIMENT 4: Log-Transform Target Variable")
+    print("Training on log(y+1), back-transforming predictions")
     print("=" * 80)
-    print("  Training on log(y+1) and back-transforming predictions")
 
     y_log = np.log1p(y)
     cv_10fold = KFold(n_splits=10, shuffle=True, random_state=RANDOM_STATE)
 
-    log_transform_results = []
-    # Use L1 20 features
+    # Recompute L1 features for this experiment
     feat_idx_l1, _ = select_features_l1(
         X_transformed, y, feature_names, n_features=20
     )
@@ -653,51 +727,62 @@ def main():
         ),
     }
 
+    log_transform_results = []
     for model_name, model in log_models.items():
-        rmse_scores = []
-        mape_scores = []
+        rmse_list = []
+        mape_list = []
+        smape_list = []
 
         for train_idx, val_idx in cv_10fold.split(X_l1):
             X_train, X_val = X_l1[train_idx], X_l1[val_idx]
             y_train_log, y_val = y_log[train_idx], y[val_idx]
 
-            m = _clone_model(model)
+            m = clone(model)
             m.fit(X_train, y_train_log)
             y_pred_log = m.predict(X_val)
             y_pred = np.expm1(y_pred_log)  # back-transform
             y_pred = np.maximum(y_pred, 0)
 
-            rmse_scores.append(rmse_score(y_val, y_pred))
-            mape_scores.append(mape_score(y_val, y_pred))
+            rmse_list.append(rmse_score(y_val, y_pred))
+            mape_list.append(standard_mape(y_val, y_pred))
+            smape_list.append(smape_score(y_val, y_pred))
 
         res = {
             "model": model_name,
-            "target_transform": "log1p",
-            "RMSE_val_mean": np.mean(rmse_scores),
-            "RMSE_val_std": np.std(rmse_scores),
-            "MAPE_val_mean": np.mean(mape_scores),
-            "MAPE_val_std": np.std(mape_scores),
+            "R2_train_mean": np.nan,  # not directly comparable for log target
+            "R2_train_std": np.nan,
+            "Corr_R2_val_mean": np.nan,
+            "Corr_R2_val_std": np.nan,
+            "MAPE_val_mean": np.mean(mape_list),
+            "MAPE_val_std": np.std(mape_list),
+            "SMAPE_val_mean": np.mean(smape_list),
+            "SMAPE_val_std": np.std(smape_list),
+            "RMSE_val_mean": np.mean(rmse_list),
+            "RMSE_val_std": np.std(rmse_list),
             "n_features": 20,
             "feature_selection": "L1_Lasso",
+            "cv_strategy": "10-Fold",
+            "target_transform": "log1p",
         }
         log_transform_results.append(res)
-        print(f"  {model_name}: RMSE={res['RMSE_val_mean']:.2f}±{res['RMSE_val_std']:.2f}, "
-              f"MAPE={res['MAPE_val_mean']:.2f}±{res['MAPE_val_std']:.2f}")
+        print(
+            f"  {model_name}: "
+            f"RMSE={res['RMSE_val_mean']:.2f}  "
+            f"MAPE={res['MAPE_val_mean']:.2f}  "
+            f"SMAPE={res['SMAPE_val_mean']:.2f}"
+        )
 
     df_log = pd.DataFrame(log_transform_results)
     log_path = os.path.join(OUTPUT_DIR, "experiment4_log_transform.csv")
     df_log.to_csv(log_path, index=False)
-    print(f"\nResults saved to {log_path}")
+    print(f"\nSaved: {log_path}")
 
     # ========================================================================
-    # EXPERIMENT 5: Stacking / Blending Ensemble
+    # EXPERIMENT 5: Stacking Ensembles
     # ========================================================================
     print("\n" + "=" * 80)
-    print("EXPERIMENT 5: Stacking Ensemble")
+    print("EXPERIMENT 5: Stacking Ensembles")
     print("=" * 80)
-
-    from sklearn.ensemble import StackingRegressor
-    from sklearn.linear_model import RidgeCV
 
     stacking_configs = [
         {
@@ -736,6 +821,8 @@ def main():
     ]
 
     stacking_results = []
+    cv_10fold = KFold(n_splits=10, shuffle=True, random_state=RANDOM_STATE)
+
     for stack_config in stacking_configs:
         stacker = StackingRegressor(
             estimators=stack_config["estimators"],
@@ -749,14 +836,18 @@ def main():
         )
         res["n_features"] = 20
         res["feature_selection"] = "L1_Lasso"
+        res["cv_strategy"] = "10-Fold"
         stacking_results.append(res)
-        print(f"RMSE={res['RMSE_val_mean']:.2f}±{res['RMSE_val_std']:.2f}, "
-              f"MAPE={res['MAPE_val_mean']:.2f}±{res['MAPE_val_std']:.2f}")
+        print(
+            f"RMSE={res['RMSE_val_mean']:.2f}  "
+            f"MAPE={res['MAPE_val_mean']:.2f}  "
+            f"SMAPE={res['SMAPE_val_mean']:.2f}"
+        )
 
     df_stack = pd.DataFrame(stacking_results)
     stack_path = os.path.join(OUTPUT_DIR, "experiment5_stacking.csv")
     df_stack.to_csv(stack_path, index=False)
-    print(f"\nResults saved to {stack_path}")
+    print(f"\nSaved: {stack_path}")
 
     # ========================================================================
     # FINAL SUMMARY
@@ -781,24 +872,34 @@ def main():
     summary_path = os.path.join(OUTPUT_DIR, "all_experiments_summary.csv")
     df_all.to_csv(summary_path, index=False)
 
-    # Print top results
+    # Display columns
+    display_cols = [
+        "experiment", "model", "RMSE_val_mean", "RMSE_val_std",
+        "MAPE_val_mean", "SMAPE_val_mean"
+    ]
+    available_cols = [c for c in display_cols if c in df_all.columns]
+
     print("\nTop 10 by RMSE (lower is better):")
-    top_rmse = df_all.nsmallest(10, "RMSE_val_mean")[
-        ["experiment", "model", "RMSE_val_mean", "RMSE_val_std",
-         "MAPE_val_mean", "MAPE_val_std"]
-    ]
-    print(top_rmse.to_string(index=False))
+    print(df_all.nsmallest(10, "RMSE_val_mean")[available_cols].to_string(index=False))
 
-    print("\nTop 10 by MAPE (lower is better):")
-    top_mape = df_all.nsmallest(10, "MAPE_val_mean")[
-        ["experiment", "model", "MAPE_val_mean", "MAPE_val_std",
-         "RMSE_val_mean", "RMSE_val_std"]
-    ]
-    print(top_mape.to_string(index=False))
+    print("\nTop 10 by Standard MAPE (lower is better):")
+    print(df_all.nsmallest(10, "MAPE_val_mean")[available_cols].to_string(index=False))
 
-    # Baseline comparison
+    print("\nTop 10 by SMAPE (comparable to R code CV results, lower is better):")
+    print(df_all.nsmallest(10, "SMAPE_val_mean")[available_cols].to_string(index=False))
+
+    # MAPE vs SMAPE comparison
     print("\n" + "-" * 60)
-    print("YOUR CURRENT BEST BASELINES (from presentations):")
+    print("MAPE vs SMAPE gap (averaged across all experiments):")
+    avg_mape = df_all["MAPE_val_mean"].mean()
+    avg_smape = df_all["SMAPE_val_mean"].mean()
+    print(f"  Average MAPE:  {avg_mape:.2f}%")
+    print(f"  Average SMAPE: {avg_smape:.2f}%")
+    print(f"  SMAPE is on average {avg_mape - avg_smape:.2f}% lower than MAPE")
+    print("-" * 60)
+
+    # Baselines
+    print("\nYOUR CURRENT BEST BASELINES (from presentations):")
     print("  L1 + RandomForest (20 feat, 5-fold CV): RMSE=79.84, MAPE=50.48")
     print("  L1 + HistGB_Poisson (18 feat, holdout): RMSE=133.60, MAPE=45.11")
     print("  R-code HistGB (10 feat, 5-fold CV):     RMSE=89.76, MAPE=49.75")
@@ -806,10 +907,14 @@ def main():
 
     overall_best_rmse = df_all.loc[df_all["RMSE_val_mean"].idxmin()]
     overall_best_mape = df_all.loc[df_all["MAPE_val_mean"].idxmin()]
-    print(f"\nBEST RMSE FOUND: {overall_best_rmse['RMSE_val_mean']:.2f} "
+    overall_best_smape = df_all.loc[df_all["SMAPE_val_mean"].idxmin()]
+
+    print(f"\nBEST RMSE:  {overall_best_rmse['RMSE_val_mean']:.2f} "
           f"({overall_best_rmse['experiment']}, {overall_best_rmse['model']})")
-    print(f"BEST MAPE FOUND: {overall_best_mape['MAPE_val_mean']:.2f} "
+    print(f"BEST MAPE:  {overall_best_mape['MAPE_val_mean']:.2f} "
           f"({overall_best_mape['experiment']}, {overall_best_mape['model']})")
+    print(f"BEST SMAPE: {overall_best_smape['SMAPE_val_mean']:.2f} "
+          f"({overall_best_smape['experiment']}, {overall_best_smape['model']})")
 
     print(f"\nAll results saved to: {OUTPUT_DIR}/")
     print("Done!")
