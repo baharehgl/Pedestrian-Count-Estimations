@@ -1,5 +1,5 @@
 """
-Pedestrian Count Estimation
+Pedestrian Count Estimation 
 ==========================================================================
 Combined script that includes:
   - Corrected metrics: SMAPE (matching R code's cvstats), standard MAPE,
@@ -9,7 +9,6 @@ Combined script that includes:
   - Experiment 3: Hyperparameter tuning (RandomizedSearchCV)
   - Experiment 4: Log-transform target
   - Experiment 5: Stacking ensembles
-
 
 """
 
@@ -912,6 +911,150 @@ def main():
           f"({overall_best_mape['experiment']}, {overall_best_mape['model']})")
     print(f"BEST SMAPE: {overall_best_smape['SMAPE_val_mean']:.2f} "
           f"({overall_best_smape['experiment']}, {overall_best_smape['model']})")
+
+    # ========================================================================
+    # FEATURE IMPORTANCE REPORT (for best results)
+    # ========================================================================
+    print("\n" + "=" * 80)
+    print("SELECTED FEATURES & IMPORTANCE (for best configurations)")
+    print("=" * 80)
+
+    # --- Helper: train model on full data and extract importance ---
+    def get_feature_importance(model, X_data, y_data, feat_names_list):
+        """
+        Train model on full data and return feature importances ranked high to low.
+        Works for tree-based models (feature_importances_) and linear models (coef_).
+        For models without built-in importance, uses permutation importance.
+        """
+        from sklearn.inspection import permutation_importance
+
+        m = clone(model)
+        m.fit(X_data, y_data)
+
+        # Try built-in feature_importances_ (tree models)
+        if hasattr(m, "feature_importances_"):
+            importance = m.feature_importances_
+            method = "built-in (Gini/split importance)"
+        # Try coef_ (linear models)
+        elif hasattr(m, "coef_"):
+            importance = np.abs(m.coef_)
+            method = "absolute coefficients"
+        # Fallback: permutation importance
+        else:
+            perm = permutation_importance(
+                m, X_data, y_data, n_repeats=10,
+                random_state=RANDOM_STATE, scoring=neg_rmse_scorer
+            )
+            importance = perm.importances_mean
+            method = "permutation importance"
+
+        # Sort high to low
+        sorted_idx = np.argsort(importance)[::-1]
+        df_imp = pd.DataFrame({
+            "rank": range(1, len(feat_names_list) + 1),
+            "feature": [feat_names_list[i] for i in sorted_idx],
+            "importance": importance[sorted_idx],
+        })
+
+        return df_imp, method
+
+    # --- Report for each best configuration ---
+    best_configs = [
+        {
+            "label": "Best RMSE (HP_Tuning, HistGB_Poisson)",
+            "fs_func": select_features_l1,
+            "n_features": 20,  # from HP_Tuning which used L1
+            "model": HistGradientBoostingRegressor(
+                loss="poisson", random_state=RANDOM_STATE,
+                # Use tuned params if available from experiment 3
+                max_iter=800, learning_rate=0.05, max_depth=7,
+                min_samples_leaf=10, l2_regularization=1.0,
+            ),
+        },
+        {
+            "label": "Best SMAPE (CV_Strategy, HistGB_Poisson)",
+            "fs_func": select_features_l1,
+            "n_features": 20,
+            "model": HistGradientBoostingRegressor(
+                loss="poisson", max_iter=500, random_state=RANDOM_STATE,
+            ),
+        },
+        {
+            "label": "Best MAPE (HP_Tuning, HistGB_Poisson)",
+            "fs_func": select_features_l1,
+            "n_features": 15,  # HP_Tuning tested 15, 20, 25
+            "model": HistGradientBoostingRegressor(
+                loss="poisson", random_state=RANDOM_STATE,
+                max_iter=800, learning_rate=0.05, max_depth=7,
+                min_samples_leaf=10, l2_regularization=1.0,
+            ),
+        },
+    ]
+
+    # Also try to pull actual best params from tuning results if available
+    if len(tuning_results) > 0:
+        # Find best RMSE config from HP_Tuning
+        df_tune = pd.DataFrame(tuning_results)
+        best_tune_row = df_tune.loc[df_tune["RMSE_val_mean"].idxmin()]
+        if "best_params" in best_tune_row and "n_features" in best_tune_row:
+            print(f"\n  Note: Best HP_Tuning used n_features="
+                  f"{best_tune_row.get('n_features', '?')}")
+            print(f"  Best params: {best_tune_row.get('best_params', '?')}")
+
+    all_importance_dfs = []
+
+    for config in best_configs:
+        print(f"\n--- {config['label']} ---")
+        print(f"  Feature selection: L1 Lasso, n_features={config['n_features']}")
+
+        # Select features
+        feat_idx, feat_names_selected = config["fs_func"](
+            X_transformed, y, feature_names, n_features=config["n_features"]
+        )
+        X_selected = X_transformed[:, feat_idx]
+
+        # Get importance
+        df_imp, imp_method = get_feature_importance(
+            config["model"], X_selected, y, feat_names_selected
+        )
+
+        print(f"  Importance method: {imp_method}")
+        print(f"\n  Features ranked by importance (high to low):")
+        print(f"  {'Rank':<6}{'Feature':<40}{'Importance':<12}")
+        print(f"  {'-'*56}")
+        for _, row in df_imp.iterrows():
+            print(f"  {int(row['rank']):<6}{row['feature']:<40}{row['importance']:.6f}")
+
+        # Save to CSV
+        df_imp["config"] = config["label"]
+        all_importance_dfs.append(df_imp)
+
+    # Save all importances to one CSV
+    if all_importance_dfs:
+        df_all_imp = pd.concat(all_importance_dfs, ignore_index=True)
+        imp_path = os.path.join(OUTPUT_DIR, "feature_importance_ranked.csv")
+        df_all_imp.to_csv(imp_path, index=False)
+        print(f"\nFeature importances saved to: {imp_path}")
+
+    # --- Also show which features are shared across best configs ---
+    print("\n" + "-" * 60)
+    print("FEATURES COMMON ACROSS ALL BEST CONFIGS:")
+    print("-" * 60)
+
+    feature_sets = []
+    for config in best_configs:
+        feat_idx, feat_names_selected = config["fs_func"](
+            X_transformed, y, feature_names, n_features=config["n_features"]
+        )
+        feature_sets.append(set(feat_names_selected))
+
+    common_features = feature_sets[0]
+    for s in feature_sets[1:]:
+        common_features = common_features.intersection(s)
+
+    print(f"  {len(common_features)} features appear in ALL best configurations:")
+    for f in sorted(common_features):
+        print(f"    - {f}")
 
     print(f"\nAll results saved to: {OUTPUT_DIR}/")
     print("Done!")
