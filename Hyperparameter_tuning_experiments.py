@@ -1,5 +1,5 @@
 """
-Pedestrian Count Estimation - Complete Experiments with Corrected Metrics
+Pedestrian Count Estimation 
 ==========================================================================
 Combined script that includes:
   - Corrected metrics: SMAPE (matching R code's cvstats), standard MAPE,
@@ -10,10 +10,7 @@ Combined script that includes:
   - Experiment 4: Log-transform target
   - Experiment 5: Stacking ensembles
 
-Usage:
-  python pedestrian_full_experiments.py
 
-Make sure df1_v1a_out.csv is in the same directory or update DATA_PATH below.
 """
 
 import os
