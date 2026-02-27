@@ -1,5 +1,5 @@
 """
-Pedestrian Count Estimation 
+Pedestrian Count Estimation
 ==========================================================================
 Combined script that includes:
   - Corrected metrics: SMAPE (matching R code's cvstats), standard MAPE,
