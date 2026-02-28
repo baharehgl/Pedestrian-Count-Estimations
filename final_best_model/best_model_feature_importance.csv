@@ -1,0 +1,26 @@
+rank,feature,importance
+1,num__stv_mi,70.43103248436782
+2,num__stv_mi_hm,55.840671231201824
+3,num__Retail Area_em,51.95773667481605
+4,num__zch_hm,48.9092948394117
+5,num__sig_int_em,46.90732010195963
+6,num__swlk_len,35.302828252429286
+7,num__swlk_len_hm,31.778342315727485
+8,num__dist_CBD,28.87259415775045
+9,cat__season_fall,27.912265501271044
+10,num__transit_stops_em,21.774501901087575
+11,num__Commercial Area_qm,20.023906319249882
+12,num__Retail Area,18.942467484050432
+13,num__walk_comm_em,18.5265616621604
+14,num__Park Area_hm,18.250475412380503
+15,cat__crossing_class_unmarked,17.674226827281412
+16,num__Number of,15.254115140217262
+17,num__tstop_dens,12.91711559617244
+18,num__med_inc_qm,12.422352783649469
+19,num__isect_dens_em,10.611579139345718
+20,cat__speed_type_20 mph-20 mph,10.176875154942088
+21,num__sig_int,2.374486974709679
+22,num__bus_stops_em,1.5427651713223354
+23,cat__class_type_pri-pri,0.0
+24,cat__speed_type_25 mph-30 mph,0.0
+25,cat__class_type_mot-sec,0.0
