@@ -1,14 +1,21 @@
 """
-Pedestrian Count Estimation
-==========================================================================
+Pedestrian Count Estimation - Complete Experiments
+==============================================================================
 Combined script that includes:
   - Corrected metrics: SMAPE (matching R code's cvstats), standard MAPE,
     McFadden R2 (deviance-based), and Correlation R2
   - Experiment 1: CV strategy comparison (5-fold, 10-fold, Repeated)
+                  NOW with ALL 4 feature selection methods (L1, MI, RF, F-Reg)
   - Experiment 2: Feature count sweep (10, 15, 20, 25, 30)
   - Experiment 3: Hyperparameter tuning (RandomizedSearchCV)
+                  NOW with ALL 4 CV strategies × ALL 5 feature counts
   - Experiment 4: Log-transform target
   - Experiment 5: Stacking ensembles
+
+Changes from v1:
+  - Exp 1: Tests all 4 feature selection methods (was only L1 Lasso)
+  - Exp 3: Uses all 4 CV strategies from Exp 1 + all 5 feature counts from
+           Exp 2 (was only Repeated 3x10 with 3 feature counts)
 
 """
 
@@ -512,12 +519,13 @@ def main():
         ),
     }
 
-    # Use L1 selected features (20) as baseline
-    print("\nSelecting top 20 features with L1 (Lasso)...")
-    l1_idx_20, l1_names_20 = select_features_l1(
-        X_transformed, y, feature_names, n_features=20
-    )
-    X_l1_20 = X_transformed[:, l1_idx_20]
+    # Use ALL 4 feature selection methods (20 features each) as baseline
+    exp1_feature_methods = {
+        "L1_Lasso": select_features_l1,
+        "Mutual_Information": select_features_mi,
+        "Random_Forest": select_features_rf,
+        "F_Regression": select_features_f_regression,
+    }
 
     baseline_models = {
         "RandomForest": RandomForestRegressor(
@@ -529,19 +537,38 @@ def main():
     }
 
     cv_comparison_results = []
-    for cv_name, cv_strat in cv_strategies.items():
-        for model_name, model in baseline_models.items():
-            print(f"  {model_name} with {cv_name}...", end=" ")
-            res = run_cv_experiment(
-                X_l1_20, y, model, cv_strat, model_name=model_name
+    for fs_name, fs_func in exp1_feature_methods.items():
+        print(f"\n  Selecting top 20 features with {fs_name}...")
+        try:
+            feat_idx, feat_names_sel = fs_func(
+                X_transformed, y, feature_names, n_features=20
             )
-            res["cv_strategy"] = cv_name
-            cv_comparison_results.append(res)
-            print(
-                f"RMSE={res['RMSE_val_mean']:.2f}  "
-                f"MAPE={res['MAPE_val_mean']:.2f}  "
-                f"SMAPE={res['SMAPE_val_mean']:.2f}"
-            )
+            X_fs_20 = X_transformed[:, feat_idx]
+        except Exception as e:
+            print(f"    ERROR in {fs_name}: {e}")
+            continue
+
+        for cv_name, cv_strat in cv_strategies.items():
+            for model_name, model in baseline_models.items():
+                print(f"    {fs_name} | {model_name} | {cv_name}...", end=" ")
+                res = run_cv_experiment(
+                    X_fs_20, y, model, cv_strat, model_name=model_name
+                )
+                res["cv_strategy"] = cv_name
+                res["feature_selection"] = fs_name
+                res["n_features"] = 20
+                cv_comparison_results.append(res)
+                print(
+                    f"RMSE={res['RMSE_val_mean']:.2f}  "
+                    f"MAPE={res['MAPE_val_mean']:.2f}  "
+                    f"SMAPE={res['SMAPE_val_mean']:.2f}"
+                )
+
+    # Keep L1 features for later experiments
+    l1_idx_20, l1_names_20 = select_features_l1(
+        X_transformed, y, feature_names, n_features=20
+    )
+    X_l1_20 = X_transformed[:, l1_idx_20]
 
     df_cv_comp = pd.DataFrame(cv_comparison_results)
     cv_comp_path = os.path.join(OUTPUT_DIR, "experiment1_cv_strategy_comparison.csv")
@@ -616,18 +643,27 @@ def main():
     print("EXPERIMENT 3: Hyperparameter Tuning with RandomizedSearchCV")
     print("=" * 80)
 
-    cv_tuning = RepeatedKFold(
-        n_splits=10, n_repeats=3, random_state=RANDOM_STATE
-    )
+    # ---- Use ALL 4 CV strategies (like Exp 1) ----
+    tuning_cv_strategies = {
+        "5-Fold": KFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE),
+        "10-Fold": KFold(n_splits=10, shuffle=True, random_state=RANDOM_STATE),
+        "RepeatedKFold_5x10": RepeatedKFold(
+            n_splits=10, n_repeats=5, random_state=RANDOM_STATE
+        ),
+        "RepeatedKFold_3x10": RepeatedKFold(
+            n_splits=10, n_repeats=3, random_state=RANDOM_STATE
+        ),
+    }
 
-    # Feature configs to tune on
-    tune_feature_configs = [
-        ("L1_Lasso", select_features_l1, 15),
-        ("L1_Lasso", select_features_l1, 20),
-        ("L1_Lasso", select_features_l1, 25),
-    ]
+    # ---- Use ALL 5 feature counts (like Exp 2) ----
+    tuning_feature_counts = [10, 15, 20, 25, 30]
 
-    # Add best from feature sweep if different
+    # Build feature configs: L1 Lasso with all 5 feature counts
+    tune_feature_configs = []
+    for n_feat in tuning_feature_counts:
+        tune_feature_configs.append(("L1_Lasso", select_features_l1, n_feat))
+
+    # Add best from feature sweep if it uses a different method
     if len(feature_sweep_results) > 0:
         best_fs = best_rmse_row["feature_selection"]
         best_n = int(best_rmse_row["n_features"])
@@ -637,14 +673,19 @@ def main():
             "Random_Forest": select_features_rf,
             "F_Regression": select_features_f_regression,
         }
-        if best_fs in fs_map and (best_fs, best_n) not in [
-            (t[0], t[2]) for t in tune_feature_configs
-        ]:
+        if best_fs in fs_map and best_fs != "L1_Lasso":
             tune_feature_configs.append((best_fs, fs_map[best_fs], best_n))
+            print(f"  Added best from Exp 2: {best_fs} with {best_n} features")
 
     model_configs = get_model_configs()
     tuning_results = []
 
+    total_runs = len(tune_feature_configs) * len(model_configs) * len(tuning_cv_strategies)
+    print(f"\n  Total tuning runs: {len(tune_feature_configs)} feature configs × "
+          f"{len(model_configs)} models × {len(tuning_cv_strategies)} CV strategies "
+          f"= {total_runs}")
+
+    run_counter = 0
     for fs_name, fs_func, n_feat in tune_feature_configs:
         print(f"\n--- Feature Selection: {fs_name}, n_features={n_feat} ---")
         feat_idx, feat_names = fs_func(
@@ -652,36 +693,41 @@ def main():
         )
         X_selected = X_transformed[:, feat_idx]
 
-        for model_name, config in model_configs.items():
-            grid = config.get("param_grid", {})
-            if not grid:
-                continue
+        for cv_name, cv_strat in tuning_cv_strategies.items():
+            print(f"\n  CV Strategy: {cv_name}")
 
-            n_combos = _count_grid_combos(grid)
-            n_iter = min(40, n_combos)
+            for model_name, config in model_configs.items():
+                grid = config.get("param_grid", {})
+                if not grid:
+                    continue
 
-            print(f"  Tuning {model_name} ({n_combos} combos, "
-                  f"testing {n_iter})...", end=" ", flush=True)
+                n_combos = _count_grid_combos(grid)
+                n_iter = min(40, n_combos)
+                run_counter += 1
 
-            try:
-                res, best_model, best_params = run_hyperparameter_search(
-                    X_selected, y, config["model"], grid,
-                    cv_tuning, model_name=model_name,
-                    search_method="random", n_iter=n_iter
-                )
-                res["feature_selection"] = fs_name
-                res["n_features"] = n_feat
-                res["cv_strategy"] = "Repeated_3x10"
-                tuning_results.append(res)
-                print(
-                    f"RMSE={res['RMSE_val_mean']:.2f}  "
-                    f"MAPE={res['MAPE_val_mean']:.2f}  "
-                    f"SMAPE={res['SMAPE_val_mean']:.2f}"
-                )
-                print(f"    Best params: {best_params}")
-            except Exception as e:
-                print(f"ERROR: {e}")
-                continue
+                print(f"    [{run_counter}/{total_runs}] {model_name} "
+                      f"({n_combos} combos, testing {n_iter})...",
+                      end=" ", flush=True)
+
+                try:
+                    res, best_model, best_params = run_hyperparameter_search(
+                        X_selected, y, config["model"], grid,
+                        cv_strat, model_name=model_name,
+                        search_method="random", n_iter=n_iter
+                    )
+                    res["feature_selection"] = fs_name
+                    res["n_features"] = n_feat
+                    res["cv_strategy"] = cv_name
+                    tuning_results.append(res)
+                    print(
+                        f"RMSE={res['RMSE_val_mean']:.2f}  "
+                        f"MAPE={res['MAPE_val_mean']:.2f}  "
+                        f"SMAPE={res['SMAPE_val_mean']:.2f}"
+                    )
+                    print(f"      Best params: {best_params}")
+                except Exception as e:
+                    print(f"ERROR: {e}")
+                    continue
 
     df_tuning = pd.DataFrame(tuning_results)
     tuning_path = os.path.join(OUTPUT_DIR, "experiment3_hyperparameter_tuning.csv")
