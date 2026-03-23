@@ -1,24 +1,26 @@
 """
 CV Comparison: First 3 rows of comparison table
-All evaluated with Repeated 3×10 CV (same folds) for fair comparison.
+All evaluated with Repeated 3x10 CV (same folds) for fair comparison.
 
-Row 1: PoissonRegressor (GLM baseline) with R-code nb3a features
+Row 1: GLM NegativeBinomial (statsmodels -- matching R code) with R-code nb3a features
 Row 2: HistGB_Poisson (default params) with R-code nb3a features
 Row 3: HistGB_Poisson (default params) with L1 Lasso 18 features
 
 Usage:
+  pip install statsmodels
   python cv_comparison_3rows.py
 """
 
 import warnings
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.ensemble import HistGradientBoostingRegressor
-from sklearn.linear_model import PoissonRegressor, LassoCV
+from sklearn.linear_model import LassoCV
 from sklearn.model_selection import RepeatedKFold
 from sklearn.metrics import mean_squared_error
 from sklearn.base import clone
@@ -74,17 +76,67 @@ def mcfadden_r2(y_true, y_pred):
     return 1.0 - (dev_model / dev_null)
 
 
+def run_cv(X, y, cv, model_fn, model_name):
+    """
+    Run CV for a given model.
+    model_fn(X_train, y_train) -> fitted object with .predict()
+    """
+    rmse_list, mape_list, smape_list, r2_list, mf_list = [], [], [], [], []
+    fail_count = 0
+
+    for train_idx, val_idx in cv.split(X):
+        X_tr, X_val = X[train_idx], X[val_idx]
+        y_tr, y_val = y[train_idx], y[val_idx]
+
+        try:
+            model = model_fn(X_tr, y_tr)
+            y_pred_val = np.maximum(model.predict(X_val), 0)
+            y_pred_val = np.clip(y_pred_val, 0, y_tr.max() * 5)
+            y_pred_tr = np.maximum(model.predict(X_tr), 0)
+
+            rmse_list.append(rmse_score(y_val, y_pred_val))
+            mape_list.append(standard_mape(y_val, y_pred_val))
+            smape_list.append(smape_score(y_val, y_pred_val))
+            r2_list.append(correlation_r2(y_val, y_pred_val))
+            mf_list.append(mcfadden_r2(y_tr, y_pred_tr))
+        except Exception:
+            fail_count += 1
+
+    n_ok = len(rmse_list)
+    print(f"\n  {model_name}")
+    print(f"  {'=' * 60}")
+    if fail_count > 0:
+        print(f"  Successful folds: {n_ok}/{n_ok + fail_count}")
+    print(f"  RMSE:      {np.mean(rmse_list):7.2f} +/- {np.std(rmse_list):.2f}")
+    print(f"  MAPE:      {np.mean(mape_list):7.2f} +/- {np.std(mape_list):.2f}")
+    print(f"  SMAPE:     {np.mean(smape_list):7.2f} +/- {np.std(smape_list):.2f}")
+    print(f"  Corr R2:   {np.mean(r2_list):7.4f} +/- {np.std(r2_list):.4f}")
+    print(f"  McF R2:    {np.mean(mf_list):7.4f} +/- {np.std(mf_list):.4f}")
+
+    return {
+        "model": model_name,
+        "RMSE_mean": np.mean(rmse_list), "RMSE_std": np.std(rmse_list),
+        "MAPE_mean": np.mean(mape_list), "MAPE_std": np.std(mape_list),
+        "SMAPE_mean": np.mean(smape_list), "SMAPE_std": np.std(smape_list),
+        "Corr_R2_mean": np.mean(r2_list), "Corr_R2_std": np.std(r2_list),
+        "McFadden_R2_mean": np.mean(mf_list), "McFadden_R2_std": np.std(mf_list),
+    }
+
+
 # ============================================================================
 # MAIN
 # ============================================================================
 
 def main():
     print("=" * 80)
-    print("CV COMPARISON: Repeated 3×10 (same folds for all)")
+    print("CV COMPARISON: Repeated 3x10 (same folds for all)")
+    print("Row 1: GLM_NegBinomial (statsmodels) | R-code nb3a features")
+    print("Row 2: HistGB_Poisson (Default)      | R-code nb3a features")
+    print("Row 3: HistGB_Poisson (Default)      | L1 Lasso 18 features")
     print("=" * 80)
 
     # ------------------------------------------------------------------
-    # 1. Load data — ALL 101 samples (CV uses everything)
+    # 1. Load data -- ALL 101 samples (CV uses everything)
     # ------------------------------------------------------------------
     df = pd.read_csv(DATA_PATH)
     df = df.dropna(subset=["pm_tot", "holdout"])
@@ -92,7 +144,7 @@ def main():
     print(f"\nSamples: {len(y)}")
 
     # ------------------------------------------------------------------
-    # 2. Create R-code derived features
+    # 2. R-code nb3a features (NO scaling -- matching R exactly)
     # ------------------------------------------------------------------
     df["log_Number"] = np.log(df["Number of"])
     df["has_com_retail"] = (
@@ -100,18 +152,22 @@ def main():
     ).astype(int)
     df["log_stv_ann_plus1"] = np.log(df["stv_ann"] + 1.0)
 
-    # ------------------------------------------------------------------
-    # 3. Prepare R-code nb3a features
-    # ------------------------------------------------------------------
-    features_nb3a = [
+    num_nb3a = [
         "log_Number", "log_stv_ann_plus1", "dist_CBD",
-        "has_com_retail", "crossing_class", "speed_type",
-        "Retail Area_qm", "transit_stops_qm", "med_inc_qm"
+        "has_com_retail", "Retail Area_qm", "transit_stops_qm", "med_inc_qm"
     ]
     cat_nb3a = ["crossing_class", "speed_type"]
-    num_nb3a = [c for c in features_nb3a if c not in cat_nb3a]
 
-    pre_rcode = ColumnTransformer([
+    # One-hot encode categoricals (drop="first" matches R's factor())
+    # No scaling for GLM -- R doesn't scale
+    ohe = OneHotEncoder(drop="first", handle_unknown="ignore", sparse_output=False)
+    X_cat = ohe.fit_transform(df[cat_nb3a])
+    X_num = df[num_nb3a].fillna(df[num_nb3a].median()).values
+    X_rcode_unscaled = np.hstack([X_num, X_cat])
+    print(f"R-code nb3a (unscaled for GLM): {X_rcode_unscaled.shape[1]} columns")
+
+    # Scaled version for HistGB (works better with scaling)
+    pre_rcode_scaled = ColumnTransformer([
         ("num", Pipeline([
             ("imputer", SimpleImputer(strategy="median")),
             ("scaler", StandardScaler()),
@@ -121,16 +177,13 @@ def main():
             ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
         ]), cat_nb3a),
     ], remainder="drop")
-
-    X_rcode = pre_rcode.fit_transform(df[features_nb3a])
-    print(f"R-code nb3a features: {X_rcode.shape[1]} columns after encoding")
+    X_rcode_scaled = pre_rcode_scaled.fit_transform(df[num_nb3a + cat_nb3a])
+    print(f"R-code nb3a (scaled for HistGB): {X_rcode_scaled.shape[1]} columns")
 
     # ------------------------------------------------------------------
-    # 4. Prepare L1 Lasso 18 features
+    # 3. L1 Lasso 18 features
     # ------------------------------------------------------------------
-    derived_cols = [
-        "log_Number", "has_com_retail", "log_stv_ann_plus1"
-    ]
+    derived_cols = ["log_Number", "has_com_retail", "log_stv_ann_plus1"]
     drop_cols = [
         c for c in ["pm_tot", "holdout", "site_id"] + derived_cols
         if c in df.columns
@@ -154,7 +207,6 @@ def main():
     X_all = pre_l1.fit_transform(X_raw)
     feature_names = pre_l1.get_feature_names_out().tolist()
 
-    # L1 Lasso feature selection
     lasso = LassoCV(cv=5, random_state=RANDOM_STATE, max_iter=10000)
     lasso.fit(X_all, np.log1p(y))
     feat_idx_18 = np.argsort(np.abs(lasso.coef_))[::-1][:18]
@@ -166,97 +218,86 @@ def main():
         print(f"  {i+1:2d}. {name}")
 
     # ------------------------------------------------------------------
-    # 5. Define 3 configurations
-    # ------------------------------------------------------------------
-    configs = [
-        {
-            "name": "PoissonRegressor (GLM baseline)",
-            "features": "R-code nb3a features",
-            "X": X_rcode,
-            "model": PoissonRegressor(alpha=1.0, max_iter=5000),
-        },
-        {
-            "name": "HistGB_Poisson (Default)",
-            "features": "R-code nb3a features",
-            "X": X_rcode,
-            "model": HistGradientBoostingRegressor(
-                loss="poisson", max_iter=300, learning_rate=0.05,
-                random_state=RANDOM_STATE
-            ),
-        },
-        {
-            "name": "HistGB_Poisson (Default)",
-            "features": "L1 Lasso, 18 features",
-            "X": X_l1_18,
-            "model": HistGradientBoostingRegressor(
-                loss="poisson", max_iter=500,
-                random_state=RANDOM_STATE
-            ),
-        },
-    ]
-
-    # ------------------------------------------------------------------
-    # 6. Run all with SAME Repeated 3×10 CV folds
+    # 4. Same Rep 3x10 folds for ALL
     # ------------------------------------------------------------------
     cv = RepeatedKFold(
         n_splits=10, n_repeats=3, random_state=RANDOM_STATE
     )
 
-    all_results = []
-
-    for cfg in configs:
-        X = cfg["X"]
-        model = cfg["model"]
-
-        rmse_list = []
-        mape_list = []
-        smape_list = []
-        r2_list = []
-        mf_list = []
-
-        for train_idx, val_idx in cv.split(X):
-            X_tr, X_val = X[train_idx], X[val_idx]
-            y_tr, y_val = y[train_idx], y[val_idx]
-
-            m = clone(model)
-            m.fit(X_tr, y_tr)
-            y_pred_val = np.maximum(m.predict(X_val), 0)
-            y_pred_tr = np.maximum(m.predict(X_tr), 0)
-
-            rmse_list.append(rmse_score(y_val, y_pred_val))
-            mape_list.append(standard_mape(y_val, y_pred_val))
-            smape_list.append(smape_score(y_val, y_pred_val))
-            r2_list.append(correlation_r2(y_val, y_pred_val))
-            mf_list.append(mcfadden_r2(y_tr, y_pred_tr))
-
-        result = {
-            "model": cfg["name"],
-            "features": cfg["features"],
-            "RMSE_mean": np.mean(rmse_list),
-            "RMSE_std": np.std(rmse_list),
-            "MAPE_mean": np.mean(mape_list),
-            "MAPE_std": np.std(mape_list),
-            "SMAPE_mean": np.mean(smape_list),
-            "SMAPE_std": np.std(smape_list),
-            "Corr_R2_mean": np.mean(r2_list),
-            "Corr_R2_std": np.std(r2_list),
-            "McFadden_R2_mean": np.mean(mf_list),
-            "McFadden_R2_std": np.std(mf_list),
-        }
-        all_results.append(result)
-
-        print(f"\n  {cfg['name']} | {cfg['features']}")
-        print(f"  {'─' * 60}")
-        print(f"  RMSE:      {result['RMSE_mean']:7.2f} ± {result['RMSE_std']:.2f}")
-        print(f"  MAPE:      {result['MAPE_mean']:7.2f} ± {result['MAPE_std']:.2f}")
-        print(f"  SMAPE:     {result['SMAPE_mean']:7.2f} ± {result['SMAPE_std']:.2f}")
-        print(f"  Corr R²:   {result['Corr_R2_mean']:7.4f} ± {result['Corr_R2_std']:.4f}")
-        print(f"  McF R²:    {result['McFadden_R2_mean']:7.4f} ± {result['McFadden_R2_std']:.4f}")
+    results = []
 
     # ------------------------------------------------------------------
-    # 7. Save results
+    # ROW 1: GLM NegativeBinomial (statsmodels -- exact R match)
+    # Uses unscaled features, add_constant, NegBinomial family
     # ------------------------------------------------------------------
-    df_results = pd.DataFrame(all_results)
+    def fit_glm_nb(X_tr, y_tr):
+        X_tr_c = sm.add_constant(X_tr)
+        glm = sm.GLM(
+            y_tr, X_tr_c,
+            family=sm.families.NegativeBinomial(alpha=1.0)
+        )
+        result = glm.fit(maxiter=200, disp=False)
+
+        class GLMPredictor:
+            def __init__(self, fitted):
+                self.fitted = fitted
+            def predict(self, X):
+                return self.fitted.predict(sm.add_constant(X))
+
+        return GLMPredictor(result)
+
+    r1 = run_cv(
+        X_rcode_unscaled, y, cv, fit_glm_nb,
+        "GLM_NegBinomial (statsmodels) | R-code nb3a features"
+    )
+    results.append(r1)
+
+    # ------------------------------------------------------------------
+    # ROW 2: HistGB_Poisson (Default) with R-code features
+    # ------------------------------------------------------------------
+    def fit_histgb_rcode(X_tr, y_tr):
+        m = HistGradientBoostingRegressor(
+            loss="poisson", max_iter=300, learning_rate=0.05,
+            random_state=RANDOM_STATE
+        )
+        m.fit(X_tr, y_tr)
+        return m
+
+    r2 = run_cv(
+        X_rcode_scaled, y, cv, fit_histgb_rcode,
+        "HistGB_Poisson (Default) | R-code nb3a features"
+    )
+    results.append(r2)
+
+    # ------------------------------------------------------------------
+    # ROW 3: HistGB_Poisson (Default) with L1 Lasso 18 features
+    # ------------------------------------------------------------------
+    def fit_histgb_l1(X_tr, y_tr):
+        m = HistGradientBoostingRegressor(
+            loss="poisson", max_iter=500,
+            random_state=RANDOM_STATE
+        )
+        m.fit(X_tr, y_tr)
+        return m
+
+    r3 = run_cv(
+        X_l1_18, y, cv, fit_histgb_l1,
+        "HistGB_Poisson (Default) | L1 Lasso 18 features"
+    )
+    results.append(r3)
+
+    # ------------------------------------------------------------------
+    # Print reference row
+    # ------------------------------------------------------------------
+    print(f"\n  {'=' * 60}")
+    print(f"  For reference (already computed):")
+    print(f"  * HistGB_Poisson (TUNED) | L1 Lasso 20 feat | Rep 3x10")
+    print(f"  RMSE: 78.72 | MAPE: 51.79 | SMAPE: 49.93 | McF R2: 0.997")
+
+    # ------------------------------------------------------------------
+    # Save results
+    # ------------------------------------------------------------------
+    df_results = pd.DataFrame(results)
     df_results.to_csv("cv_comparison_3rows.csv", index=False)
     print(f"\nResults saved to: cv_comparison_3rows.csv")
     print(f"{'=' * 80}")
