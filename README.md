@@ -137,8 +137,7 @@ HistGradientBoostingRegressor(
 
 
 > **Note on scores:** Feature selection uses L1 Lasso *coefficients* (directional, on the log-count scale). Feature importance in the best model uses *permutation importance* from the trained HistGB_Poisson model (non-directional; measures RMSE increase when each feature is shuffled). These are different quantities and should not be compared numerically.
-=======
-> **Note on scores:** Feature selection uses L1 Lasso *coefficients* (directional, on the log-count scale). Feature importance in Table 7.8 uses *permutation importance* from the trained HistGB_Poisson model (non-directional; measures RMSE increase when each feature is shuffled). These are different quantities and should not be compared numerically.
+
 
 
 ---
