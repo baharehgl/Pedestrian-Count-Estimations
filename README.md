@@ -6,8 +6,6 @@
   <img src="banner.png" alt="Pedestrian Count Estimation — city street with ML model bars and pedestrian figures" width="100%"/>
 </p>
 
-=======
-
 > **PacTrans Final Project Report** — Pacific Northwest Transportation Consortium (PacTrans), USDOT University Transportation Center for Federal Region 10
 
 ---
