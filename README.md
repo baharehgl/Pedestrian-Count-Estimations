@@ -1,10 +1,13 @@
 # Pedestrian Count Estimation
 ### Machine Learning Pipeline for Urban Pedestrian Volume Prediction
 
+<<<<<<< HEAD
 <p align="center">
   <img src="banner.png" alt="Pedestrian Count Estimation — city street with ML model bars and pedestrian figures" width="100%"/>
 </p>
 
+=======
+>>>>>>> 1ec669674dc6b9dc6bb4859e2d8ce63143923f44
 > **PacTrans Final Project Report** — Pacific Northwest Transportation Consortium (PacTrans), USDOT University Transportation Center for Federal Region 10
 
 ---
@@ -104,11 +107,19 @@ Best model: HistGB_Poisson · L1 Lasso · 20 features · Repeated 3×10 CV
 
 ```python
 HistGradientBoostingRegressor(
+<<<<<<< HEAD
     loss              = 'poisson',
     learning_rate     = 0.01,
     max_iter          = 500,
     max_depth         = 7,
     min_samples_leaf  = 10,
+=======
+    loss           = 'poisson',
+    learning_rate  = 0.01,
+    max_iter       = 500,
+    max_depth      = 7,
+    min_samples_leaf = 10,
+>>>>>>> 1ec669674dc6b9dc6bb4859e2d8ce63143923f44
     l2_regularization = 1.0
 )
 
@@ -127,7 +138,11 @@ HistGradientBoostingRegressor(
 | 5 | `zch_hm` | 49.06 | Zoning commercial hectares (half-mile) |
 | 6 | `swlk_len` | 41.55 | Sidewalk length |
 
+<<<<<<< HEAD
 > **Note on scores:** Feature selection uses L1 Lasso *coefficients* (directional, on the log-count scale). Feature importance in the best model uses *permutation importance* from the trained HistGB_Poisson model (non-directional; measures RMSE increase when each feature is shuffled). These are different quantities and should not be compared numerically.
+=======
+> **Note on scores:** Feature selection uses L1 Lasso *coefficients* (directional, on the log-count scale). Feature importance in Table 7.8 uses *permutation importance* from the trained HistGB_Poisson model (non-directional; measures RMSE increase when each feature is shuffled). These are different quantities and should not be compared numerically.
+>>>>>>> 1ec669674dc6b9dc6bb4859e2d8ce63143923f44
 
 ---
 
