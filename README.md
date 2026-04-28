@@ -1,13 +1,13 @@
 # Pedestrian Count Estimation
 ### Machine Learning Pipeline for Urban Pedestrian Volume Prediction
 
-<<<<<<< HEAD
+
 <p align="center">
   <img src="banner.png" alt="Pedestrian Count Estimation — city street with ML model bars and pedestrian figures" width="100%"/>
 </p>
 
 =======
->>>>>>> 1ec669674dc6b9dc6bb4859e2d8ce63143923f44
+
 > **PacTrans Final Project Report** — Pacific Northwest Transportation Consortium (PacTrans), USDOT University Transportation Center for Federal Region 10
 
 ---
