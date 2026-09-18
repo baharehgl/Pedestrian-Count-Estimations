@@ -1,2 +1,0 @@
-model_name,feature_selection,n_features,cv_strategy_reported,cross_cv_consistency,n_cv_strategies_tested,RMSE_mean,RMSE_std,MAPE_mean,MAPE_std,SMAPE_mean,SMAPE_std,R2_train,Corr_R2_val
-HistGB_Poisson_tuned_v1,L1_Lasso,20,Repeated_3x10,partial,4,78.71848901577151,37.53293441945393,51.794557432675155,15.037268270173834,49.934053139923286,14.243411253530926,0.997216910492,0.6753418518591328
