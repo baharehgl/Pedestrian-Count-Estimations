@@ -233,19 +233,16 @@ python stratified_cv_comparison.py
 
 ## Citation
 
-If you use this code or dataset in your research, please cite:
-
+If you use this code or dataset in your research, please cite our SIGSPATIAL 2026 paper:
 ```
-Golchin, B. (2026). Machine Learning-Based Pedestrian Count Estimation Using
-Feature Selection and Gradient Boosting for Urban Pedestrian Volume Prediction.
-Final Report, Pacific Northwest Transportation Consortium (PacTrans), USDOT
-University Transportation Center for Federal Region 10.
-
-GitHub: https://github.com/baharehgl/Pedestrian-Count-Estimations
+Golchin, B., Rekabdar, B., Kothuri, S., & Broach, J. (2026).
+Estimating Pedestrian Volumes from GIS-Derived Built-Environment Features:
+A Machine Learning Framework.
+In SIGSPATIAL '26, Riverside, CA, USA.
+https://doi.org/10.1145/3841645.3843355
 ```
 
 ---
 
-## Acknowledgements
 
 This project was funded by the **Pacific Northwest Transportation Consortium (PacTrans)**, USDOT University Transportation Center for Federal Region 10, University of Washington. The machine learning pipeline was built using [scikit-learn](https://scikit-learn.org).
