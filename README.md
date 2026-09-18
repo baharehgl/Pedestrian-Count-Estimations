@@ -243,6 +243,6 @@ https://doi.org/10.1145/3841645.3843355
 ```
 
 ---
+## Acknowledgements
 
-
-This project was funded by the **Pacific Northwest Transportation Consortium (PacTrans)**, USDOT University Transportation Center for Federal Region 10, University of Washington. The machine learning pipeline was built using [scikit-learn](https://scikit-learn.org).
+This project was funded by the **Pacific Northwest Transportation Consortium (PacTrans)**, USDOT University Transportation Center for Federal Region 10, University of Washington. 
