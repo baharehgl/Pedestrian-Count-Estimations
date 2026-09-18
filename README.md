@@ -1,5 +1,7 @@
 # Pedestrian Count Estimation
 ### Machine Learning Pipeline for Urban Pedestrian Volume Prediction
+## Paper
+[Link to Paper](https://arxiv.org/pdf/2609.12173)  
 
 
 <p align="center">
